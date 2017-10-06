@@ -1,42 +1,37 @@
-#
-# Be sure to run `pod lib lint WebEngageAppEx.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
-  s.name             = 'WebEngageAppEx'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of WebEngageAppEx.'
+s.name             = 'WebEngageAppEx'
+s.version          = '0.1.0'
+s.summary          = 'Extension For Using WebEngage APIs from Application Extensions'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+s.description      = <<-DESC
+This pod includes various subspecs which are intended for use in Application Extensions, and depends on APIs which are App Extension Safe. The Core subspecs provides APIs which lets you track Users and Events from within Application Extensions.
+DESC
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+s.homepage         = 'https://github.com/WebEngage/WebEngageAppEx'
+s.license          = { :type => 'OTHER', :file => 'LICENSE' }
+s.author           = { 'saumitrabhave' => 'saumitra@webklipper.com' }
+s.source           = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => s.version.to_s }
 
-  s.homepage         = 'https://github.com/saumitrabhave/WebEngageAppEx'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'saumitrabhave' => 'saumitra@webklipper.com' }
-  s.source           = { :git => 'https://github.com/saumitrabhave/WebEngageAppEx.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+s.ios.deployment_target = '8.0'
+s.subspec 'CoreApi' do |api|
+api.source_files = 'WebEngageAppEx/Classes/CoreApi/**/*.{h,m}'
+api.public_header_files = 'WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h', 'WebEngageAppEx/Classes/CoreApi/WEXUser.h'
+api.frameworks = 'Foundation'
+end
 
-  s.ios.deployment_target = '8.0'
+s.subspec 'NotificationService' do |ns|
+ns.source_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
+ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
+ns.frameworks = 'Foundation'
+ns.weak_frameworks = 'UserNotifications'
+end
 
-  s.source_files = 'WebEngageAppEx/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'WebEngageAppEx' => ['WebEngageAppEx/Assets/*.png']
-  # }
+s.subspec 'ContentExtension' do |cs|
+cs.source_files = 'WebEngageAppEx/Classes/ContentExtension/**/*.{h,m}'
+cs.public_header_files = 'WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h'
+cs.frameworks = 'Foundation'
+cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
+cs.dependency 'WebEngageAppEx/CoreApi'
+end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
