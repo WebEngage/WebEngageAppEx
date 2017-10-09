@@ -5,7 +5,6 @@
 //  Copyright (c) 2015 Webklipper Technologies Pvt Ltd.. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import "WEXCoreUtils.h"
 
 @interface WEXAnalytics : NSObject
 +(void) trackEventWithName:(NSString*)eventName andValue:(NSDictionary*)eventValue;

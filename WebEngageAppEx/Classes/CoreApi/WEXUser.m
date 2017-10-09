@@ -7,6 +7,7 @@
 //
 
 #import "WEXUser.h"
+#import "WEXCoreUtils.h"
 
 @interface WEXUser ()
 + (void)setAttribute:(NSString *)attributeName withAnyValue:(id)value;

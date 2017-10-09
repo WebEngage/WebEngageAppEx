@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "WEXAnalytics.h"
-#import "WEXCoreUtils.h"
 
 #define WEG_EVENT_NAME_USER_DELETE_ATTRS @"user_delete_attributes"
 #define WEG_EVENT_NAME_USER_INCREMENT @"user_increment"

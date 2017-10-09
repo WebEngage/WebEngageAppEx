@@ -7,6 +7,7 @@
 //
 
 #import "WEXAnalytics.h"
+#import "WEXCoreUtils.h"
 
 @interface WEXAnalytics ()
 

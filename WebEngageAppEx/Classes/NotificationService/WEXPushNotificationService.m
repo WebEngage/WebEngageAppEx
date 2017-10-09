@@ -147,7 +147,7 @@
 
             NSError *attachmentError = nil;
             attachment = [UNNotificationAttachment
-                attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",idx] //[attachmentURL lastPathComponent]
+                attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",(unsigned long)idx] //[attachmentURL lastPathComponent]
                                      URL:localURL
                                  options:nil
                                    error:&attachmentError];

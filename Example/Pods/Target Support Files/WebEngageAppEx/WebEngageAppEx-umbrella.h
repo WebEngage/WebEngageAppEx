@@ -10,10 +10,10 @@
 #endif
 #endif
 
-#import "WEGRichPushNotificationViewController.h"
-#import "WEGAnalytics.h"
-#import "WEGUser.h"
-#import "WEGPushNotificationService.h"
+#import "WEXRichPushNotificationViewController.h"
+#import "WEXAnalytics.h"
+#import "WEXUser.h"
+#import "WEXPushNotificationService.h"
 
 FOUNDATION_EXPORT double WebEngageAppExVersionNumber;
 FOUNDATION_EXPORT const unsigned char WebEngageAppExVersionString[];

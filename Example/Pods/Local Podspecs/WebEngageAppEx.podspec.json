@@ -21,27 +21,24 @@
   "subspecs": [
     {
       "name": "CoreApi",
-      "source_files": [
-        "WebEngageAppEx/Classes/CoreApi/**/*.{h,m}",
-        "WebEngageAppEx/Classes/WEGUser.{h,m}"
-      ],
+      "source_files": "WebEngageAppEx/Classes/CoreApi/**/*.{h,m}",
       "public_header_files": [
-        "WebEngageAppEx/Classes/CoreApi/WEGAnalytics.h",
-        "WebEngageAppEx/Classes/CoreApi/WEGUser.h"
+        "WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h",
+        "WebEngageAppEx/Classes/CoreApi/WEXUser.h"
       ],
       "frameworks": "Foundation"
     },
     {
       "name": "NotificationService",
-      "source_files": "WebEngageAppEx/Classes/NotificationService/WEGPushNotificationService.{h,m}",
-      "public_header_files": "WebEngageAppEx/Classes/NotificationService/WEGPushNotificationService.h",
+      "source_files": "WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}",
+      "public_header_files": "WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h",
       "frameworks": "Foundation",
       "weak_frameworks": "UserNotifications"
     },
     {
       "name": "ContentExtension",
       "source_files": "WebEngageAppEx/Classes/ContentExtension/**/*.{h,m}",
-      "public_header_files": "WebEngageAppEx/Classes/ContentExtension/WEGRichPushNotificationViewController.h",
+      "public_header_files": "WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h",
       "frameworks": "Foundation",
       "weak_frameworks": [
         "UserNotifications",

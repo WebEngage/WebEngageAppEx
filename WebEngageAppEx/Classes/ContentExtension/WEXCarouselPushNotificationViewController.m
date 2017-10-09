@@ -120,7 +120,7 @@
             enumerateObjectsUsingBlock:^(UNNotificationAttachment *_Nonnull obj,
                                          NSUInteger idx, BOOL *_Nonnull stop) {
               if ([obj.identifier
-                      isEqualToString:[NSString stringWithFormat:@"%ld", i]]) {
+                      isEqualToString:[NSString stringWithFormat:@"%ld", (unsigned long)i]]) {
                 attachmentValue = obj;
                 *stop = YES;
               }
