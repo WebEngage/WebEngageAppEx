@@ -503,11 +503,11 @@
     
     UNNotificationContentExtensionResponseOption completionOption =
                                                 UNNotificationContentExtensionResponseOptionDoNotDismiss;
-    if ([response.actionIdentifier isEqualToString:@"WEX_CHOOSE_RATING"]) {
+    if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
         
         [self.viewController becomeFirstResponder];
         
-    } else if([response.actionIdentifier isEqualToString:@"WEX_SUBMIT_RATING"]) {
+    } else if([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
         
         if (self.selectedCount > 0) {
             

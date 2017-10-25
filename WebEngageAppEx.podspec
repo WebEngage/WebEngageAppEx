@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'WebEngageAppEx'
-s.version          = '0.1.0'
+s.version          = '0.1.1'
 s.summary          = 'Extension For Using WebEngage APIs from Application Extensions'
 
 s.description      = <<-DESC

@@ -525,13 +525,13 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     return;
   }
 
-  if ([response.actionIdentifier isEqualToString:@"WEX_NEXT"]) {
+  if ([response.actionIdentifier isEqualToString:@"WEG_NEXT"]) {
 
     [self renderAnimated:response.notification];
 
-  } else if ([response.actionIdentifier isEqualToString:@"WEX_PREV"]) {
+  } else if ([response.actionIdentifier isEqualToString:@"WEG_PREV"]) {
 
-  } else if ([response.actionIdentifier isEqualToString:@"WEX_LAUNCH_APP"]) {
+  } else if ([response.actionIdentifier isEqualToString:@"WEG_LAUNCH_APP"]) {
 
     completion(
         UNNotificationContentExtensionResponseOptionDismissAndForwardAction);

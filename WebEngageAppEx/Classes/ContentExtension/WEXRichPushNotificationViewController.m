@@ -113,7 +113,7 @@
         
         NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
         
-        appGroup = [NSString stringWithFormat:@"group.%@.WEXNotificationGroup", bundleIdentifier];
+        appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
     }
     
     self.richPushDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
