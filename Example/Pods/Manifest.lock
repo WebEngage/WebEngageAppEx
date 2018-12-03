@@ -1,23 +1,23 @@
 PODS:
-  - WebEngageAppEx (0.1.0):
-    - WebEngageAppEx/ContentExtension (= 0.1.0)
-    - WebEngageAppEx/CoreApi (= 0.1.0)
-    - WebEngageAppEx/NotificationService (= 0.1.0)
-  - WebEngageAppEx/ContentExtension (0.1.0):
+  - WebEngageAppEx (0.1.1):
+    - WebEngageAppEx/ContentExtension (= 0.1.1)
+    - WebEngageAppEx/CoreApi (= 0.1.1)
+    - WebEngageAppEx/NotificationService (= 0.1.1)
+  - WebEngageAppEx/ContentExtension (0.1.1):
     - WebEngageAppEx/CoreApi
-  - WebEngageAppEx/CoreApi (0.1.0)
-  - WebEngageAppEx/NotificationService (0.1.0)
+  - WebEngageAppEx/CoreApi (0.1.1)
+  - WebEngageAppEx/NotificationService (0.1.1)
 
 DEPENDENCIES:
   - WebEngageAppEx (from `../`)
 
 EXTERNAL SOURCES:
   WebEngageAppEx:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  WebEngageAppEx: a54431a1edb4134dd872d172b3d7e9e460b25b37
+  WebEngageAppEx: 7e6ad7b0c44b72ef33206632ca84a84fc5debc46
 
 PODFILE CHECKSUM: 7eddbbf830e31cf9ea43914ba5e37666829a2e1f
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

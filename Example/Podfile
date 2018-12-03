@@ -1,6 +1,6 @@
+
 use_frameworks!
+
 target 'WebEngageAppEx_Tests' do
   pod 'WebEngageAppEx', :path => '../'
-  
-  
 end

@@ -7,187 +7,199 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A1BF9AF5CFCB392B09AC63EE04C633B /* Pods-WebEngageAppEx_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BF9A9653898EF33882F24285255EFCF3 /* Pods-WebEngageAppEx_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B48390184FA3A8B6B8030A01F6D9586 /* WEXPushNotificationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F1A4E0A1F0F4C40141AFA60A314B42 /* WEXPushNotificationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0F5D1C77F6134EE52FAAFFC3023AA5A9 /* WEXUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D0CFEEACEEA4BC844F1A36BDB3B7CA /* WEXUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		12410A5877EAC42319D99D40AFD355DF /* WEXRatingPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5783C6AD82A3899B5927807342CEC402 /* WEXRatingPushNotificationViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		13118D140130E0ECEAE97D48270F90CD /* WEXRichPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AD3D53CA544D5CB5C7F4EC830F6D0DCA /* WEXRichPushNotificationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2357A9DF8EF7E5364FB48C2A8DA94407 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		448E74427B75AE002977D940AE476DD0 /* WebEngageAppEx-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B216396C614473D560D2B07795787A /* WebEngageAppEx-dummy.m */; };
-		50EDF84EF47381DC3B4729B8ACCAA2AB /* WEXPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B9E6708FA97240405FCB4926451684 /* WEXPushNotificationService.m */; };
-		7712FF8CA53E7332D875CF4D3F8D35FA /* WEXRichPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D8437812FCC76A8E2AC90A09CC65EC /* WEXRichPushNotificationViewController.m */; };
-		832641B6C28B1041B2CF1ED606973FDF /* WEXRichPushLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438825871450374946BC072B8807C2E /* WEXRichPushLayout.m */; };
-		8B50E77FF5E28D35E2597535B32B919E /* WEXCoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E4C3331467A7E4153094EB0DD053A4 /* WEXCoreUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8E05C9C61813F9CB186598FAB24205A1 /* Pods-WebEngageAppEx_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA6E3CC0C4FBCA4AB4A014DC7E1C49A /* Pods-WebEngageAppEx_Tests-dummy.m */; };
-		8E3C0D97A8A4134295FE77F947BF5ECE /* WEXAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB53C2863012504BF8DDBFEB52FFEEF /* WEXAnalytics.m */; };
-		98A98028D221316558AC31E842D21E49 /* WEXCarouselPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E43AD069E399317B9D0C113A9CE064A /* WEXCarouselPushNotificationViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9C5531BCE5C66C81692CCB1422CE6532 /* WEXRichPushLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A3C908EFC86D50C226737E7E56B358E /* WEXRichPushLayout.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D7F038C5F857746EE7BBA2A58903CD85 /* WEXRichPushNotificationViewController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 02A0221954E73D1ED30539BC7AF5612B /* WEXRichPushNotificationViewController+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D81D26130F0E9AB509A1A7C36F71F84F /* WebEngageAppEx-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AC68B86E2B26DF791D3A9FD60088D679 /* WebEngageAppEx-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE6479B4D041D752ACDF76B63668762B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		F7C1496F0006C4438FFA3C274E03D9BC /* WEXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DADC3C6742CC26803DFC40065D5A65 /* WEXUser.m */; };
-		F97D664F45473B59950603F6E14A384B /* WEXCarouselPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A429EBADD9E7C5B6AC89A19A9B0F5 /* WEXCarouselPushNotificationViewController.m */; };
-		FC484DFAFF052990E120225DDBEF4A25 /* WEXAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A9581FFE194E49136B6299FB1DF9F7 /* WEXAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD64BD624BCD8760924ED841FDB2BC50 /* WEXRatingPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249FB713C0743FBB6215537A6C378FD5 /* WEXRatingPushNotificationViewController.m */; };
-		FFBDF1C9AD3CFB317267B6EAD59EF917 /* WEXCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC18E92DD674CBE79E026AA694567AF4 /* WEXCoreUtils.m */; };
+		0146FA9614357C26775997D0916F608E /* Pods-WebEngageAppEx_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D79CEDCA864FF9DC0280F2D846CF618 /* Pods-WebEngageAppEx_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04ACB0F6EF9740131F5D4D1EAE88F61E /* WEXCarouselPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11ECCE7001D7D0C70B7117A932A063F1 /* WEXCarouselPushNotificationViewController.m */; };
+		07FD006DFD5E0EC1F5B521A5AE1AD41C /* WEXRichPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E0FE8B47DFF85B792D0CCB681C20A577 /* WEXRichPushNotificationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16409479054B48C4F18658190AF2D591 /* WEXUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EC92BAB71BE63C6F89CB9BFB41C6648 /* WEXUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1963B417C0846CE02397E0967B0E0759 /* WEXRichPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3102A6DD75252C2031C7509396EA929A /* WEXRichPushNotificationViewController.m */; };
+		1A8E7C4B30F95E3EF8680297C31D5415 /* WEXCoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A01782E06931DE632BC1D06442428E1D /* WEXCoreUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1CA0CDDAFD39889E66D08F606417D8AB /* WebEngageAppEx-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3857625D6F2A72C2DBCC703357F533E2 /* WebEngageAppEx-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DB2EC3ABBECBC6A8D3E42CD05A3C8EC /* WEXCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC64A029F60D4FDD807BA968D15EC4A3 /* WEXCoreUtils.m */; };
+		2025E6B850AB736A625E19BE7DA566BB /* WEXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F827C3DE61F6C0CB1D1542713F36F9 /* WEXUser.m */; };
+		2256AE7CD450E3CA70D7C47D8F8817C9 /* WEXPushNotificationService.h in Headers */ = {isa = PBXBuildFile; fileRef = B8CACD4B288686EED401BB303C43AFA2 /* WEXPushNotificationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51E8C63B2A82B40020064F897666F023 /* WEXRatingPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E83485A0230170B19FB4E785296F9A /* WEXRatingPushNotificationViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		546B9A2E663853A9E3E0B3D877F10519 /* WEXAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 310CC8492E496C1258FC409EC978EDF3 /* WEXAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		679F1C6322B7D68637443D40920FFDBC /* WEXCarouselPushNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45A2E9D7C783276CF4ACD00EC99973E0 /* WEXCarouselPushNotificationViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7157F2F894DA23FC9039138CD292B3DA /* WEXAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = CF15FB372DA14EA7133D84BB682F4682 /* WEXAnalytics.m */; };
+		738D153CE580C6AA8485623BB27EB9B9 /* WEXRatingPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 783A329F6ABFDD1D9E1D2B732246BA80 /* WEXRatingPushNotificationViewController.m */; };
+		9DE0B553A1CAF02C45A14E22ACCC9715 /* Pods-WebEngageAppEx_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 51128D090A72BB1EB713AB5948B73C60 /* Pods-WebEngageAppEx_Tests-dummy.m */; };
+		B1D43DC5F982215E2FD7CB36C0949DF8 /* WEXRichPushNotificationViewController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C60AB44754A517F9006CC3F294957C /* WEXRichPushNotificationViewController+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		BA1C2E15F9A599170CA2188EC92A52D3 /* WEXRichPushLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D97FE78D7DBCBAD5B168BBBF60C69145 /* WEXRichPushLayout.m */; };
+		C4205E63B53AE03E466A0CE98F2E17C2 /* WebEngageAppEx-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B13B87710FF893D25E963ACA84378B7C /* WebEngageAppEx-dummy.m */; };
+		C5DE9818F51F11E841120FBC51E8B7BF /* WEXPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 167AFD0B925C04B1BC7D69B1AE1D7CD7 /* WEXPushNotificationService.m */; };
+		C614BE1CC59EE48A42A86C95CE1DC11C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
+		EB1F2993443C48F2EB49A169F6714AB1 /* WEXRichPushLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = F1DCA40B4F10B51152F1737B89C19ED5 /* WEXRichPushLayout.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EEB734ADE9A2E2B00C822BC49E25B600 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B662483F287F859D227FD586CF608895 /* PBXContainerItemProxy */ = {
+		1D6CA3DB9C3D8E0FC06CD0E2B7673908 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EBD7134B96EB820E42E1D7D20204A933;
+			remoteGlobalIDString = 45E5CAAA99C6EF847B5CB14E05A56F06;
 			remoteInfo = WebEngageAppEx;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02A0221954E73D1ED30539BC7AF5612B /* WEXRichPushNotificationViewController+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WEXRichPushNotificationViewController+Private.h"; path = "WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController+Private.h"; sourceTree = "<group>"; };
-		129075E90EF25FD779ED030BB17B2D81 /* Pods-WebEngageAppEx_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WebEngageAppEx_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		19F1A4E0A1F0F4C40141AFA60A314B42 /* WEXPushNotificationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXPushNotificationService.h; path = WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h; sourceTree = "<group>"; };
-		249FB713C0743FBB6215537A6C378FD5 /* WEXRatingPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRatingPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRatingPushNotificationViewController.m; sourceTree = "<group>"; };
-		3102DB84392C8E6890EDAA61A1AEB66C /* WebEngageAppEx-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebEngageAppEx-prefix.pch"; sourceTree = "<group>"; };
-		42E4C3331467A7E4153094EB0DD053A4 /* WEXCoreUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXCoreUtils.h; path = WebEngageAppEx/Classes/CoreApi/WEXCoreUtils.h; sourceTree = "<group>"; };
-		433F9EA520FBEBF70E2399D807A700CC /* Pods-WebEngageAppEx_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebEngageAppEx_Tests-resources.sh"; sourceTree = "<group>"; };
-		441A91A8C8703C1B0F9DAFBEDD2CA4C8 /* Pods-WebEngageAppEx_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebEngageAppEx_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4434B4DA51C75DD130739DFE508EAE25 /* Pods-WebEngageAppEx_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebEngageAppEx_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		4E2E8D59C4D4684251111EDEC9F92079 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		53DADC3C6742CC26803DFC40065D5A65 /* WEXUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXUser.m; path = WebEngageAppEx/Classes/CoreApi/WEXUser.m; sourceTree = "<group>"; };
-		5783C6AD82A3899B5927807342CEC402 /* WEXRatingPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRatingPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRatingPushNotificationViewController.h; sourceTree = "<group>"; };
-		5B0451E11E87EE3BA756A4C79DB35507 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D947AF7F9FAA148AA48D61355EDFD8F /* Pods-WebEngageAppEx_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-WebEngageAppEx_Tests.modulemap"; sourceTree = "<group>"; };
-		5EB53C2863012504BF8DDBFEB52FFEEF /* WEXAnalytics.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXAnalytics.m; path = WebEngageAppEx/Classes/CoreApi/WEXAnalytics.m; sourceTree = "<group>"; };
-		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6A3C908EFC86D50C226737E7E56B358E /* WEXRichPushLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRichPushLayout.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.h; sourceTree = "<group>"; };
-		6B5A429EBADD9E7C5B6AC89A19A9B0F5 /* WEXCarouselPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXCarouselPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXCarouselPushNotificationViewController.m; sourceTree = "<group>"; };
-		73F1E2BB91ADEED104718A1E0D55EA50 /* Pods-WebEngageAppEx_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WebEngageAppEx_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		74D0CFEEACEEA4BC844F1A36BDB3B7CA /* WEXUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXUser.h; path = WebEngageAppEx/Classes/CoreApi/WEXUser.h; sourceTree = "<group>"; };
-		7E43AD069E399317B9D0C113A9CE064A /* WEXCarouselPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXCarouselPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXCarouselPushNotificationViewController.h; sourceTree = "<group>"; };
+		07C60AB44754A517F9006CC3F294957C /* WEXRichPushNotificationViewController+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WEXRichPushNotificationViewController+Private.h"; path = "WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController+Private.h"; sourceTree = "<group>"; };
+		11ECCE7001D7D0C70B7117A932A063F1 /* WEXCarouselPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXCarouselPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXCarouselPushNotificationViewController.m; sourceTree = "<group>"; };
+		167AFD0B925C04B1BC7D69B1AE1D7CD7 /* WEXPushNotificationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXPushNotificationService.m; path = WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.m; sourceTree = "<group>"; };
+		1D79CEDCA864FF9DC0280F2D846CF618 /* Pods-WebEngageAppEx_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-WebEngageAppEx_Tests-umbrella.h"; sourceTree = "<group>"; };
+		243B96170C6A7DC288CC8BF5CA5C4127 /* WebEngageAppEx.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WebEngageAppEx.xcconfig; sourceTree = "<group>"; };
+		2A0B91A883A61E9C1E6EB29904880D00 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3102A6DD75252C2031C7509396EA929A /* WEXRichPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRichPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.m; sourceTree = "<group>"; };
+		310CC8492E496C1258FC409EC978EDF3 /* WEXAnalytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXAnalytics.h; path = WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h; sourceTree = "<group>"; };
+		32E83485A0230170B19FB4E785296F9A /* WEXRatingPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRatingPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRatingPushNotificationViewController.h; sourceTree = "<group>"; };
+		3857625D6F2A72C2DBCC703357F533E2 /* WebEngageAppEx-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebEngageAppEx-umbrella.h"; sourceTree = "<group>"; };
+		3E4AE02D89E446A8C0ACAF3FF010E77B /* WebEngageAppEx.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WebEngageAppEx.modulemap; sourceTree = "<group>"; };
+		45A2E9D7C783276CF4ACD00EC99973E0 /* WEXCarouselPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXCarouselPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXCarouselPushNotificationViewController.h; sourceTree = "<group>"; };
+		4BAB3C3E4FF55353C92237D8C2A3CF90 /* Pods-WebEngageAppEx_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebEngageAppEx_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		51128D090A72BB1EB713AB5948B73C60 /* Pods-WebEngageAppEx_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WebEngageAppEx_Tests-dummy.m"; sourceTree = "<group>"; };
+		59879C05147706585C068457ED749315 /* Pods-WebEngageAppEx_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebEngageAppEx_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		783A329F6ABFDD1D9E1D2B732246BA80 /* WEXRatingPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRatingPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRatingPushNotificationViewController.m; sourceTree = "<group>"; };
 		83F298A5A6F6BF3729BDBE0F11452A5C /* Pods_WebEngageAppEx_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_WebEngageAppEx_Tests.framework; path = "Pods-WebEngageAppEx_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		90A9581FFE194E49136B6299FB1DF9F7 /* WEXAnalytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXAnalytics.h; path = WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h; sourceTree = "<group>"; };
-		91B9E6708FA97240405FCB4926451684 /* WEXPushNotificationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXPushNotificationService.m; path = WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9438825871450374946BC072B8807C2E /* WEXRichPushLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRichPushLayout.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.m; sourceTree = "<group>"; };
-		A3C491ABF7EE69F87225FC1B71440D86 /* WebEngageAppEx.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = WebEngageAppEx.modulemap; sourceTree = "<group>"; };
-		A9B216396C614473D560D2B07795787A /* WebEngageAppEx-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebEngageAppEx-dummy.m"; sourceTree = "<group>"; };
-		AC68B86E2B26DF791D3A9FD60088D679 /* WebEngageAppEx-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebEngageAppEx-umbrella.h"; sourceTree = "<group>"; };
-		AD3D53CA544D5CB5C7F4EC830F6D0DCA /* WEXRichPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRichPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h; sourceTree = "<group>"; };
-		B10F56D30C562F8C0128DDA5C8884AB6 /* WebEngageAppEx.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WebEngageAppEx.xcconfig; sourceTree = "<group>"; };
-		BC18E92DD674CBE79E026AA694567AF4 /* WEXCoreUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXCoreUtils.m; path = WebEngageAppEx/Classes/CoreApi/WEXCoreUtils.m; sourceTree = "<group>"; };
-		BF9A9653898EF33882F24285255EFCF3 /* Pods-WebEngageAppEx_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-WebEngageAppEx_Tests-umbrella.h"; sourceTree = "<group>"; };
+		9EC92BAB71BE63C6F89CB9BFB41C6648 /* WEXUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXUser.h; path = WebEngageAppEx/Classes/CoreApi/WEXUser.h; sourceTree = "<group>"; };
+		A01782E06931DE632BC1D06442428E1D /* WEXCoreUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXCoreUtils.h; path = WebEngageAppEx/Classes/CoreApi/WEXCoreUtils.h; sourceTree = "<group>"; };
+		A11276CCB759A40C53601198D379839A /* Pods-WebEngageAppEx_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebEngageAppEx_Tests-resources.sh"; sourceTree = "<group>"; };
+		A45E26DCFCC4278D1540284D1FAC87BF /* WebEngageAppEx-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebEngageAppEx-prefix.pch"; sourceTree = "<group>"; };
+		AB05E0C8E311096C7D1B62042EC59172 /* Pods-WebEngageAppEx_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-WebEngageAppEx_Tests.modulemap"; sourceTree = "<group>"; };
+		B13B87710FF893D25E963ACA84378B7C /* WebEngageAppEx-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebEngageAppEx-dummy.m"; sourceTree = "<group>"; };
+		B8CACD4B288686EED401BB303C43AFA2 /* WEXPushNotificationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXPushNotificationService.h; path = WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h; sourceTree = "<group>"; };
 		C7AB8B2FA4B37938D46CE2ED84306C2E /* WebEngageAppEx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WebEngageAppEx.framework; path = WebEngageAppEx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDA6E3CC0C4FBCA4AB4A014DC7E1C49A /* Pods-WebEngageAppEx_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WebEngageAppEx_Tests-dummy.m"; sourceTree = "<group>"; };
-		F4862305DA9F0B8DC0CCA3930968EA69 /* Pods-WebEngageAppEx_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebEngageAppEx_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		F9D8437812FCC76A8E2AC90A09CC65EC /* WEXRichPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRichPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.m; sourceTree = "<group>"; };
+		CF15FB372DA14EA7133D84BB682F4682 /* WEXAnalytics.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXAnalytics.m; path = WebEngageAppEx/Classes/CoreApi/WEXAnalytics.m; sourceTree = "<group>"; };
+		D065AD79F28DAD2E37DEAB8CFE06B4B4 /* Pods-WebEngageAppEx_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WebEngageAppEx_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D97FE78D7DBCBAD5B168BBBF60C69145 /* WEXRichPushLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXRichPushLayout.m; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.m; sourceTree = "<group>"; };
+		D9F827C3DE61F6C0CB1D1542713F36F9 /* WEXUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXUser.m; path = WebEngageAppEx/Classes/CoreApi/WEXUser.m; sourceTree = "<group>"; };
+		DC64A029F60D4FDD807BA968D15EC4A3 /* WEXCoreUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXCoreUtils.m; path = WebEngageAppEx/Classes/CoreApi/WEXCoreUtils.m; sourceTree = "<group>"; };
+		E0FE8B47DFF85B792D0CCB681C20A577 /* WEXRichPushNotificationViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRichPushNotificationViewController.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h; sourceTree = "<group>"; };
+		EA30691C559FE52FC61C535F3DD6DAC1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		F04C4EEDE2A6E5A5A8FF02A284D6C2F0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1DCA40B4F10B51152F1737B89C19ED5 /* WEXRichPushLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WEXRichPushLayout.h; path = WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.h; sourceTree = "<group>"; };
+		F1FAEC26EA2453C77B9D1B78E9C67611 /* WebEngageAppEx.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = WebEngageAppEx.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F36DFEF9203213CC2769229280BA7E7D /* Pods-WebEngageAppEx_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebEngageAppEx_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		F83284B7ACA4D687762B558BB3B18B41 /* Pods-WebEngageAppEx_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WebEngageAppEx_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2C804D8EE30FC300C479E98FEA3A17B2 /* Frameworks */ = {
+		24632F6F01C06785C674A29ACF3F0869 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2357A9DF8EF7E5364FB48C2A8DA94407 /* Foundation.framework in Frameworks */,
+				C614BE1CC59EE48A42A86C95CE1DC11C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6FF4F9D8A0D20FD3A53F877D84E76726 /* Frameworks */ = {
+		67D736DCB457092C928607EF45BDFDB2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE6479B4D041D752ACDF76B63668762B /* Foundation.framework in Frameworks */,
+				EEB734ADE9A2E2B00C822BC49E25B600 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03A73779D0747783A0B4A03E109DE9CA /* WebEngageAppEx */ = {
+		08DEF99C0B508E450201948D68CD5AEA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7BF18A910AF3CB5F26D5746D966020ED /* ContentExtension */,
-				12C3975152FA0E5CF79EB9AD6C29C7EC /* CoreApi */,
-				DEEA9FFE9C7B12BF28B8AFA795426CC8 /* NotificationService */,
-				16700A430A89683B9194FE762813BC49 /* Support Files */,
-			);
-			name = WebEngageAppEx;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		12C3975152FA0E5CF79EB9AD6C29C7EC /* CoreApi */ = {
-			isa = PBXGroup;
-			children = (
-				90A9581FFE194E49136B6299FB1DF9F7 /* WEXAnalytics.h */,
-				5EB53C2863012504BF8DDBFEB52FFEEF /* WEXAnalytics.m */,
-				42E4C3331467A7E4153094EB0DD053A4 /* WEXCoreUtils.h */,
-				BC18E92DD674CBE79E026AA694567AF4 /* WEXCoreUtils.m */,
-				74D0CFEEACEEA4BC844F1A36BDB3B7CA /* WEXUser.h */,
-				53DADC3C6742CC26803DFC40065D5A65 /* WEXUser.m */,
-			);
-			name = CoreApi;
-			sourceTree = "<group>";
-		};
-		16700A430A89683B9194FE762813BC49 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				5B0451E11E87EE3BA756A4C79DB35507 /* Info.plist */,
-				A3C491ABF7EE69F87225FC1B71440D86 /* WebEngageAppEx.modulemap */,
-				B10F56D30C562F8C0128DDA5C8884AB6 /* WebEngageAppEx.xcconfig */,
-				A9B216396C614473D560D2B07795787A /* WebEngageAppEx-dummy.m */,
-				3102DB84392C8E6890EDAA61A1AEB66C /* WebEngageAppEx-prefix.pch */,
-				AC68B86E2B26DF791D3A9FD60088D679 /* WebEngageAppEx-umbrella.h */,
+				2A0B91A883A61E9C1E6EB29904880D00 /* Info.plist */,
+				3E4AE02D89E446A8C0ACAF3FF010E77B /* WebEngageAppEx.modulemap */,
+				243B96170C6A7DC288CC8BF5CA5C4127 /* WebEngageAppEx.xcconfig */,
+				B13B87710FF893D25E963ACA84378B7C /* WebEngageAppEx-dummy.m */,
+				A45E26DCFCC4278D1540284D1FAC87BF /* WebEngageAppEx-prefix.pch */,
+				3857625D6F2A72C2DBCC703357F533E2 /* WebEngageAppEx-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/WebEngageAppEx";
 			sourceTree = "<group>";
 		};
-		1897CAB375AA99B745C4C0C3A55DCE03 /* Pods-WebEngageAppEx_Tests */ = {
+		4256F98B4CF390EFBBC0BC04EB26CDE7 /* ContentExtension */ = {
 			isa = PBXGroup;
 			children = (
-				4E2E8D59C4D4684251111EDEC9F92079 /* Info.plist */,
-				5D947AF7F9FAA148AA48D61355EDFD8F /* Pods-WebEngageAppEx_Tests.modulemap */,
-				73F1E2BB91ADEED104718A1E0D55EA50 /* Pods-WebEngageAppEx_Tests-acknowledgements.markdown */,
-				129075E90EF25FD779ED030BB17B2D81 /* Pods-WebEngageAppEx_Tests-acknowledgements.plist */,
-				EDA6E3CC0C4FBCA4AB4A014DC7E1C49A /* Pods-WebEngageAppEx_Tests-dummy.m */,
-				4434B4DA51C75DD130739DFE508EAE25 /* Pods-WebEngageAppEx_Tests-frameworks.sh */,
-				433F9EA520FBEBF70E2399D807A700CC /* Pods-WebEngageAppEx_Tests-resources.sh */,
-				BF9A9653898EF33882F24285255EFCF3 /* Pods-WebEngageAppEx_Tests-umbrella.h */,
-				441A91A8C8703C1B0F9DAFBEDD2CA4C8 /* Pods-WebEngageAppEx_Tests.debug.xcconfig */,
-				F4862305DA9F0B8DC0CCA3930968EA69 /* Pods-WebEngageAppEx_Tests.release.xcconfig */,
+				45A2E9D7C783276CF4ACD00EC99973E0 /* WEXCarouselPushNotificationViewController.h */,
+				11ECCE7001D7D0C70B7117A932A063F1 /* WEXCarouselPushNotificationViewController.m */,
+				32E83485A0230170B19FB4E785296F9A /* WEXRatingPushNotificationViewController.h */,
+				783A329F6ABFDD1D9E1D2B732246BA80 /* WEXRatingPushNotificationViewController.m */,
+				F1DCA40B4F10B51152F1737B89C19ED5 /* WEXRichPushLayout.h */,
+				D97FE78D7DBCBAD5B168BBBF60C69145 /* WEXRichPushLayout.m */,
+				E0FE8B47DFF85B792D0CCB681C20A577 /* WEXRichPushNotificationViewController.h */,
+				3102A6DD75252C2031C7509396EA929A /* WEXRichPushNotificationViewController.m */,
+				07C60AB44754A517F9006CC3F294957C /* WEXRichPushNotificationViewController+Private.h */,
+			);
+			name = ContentExtension;
+			sourceTree = "<group>";
+		};
+		445C915D0E8F1AAE2C0E023A10386DA8 /* WebEngageAppEx */ = {
+			isa = PBXGroup;
+			children = (
+				4256F98B4CF390EFBBC0BC04EB26CDE7 /* ContentExtension */,
+				481483094C4364590610B0D1833490B8 /* CoreApi */,
+				F24D2D4EC847D92C3E9F6EC319D976A7 /* NotificationService */,
+				588A46D9BBB7C2AA8FFE981B9F18D798 /* Pod */,
+				08DEF99C0B508E450201948D68CD5AEA /* Support Files */,
+			);
+			name = WebEngageAppEx;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		44D5347904CF754D6785B84253F2574A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		481483094C4364590610B0D1833490B8 /* CoreApi */ = {
+			isa = PBXGroup;
+			children = (
+				310CC8492E496C1258FC409EC978EDF3 /* WEXAnalytics.h */,
+				CF15FB372DA14EA7133D84BB682F4682 /* WEXAnalytics.m */,
+				A01782E06931DE632BC1D06442428E1D /* WEXCoreUtils.h */,
+				DC64A029F60D4FDD807BA968D15EC4A3 /* WEXCoreUtils.m */,
+				9EC92BAB71BE63C6F89CB9BFB41C6648 /* WEXUser.h */,
+				D9F827C3DE61F6C0CB1D1542713F36F9 /* WEXUser.m */,
+			);
+			name = CoreApi;
+			sourceTree = "<group>";
+		};
+		49344EDB4559FA5D8563C87EE2A96131 /* Pods-WebEngageAppEx_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F04C4EEDE2A6E5A5A8FF02A284D6C2F0 /* Info.plist */,
+				AB05E0C8E311096C7D1B62042EC59172 /* Pods-WebEngageAppEx_Tests.modulemap */,
+				F83284B7ACA4D687762B558BB3B18B41 /* Pods-WebEngageAppEx_Tests-acknowledgements.markdown */,
+				D065AD79F28DAD2E37DEAB8CFE06B4B4 /* Pods-WebEngageAppEx_Tests-acknowledgements.plist */,
+				51128D090A72BB1EB713AB5948B73C60 /* Pods-WebEngageAppEx_Tests-dummy.m */,
+				59879C05147706585C068457ED749315 /* Pods-WebEngageAppEx_Tests-frameworks.sh */,
+				A11276CCB759A40C53601198D379839A /* Pods-WebEngageAppEx_Tests-resources.sh */,
+				1D79CEDCA864FF9DC0280F2D846CF618 /* Pods-WebEngageAppEx_Tests-umbrella.h */,
+				F36DFEF9203213CC2769229280BA7E7D /* Pods-WebEngageAppEx_Tests.debug.xcconfig */,
+				4BAB3C3E4FF55353C92237D8C2A3CF90 /* Pods-WebEngageAppEx_Tests.release.xcconfig */,
 			);
 			name = "Pods-WebEngageAppEx_Tests";
 			path = "Target Support Files/Pods-WebEngageAppEx_Tests";
 			sourceTree = "<group>";
 		};
-		705CC72C1120F98237F583A116AE8835 /* Development Pods */ = {
+		588A46D9BBB7C2AA8FFE981B9F18D798 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				03A73779D0747783A0B4A03E109DE9CA /* WebEngageAppEx */,
+				EA30691C559FE52FC61C535F3DD6DAC1 /* LICENSE */,
+				F1FAEC26EA2453C77B9D1B78E9C67611 /* WebEngageAppEx.podspec */,
 			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		7BF18A910AF3CB5F26D5746D966020ED /* ContentExtension */ = {
-			isa = PBXGroup;
-			children = (
-				7E43AD069E399317B9D0C113A9CE064A /* WEXCarouselPushNotificationViewController.h */,
-				6B5A429EBADD9E7C5B6AC89A19A9B0F5 /* WEXCarouselPushNotificationViewController.m */,
-				5783C6AD82A3899B5927807342CEC402 /* WEXRatingPushNotificationViewController.h */,
-				249FB713C0743FBB6215537A6C378FD5 /* WEXRatingPushNotificationViewController.m */,
-				6A3C908EFC86D50C226737E7E56B358E /* WEXRichPushLayout.h */,
-				9438825871450374946BC072B8807C2E /* WEXRichPushLayout.m */,
-				AD3D53CA544D5CB5C7F4EC830F6D0DCA /* WEXRichPushNotificationViewController.h */,
-				F9D8437812FCC76A8E2AC90A09CC65EC /* WEXRichPushNotificationViewController.m */,
-				02A0221954E73D1ED30539BC7AF5612B /* WEXRichPushNotificationViewController+Private.h */,
-			);
-			name = ContentExtension;
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				705CC72C1120F98237F583A116AE8835 /* Development Pods */,
+				D1A2CA43B94D3365E61206675E982561 /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				D58C055E72A9E6A41D4BB92F27B4A769 /* Products */,
 				9C0754615DC6A060F164F0BCEAF18E7B /* Targets Support Files */,
@@ -197,7 +209,7 @@
 		9C0754615DC6A060F164F0BCEAF18E7B /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				1897CAB375AA99B745C4C0C3A55DCE03 /* Pods-WebEngageAppEx_Tests */,
+				49344EDB4559FA5D8563C87EE2A96131 /* Pods-WebEngageAppEx_Tests */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -205,17 +217,17 @@
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+				44D5347904CF754D6785B84253F2574A /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+		D1A2CA43B94D3365E61206675E982561 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+				445C915D0E8F1AAE2C0E023A10386DA8 /* WebEngageAppEx */,
 			);
-			name = iOS;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		D58C055E72A9E6A41D4BB92F27B4A769 /* Products */ = {
@@ -227,11 +239,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DEEA9FFE9C7B12BF28B8AFA795426CC8 /* NotificationService */ = {
+		F24D2D4EC847D92C3E9F6EC319D976A7 /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
-				19F1A4E0A1F0F4C40141AFA60A314B42 /* WEXPushNotificationService.h */,
-				91B9E6708FA97240405FCB4926451684 /* WEXPushNotificationService.m */,
+				B8CACD4B288686EED401BB303C43AFA2 /* WEXPushNotificationService.h */,
+				167AFD0B925C04B1BC7D69B1AE1D7CD7 /* WEXPushNotificationService.m */,
 			);
 			name = NotificationService;
 			sourceTree = "<group>";
@@ -239,59 +251,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5A92E7E2D10F24F37000F505F73FEFC5 /* Headers */ = {
+		A18D6447019E15CC4FDD3C0256AE15F1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A1BF9AF5CFCB392B09AC63EE04C633B /* Pods-WebEngageAppEx_Tests-umbrella.h in Headers */,
+				0146FA9614357C26775997D0916F608E /* Pods-WebEngageAppEx_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CF54FDC855345964003FB721D4E23DA9 /* Headers */ = {
+		B56EDA1A641C49E5166C6B902845974F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D81D26130F0E9AB509A1A7C36F71F84F /* WebEngageAppEx-umbrella.h in Headers */,
-				FC484DFAFF052990E120225DDBEF4A25 /* WEXAnalytics.h in Headers */,
-				98A98028D221316558AC31E842D21E49 /* WEXCarouselPushNotificationViewController.h in Headers */,
-				8B50E77FF5E28D35E2597535B32B919E /* WEXCoreUtils.h in Headers */,
-				0B48390184FA3A8B6B8030A01F6D9586 /* WEXPushNotificationService.h in Headers */,
-				12410A5877EAC42319D99D40AFD355DF /* WEXRatingPushNotificationViewController.h in Headers */,
-				9C5531BCE5C66C81692CCB1422CE6532 /* WEXRichPushLayout.h in Headers */,
-				D7F038C5F857746EE7BBA2A58903CD85 /* WEXRichPushNotificationViewController+Private.h in Headers */,
-				13118D140130E0ECEAE97D48270F90CD /* WEXRichPushNotificationViewController.h in Headers */,
-				0F5D1C77F6134EE52FAAFFC3023AA5A9 /* WEXUser.h in Headers */,
+				1CA0CDDAFD39889E66D08F606417D8AB /* WebEngageAppEx-umbrella.h in Headers */,
+				546B9A2E663853A9E3E0B3D877F10519 /* WEXAnalytics.h in Headers */,
+				679F1C6322B7D68637443D40920FFDBC /* WEXCarouselPushNotificationViewController.h in Headers */,
+				1A8E7C4B30F95E3EF8680297C31D5415 /* WEXCoreUtils.h in Headers */,
+				2256AE7CD450E3CA70D7C47D8F8817C9 /* WEXPushNotificationService.h in Headers */,
+				51E8C63B2A82B40020064F897666F023 /* WEXRatingPushNotificationViewController.h in Headers */,
+				EB1F2993443C48F2EB49A169F6714AB1 /* WEXRichPushLayout.h in Headers */,
+				B1D43DC5F982215E2FD7CB36C0949DF8 /* WEXRichPushNotificationViewController+Private.h in Headers */,
+				07FD006DFD5E0EC1F5B521A5AE1AD41C /* WEXRichPushNotificationViewController.h in Headers */,
+				16409479054B48C4F18658190AF2D591 /* WEXUser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3672FBB99EC9F5A941AA01A0C852E9B6 /* Pods-WebEngageAppEx_Tests */ = {
+		45E5CAAA99C6EF847B5CB14E05A56F06 /* WebEngageAppEx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9D567D2ACCF8414FD43C452E4C56CC77 /* Build configuration list for PBXNativeTarget "Pods-WebEngageAppEx_Tests" */;
+			buildConfigurationList = 1EFD78C17ABC907AFB048B1A29073537 /* Build configuration list for PBXNativeTarget "WebEngageAppEx" */;
 			buildPhases = (
-				01E05C9BB9544037ED20E27ACF2E7478 /* Sources */,
-				6FF4F9D8A0D20FD3A53F877D84E76726 /* Frameworks */,
-				5A92E7E2D10F24F37000F505F73FEFC5 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0161CC913E20A175D5DE3F6A21C8B25C /* PBXTargetDependency */,
-			);
-			name = "Pods-WebEngageAppEx_Tests";
-			productName = "Pods-WebEngageAppEx_Tests";
-			productReference = 83F298A5A6F6BF3729BDBE0F11452A5C /* Pods_WebEngageAppEx_Tests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		EBD7134B96EB820E42E1D7D20204A933 /* WebEngageAppEx */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 13BB0044164324223EE111C060093D50 /* Build configuration list for PBXNativeTarget "WebEngageAppEx" */;
-			buildPhases = (
-				61B52258B4B361125EE5B0D26189B4E2 /* Sources */,
-				2C804D8EE30FC300C479E98FEA3A17B2 /* Frameworks */,
-				CF54FDC855345964003FB721D4E23DA9 /* Headers */,
+				B56EDA1A641C49E5166C6B902845974F /* Headers */,
+				5C124E4F4101E7478DECB66BB1A8384B /* Sources */,
+				67D736DCB457092C928607EF45BDFDB2 /* Frameworks */,
+				8B2D2B6319547AC5685E3A23D2F44866 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -302,14 +297,33 @@
 			productReference = C7AB8B2FA4B37938D46CE2ED84306C2E /* WebEngageAppEx.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		76FE5526142BD3B9BD21A6BED850C514 /* Pods-WebEngageAppEx_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C41FFC5833D259DC5CBBBB11E9EFDE42 /* Build configuration list for PBXNativeTarget "Pods-WebEngageAppEx_Tests" */;
+			buildPhases = (
+				A18D6447019E15CC4FDD3C0256AE15F1 /* Headers */,
+				1CD740792DC55279C07FEED622A23777 /* Sources */,
+				24632F6F01C06785C674A29ACF3F0869 /* Frameworks */,
+				A00E3CB6E993A486984F37A5056D9E22 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9C9B63BFEDD382D794A61A0874C32BC /* PBXTargetDependency */,
+			);
+			name = "Pods-WebEngageAppEx_Tests";
+			productName = "Pods-WebEngageAppEx_Tests";
+			productReference = 83F298A5A6F6BF3729BDBE0F11452A5C /* Pods_WebEngageAppEx_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -323,272 +337,314 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3672FBB99EC9F5A941AA01A0C852E9B6 /* Pods-WebEngageAppEx_Tests */,
-				EBD7134B96EB820E42E1D7D20204A933 /* WebEngageAppEx */,
+				76FE5526142BD3B9BD21A6BED850C514 /* Pods-WebEngageAppEx_Tests */,
+				45E5CAAA99C6EF847B5CB14E05A56F06 /* WebEngageAppEx */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXSourcesBuildPhase section */
-		01E05C9BB9544037ED20E27ACF2E7478 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
+/* Begin PBXResourcesBuildPhase section */
+		8B2D2B6319547AC5685E3A23D2F44866 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E05C9C61813F9CB186598FAB24205A1 /* Pods-WebEngageAppEx_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		61B52258B4B361125EE5B0D26189B4E2 /* Sources */ = {
+		A00E3CB6E993A486984F37A5056D9E22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1CD740792DC55279C07FEED622A23777 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				448E74427B75AE002977D940AE476DD0 /* WebEngageAppEx-dummy.m in Sources */,
-				8E3C0D97A8A4134295FE77F947BF5ECE /* WEXAnalytics.m in Sources */,
-				F97D664F45473B59950603F6E14A384B /* WEXCarouselPushNotificationViewController.m in Sources */,
-				FFBDF1C9AD3CFB317267B6EAD59EF917 /* WEXCoreUtils.m in Sources */,
-				50EDF84EF47381DC3B4729B8ACCAA2AB /* WEXPushNotificationService.m in Sources */,
-				FD64BD624BCD8760924ED841FDB2BC50 /* WEXRatingPushNotificationViewController.m in Sources */,
-				832641B6C28B1041B2CF1ED606973FDF /* WEXRichPushLayout.m in Sources */,
-				7712FF8CA53E7332D875CF4D3F8D35FA /* WEXRichPushNotificationViewController.m in Sources */,
-				F7C1496F0006C4438FFA3C274E03D9BC /* WEXUser.m in Sources */,
+				9DE0B553A1CAF02C45A14E22ACCC9715 /* Pods-WebEngageAppEx_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C124E4F4101E7478DECB66BB1A8384B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4205E63B53AE03E466A0CE98F2E17C2 /* WebEngageAppEx-dummy.m in Sources */,
+				7157F2F894DA23FC9039138CD292B3DA /* WEXAnalytics.m in Sources */,
+				04ACB0F6EF9740131F5D4D1EAE88F61E /* WEXCarouselPushNotificationViewController.m in Sources */,
+				1DB2EC3ABBECBC6A8D3E42CD05A3C8EC /* WEXCoreUtils.m in Sources */,
+				C5DE9818F51F11E841120FBC51E8B7BF /* WEXPushNotificationService.m in Sources */,
+				738D153CE580C6AA8485623BB27EB9B9 /* WEXRatingPushNotificationViewController.m in Sources */,
+				BA1C2E15F9A599170CA2188EC92A52D3 /* WEXRichPushLayout.m in Sources */,
+				1963B417C0846CE02397E0967B0E0759 /* WEXRichPushNotificationViewController.m in Sources */,
+				2025E6B850AB736A625E19BE7DA566BB /* WEXUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0161CC913E20A175D5DE3F6A21C8B25C /* PBXTargetDependency */ = {
+		E9C9B63BFEDD382D794A61A0874C32BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = WebEngageAppEx;
-			target = EBD7134B96EB820E42E1D7D20204A933 /* WebEngageAppEx */;
-			targetProxy = B662483F287F859D227FD586CF608895 /* PBXContainerItemProxy */;
+			target = 45E5CAAA99C6EF847B5CB14E05A56F06 /* WebEngageAppEx */;
+			targetProxy = 1D6CA3DB9C3D8E0FC06CD0E2B7673908 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0C8937F5259D739A94AF75AB1E8194F9 /* Release */ = {
+		2CA7C4B483CE8ED5E2354E6D67C0308B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4862305DA9F0B8DC0CCA3930968EA69 /* Pods-WebEngageAppEx_Tests.release.xcconfig */;
+			baseConfigurationReference = 4BAB3C3E4FF55353C92237D8C2A3CF90 /* Pods-WebEngageAppEx_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-WebEngageAppEx_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-WebEngageAppEx_Tests/Pods-WebEngageAppEx_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_WebEngageAppEx_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3C1F6EB645FFAA9031BC7BD78A7BCE2A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B10F56D30C562F8C0128DDA5C8884AB6 /* WebEngageAppEx.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = WebEngageAppEx;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		717E77604BFBB04BEAF56608A1CB2EDE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		A1F0F230D77DD180144C84074C28D54D /* Debug */ = {
+		4FE72B0C1FEBC74A813396A62E140CD8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B10F56D30C562F8C0128DDA5C8884AB6 /* WebEngageAppEx.xcconfig */;
+			baseConfigurationReference = 243B96170C6A7DC288CC8BF5CA5C4127 /* WebEngageAppEx.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_MODULE_NAME = WebEngageAppEx;
 				PRODUCT_NAME = WebEngageAppEx;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		A6A03C9B1314C05BD3C2FBD3F65EDF83 /* Debug */ = {
+		6C6EACA84DA9A4D8A1E4E2501D3848D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		BB4086C610D91FCFF92C0BD298614B9D /* Debug */ = {
+		BEEE1E1F52C31D099B225AD571E0D0B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 441A91A8C8703C1B0F9DAFBEDD2CA4C8 /* Pods-WebEngageAppEx_Tests.debug.xcconfig */;
+			baseConfigurationReference = 243B96170C6A7DC288CC8BF5CA5C4127 /* WebEngageAppEx.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
+				PRODUCT_MODULE_NAME = WebEngageAppEx;
+				PRODUCT_NAME = WebEngageAppEx;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D9B851E8D67D359282551F91AF242887 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		F658C13FDFE67FB24BC66E3812D658D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F36DFEF9203213CC2769229280BA7E7D /* Pods-WebEngageAppEx_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-WebEngageAppEx_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-WebEngageAppEx_Tests/Pods-WebEngageAppEx_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_WebEngageAppEx_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,11 +656,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13BB0044164324223EE111C060093D50 /* Build configuration list for PBXNativeTarget "WebEngageAppEx" */ = {
+		1EFD78C17ABC907AFB048B1A29073537 /* Build configuration list for PBXNativeTarget "WebEngageAppEx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1F0F230D77DD180144C84074C28D54D /* Debug */,
-				3C1F6EB645FFAA9031BC7BD78A7BCE2A /* Release */,
+				BEEE1E1F52C31D099B225AD571E0D0B9 /* Debug */,
+				4FE72B0C1FEBC74A813396A62E140CD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -612,17 +668,17 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A6A03C9B1314C05BD3C2FBD3F65EDF83 /* Debug */,
-				717E77604BFBB04BEAF56608A1CB2EDE /* Release */,
+				6C6EACA84DA9A4D8A1E4E2501D3848D0 /* Debug */,
+				D9B851E8D67D359282551F91AF242887 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9D567D2ACCF8414FD43C452E4C56CC77 /* Build configuration list for PBXNativeTarget "Pods-WebEngageAppEx_Tests" */ = {
+		C41FFC5833D259DC5CBBBB11E9EFDE42 /* Build configuration list for PBXNativeTarget "Pods-WebEngageAppEx_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB4086C610D91FCFF92C0BD298614B9D /* Debug */,
-				0C8937F5259D739A94AF75AB1E8194F9 /* Release */,
+				F658C13FDFE67FB24BC66E3812D658D8 /* Debug */,
+				2CA7C4B483CE8ED5E2354E6D67C0308B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
