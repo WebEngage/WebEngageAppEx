@@ -22,6 +22,36 @@
 		EC427F1F21B698BA001EC77F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427F1E21B698BA001EC77F /* NotificationViewController.swift */; };
 		EC427F2221B698BA001EC77F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427F2021B698BA001EC77F /* MainInterface.storyboard */; };
 		EC427F2621B698BA001EC77F /* ContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EC427F1721B698BA001EC77F /* ContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EC9A3D9121B6B07900C63B7D /* WEXPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */; };
+		EC9A3D9221B6B07900C63B7D /* WEXPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */; };
+		EC9A3D9321B6B07900C63B7D /* WEXPushNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */; };
+		EC9A3D9421B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */; };
+		EC9A3D9521B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */; };
+		EC9A3D9621B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */; };
+		EC9A3D9721B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */; };
+		EC9A3D9821B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */; };
+		EC9A3D9921B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */; };
+		EC9A3D9A21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */; };
+		EC9A3D9B21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */; };
+		EC9A3D9C21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */; };
+		EC9A3D9D21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */; };
+		EC9A3D9E21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */; };
+		EC9A3D9F21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */; };
+		EC9A3DA021B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D8721B6B07900C63B7D /* .gitkeep */; };
+		EC9A3DA121B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D8721B6B07900C63B7D /* .gitkeep */; };
+		EC9A3DA221B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D8721B6B07900C63B7D /* .gitkeep */; };
+		EC9A3DA321B6B07900C63B7D /* WEXAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */; };
+		EC9A3DA421B6B07900C63B7D /* WEXAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */; };
+		EC9A3DA521B6B07900C63B7D /* WEXAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */; };
+		EC9A3DA621B6B07900C63B7D /* WEXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8D21B6B07900C63B7D /* WEXUser.m */; };
+		EC9A3DA721B6B07900C63B7D /* WEXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8D21B6B07900C63B7D /* WEXUser.m */; };
+		EC9A3DA821B6B07900C63B7D /* WEXUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8D21B6B07900C63B7D /* WEXUser.m */; };
+		EC9A3DA921B6B07900C63B7D /* WEXCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */; };
+		EC9A3DAA21B6B07900C63B7D /* WEXCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */; };
+		EC9A3DAB21B6B07900C63B7D /* WEXCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */; };
+		EC9A3DAC21B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D9021B6B07900C63B7D /* .gitkeep */; };
+		EC9A3DAD21B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D9021B6B07900C63B7D /* .gitkeep */; };
+		EC9A3DAE21B6B07900C63B7D /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EC9A3D9021B6B07900C63B7D /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +111,25 @@
 		EC427F1E21B698BA001EC77F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		EC427F2121B698BA001EC77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		EC427F2321B698BA001EC77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXPushNotificationService.m; sourceTree = "<group>"; };
+		EC9A3D7C21B6B07900C63B7D /* WEXPushNotificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXPushNotificationService.h; sourceTree = "<group>"; };
+		EC9A3D7E21B6B07900C63B7D /* WEXRichPushNotificationViewController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WEXRichPushNotificationViewController+Private.h"; sourceTree = "<group>"; };
+		EC9A3D7F21B6B07900C63B7D /* WEXRichPushLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXRichPushLayout.h; sourceTree = "<group>"; };
+		EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXRichPushNotificationViewController.m; sourceTree = "<group>"; };
+		EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXCarouselPushNotificationViewController.m; sourceTree = "<group>"; };
+		EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXRatingPushNotificationViewController.m; sourceTree = "<group>"; };
+		EC9A3D8321B6B07900C63B7D /* WEXRichPushNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXRichPushNotificationViewController.h; sourceTree = "<group>"; };
+		EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXRichPushLayout.m; sourceTree = "<group>"; };
+		EC9A3D8521B6B07900C63B7D /* WEXCarouselPushNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXCarouselPushNotificationViewController.h; sourceTree = "<group>"; };
+		EC9A3D8621B6B07900C63B7D /* WEXRatingPushNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXRatingPushNotificationViewController.h; sourceTree = "<group>"; };
+		EC9A3D8721B6B07900C63B7D /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		EC9A3D8921B6B07900C63B7D /* WEXUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXUser.h; sourceTree = "<group>"; };
+		EC9A3D8A21B6B07900C63B7D /* WEXAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXAnalytics.h; sourceTree = "<group>"; };
+		EC9A3D8B21B6B07900C63B7D /* WEXCoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEXCoreUtils.h; sourceTree = "<group>"; };
+		EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXAnalytics.m; sourceTree = "<group>"; };
+		EC9A3D8D21B6B07900C63B7D /* WEXUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXUser.m; sourceTree = "<group>"; };
+		EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEXCoreUtils.m; sourceTree = "<group>"; };
+		EC9A3D9021B6B07900C63B7D /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +182,7 @@
 				EC427EF021B6987C001EC77F /* WEGExtensionApp */,
 				EC427F0821B698A3001EC77F /* ServiceExtension */,
 				EC427F1D21B698BA001EC77F /* ContentExtension */,
+				EC9A3D7821B6B07900C63B7D /* WebEngageAppEx */,
 				EC427F1821B698BA001EC77F /* Frameworks */,
 				EC427EEF21B6987C001EC77F /* Products */,
 				80CC95AF2BC732EC1E166EAF /* Pods */,
@@ -191,6 +241,73 @@
 				EC427F2321B698BA001EC77F /* Info.plist */,
 			);
 			path = ContentExtension;
+			sourceTree = "<group>";
+		};
+		EC9A3D7821B6B07900C63B7D /* WebEngageAppEx */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D7921B6B07900C63B7D /* Classes */,
+				EC9A3D8F21B6B07900C63B7D /* Assets */,
+			);
+			name = WebEngageAppEx;
+			path = ../WebEngageAppEx;
+			sourceTree = "<group>";
+		};
+		EC9A3D7921B6B07900C63B7D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D7A21B6B07900C63B7D /* NotificationService */,
+				EC9A3D7D21B6B07900C63B7D /* ContentExtension */,
+				EC9A3D8721B6B07900C63B7D /* .gitkeep */,
+				EC9A3D8821B6B07900C63B7D /* CoreApi */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		EC9A3D7A21B6B07900C63B7D /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */,
+				EC9A3D7C21B6B07900C63B7D /* WEXPushNotificationService.h */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
+		EC9A3D7D21B6B07900C63B7D /* ContentExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D7E21B6B07900C63B7D /* WEXRichPushNotificationViewController+Private.h */,
+				EC9A3D7F21B6B07900C63B7D /* WEXRichPushLayout.h */,
+				EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */,
+				EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */,
+				EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */,
+				EC9A3D8321B6B07900C63B7D /* WEXRichPushNotificationViewController.h */,
+				EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */,
+				EC9A3D8521B6B07900C63B7D /* WEXCarouselPushNotificationViewController.h */,
+				EC9A3D8621B6B07900C63B7D /* WEXRatingPushNotificationViewController.h */,
+			);
+			path = ContentExtension;
+			sourceTree = "<group>";
+		};
+		EC9A3D8821B6B07900C63B7D /* CoreApi */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D8921B6B07900C63B7D /* WEXUser.h */,
+				EC9A3D8A21B6B07900C63B7D /* WEXAnalytics.h */,
+				EC9A3D8B21B6B07900C63B7D /* WEXCoreUtils.h */,
+				EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */,
+				EC9A3D8D21B6B07900C63B7D /* WEXUser.m */,
+				EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */,
+			);
+			path = CoreApi;
+			sourceTree = "<group>";
+		};
+		EC9A3D8F21B6B07900C63B7D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EC9A3D9021B6B07900C63B7D /* .gitkeep */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,7 +419,9 @@
 			files = (
 				EC427EFC21B6987D001EC77F /* LaunchScreen.storyboard in Resources */,
 				EC427EF921B6987D001EC77F /* Assets.xcassets in Resources */,
+				EC9A3DAC21B6B07900C63B7D /* .gitkeep in Resources */,
 				EC427EF721B6987C001EC77F /* Main.storyboard in Resources */,
+				EC9A3DA021B6B07900C63B7D /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +429,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9A3DA121B6B07900C63B7D /* .gitkeep in Resources */,
+				EC9A3DAD21B6B07900C63B7D /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +438,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9A3DAE21B6B07900C63B7D /* .gitkeep in Resources */,
 				EC427F2221B698BA001EC77F /* MainInterface.storyboard in Resources */,
+				EC9A3DA221B6B07900C63B7D /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,8 +544,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9A3D9D21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */,
 				EC427EF421B6987C001EC77F /* ViewController.swift in Sources */,
 				EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */,
+				EC9A3D9421B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */,
+				EC9A3D9A21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */,
+				EC9A3DA321B6B07900C63B7D /* WEXAnalytics.m in Sources */,
+				EC9A3D9721B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */,
+				EC9A3DA621B6B07900C63B7D /* WEXUser.m in Sources */,
+				EC9A3D9121B6B07900C63B7D /* WEXPushNotificationService.m in Sources */,
+				EC9A3DA921B6B07900C63B7D /* WEXCoreUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +561,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9A3D9B21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */,
 				EC427F0A21B698A3001EC77F /* NotificationService.swift in Sources */,
+				EC9A3D9521B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */,
+				EC9A3D9821B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */,
+				EC9A3D9E21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */,
+				EC9A3DAA21B6B07900C63B7D /* WEXCoreUtils.m in Sources */,
+				EC9A3DA421B6B07900C63B7D /* WEXAnalytics.m in Sources */,
+				EC9A3D9221B6B07900C63B7D /* WEXPushNotificationService.m in Sources */,
+				EC9A3DA721B6B07900C63B7D /* WEXUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +577,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9A3D9C21B6B07900C63B7D /* WEXRatingPushNotificationViewController.m in Sources */,
 				EC427F1F21B698BA001EC77F /* NotificationViewController.swift in Sources */,
+				EC9A3D9621B6B07900C63B7D /* WEXRichPushNotificationViewController.m in Sources */,
+				EC9A3D9921B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m in Sources */,
+				EC9A3D9F21B6B07900C63B7D /* WEXRichPushLayout.m in Sources */,
+				EC9A3DAB21B6B07900C63B7D /* WEXCoreUtils.m in Sources */,
+				EC9A3DA521B6B07900C63B7D /* WEXAnalytics.m in Sources */,
+				EC9A3D9321B6B07900C63B7D /* WEXPushNotificationService.m in Sources */,
+				EC9A3DA821B6B07900C63B7D /* WEXUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
