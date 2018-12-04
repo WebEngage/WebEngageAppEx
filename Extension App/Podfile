@@ -1,0 +1,24 @@
+
+platform :ios, '9.0'
+
+workspace '../WEGExtension'
+
+def extensionSettings
+  platform :ios, '10.0'
+  use_frameworks!
+end
+
+target 'ServiceExtension' do
+  extensionSettings
+  pod 'WebEngageBannerPush'
+end
+
+target 'ContentExtension' do
+  extensionSettings
+  pod 'WebEngageAppEx/ContentExtension'
+end
+
+
+target 'WEGExtensionApp' do
+  use_frameworks!
+end

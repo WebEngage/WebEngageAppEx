@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B9A105F58DE51E8F3E39F9F /* Pods_ServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF50C59DA4335AEA9E11A71 /* Pods_ServiceExtension.framework */; };
+		7D1365C4D5438E054965D635 /* Pods_ContentExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B7869BB95524603C3E74D6 /* Pods_ContentExtension.framework */; };
+		C234AE98C6C910400C3E8E2A /* Pods_WEGExtensionApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DABFD3BB7EF4EDDA54A6063 /* Pods_WEGExtensionApp.framework */; };
 		EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF121B6987C001EC77F /* AppDelegate.swift */; };
 		EC427EF421B6987C001EC77F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF321B6987C001EC77F /* ViewController.swift */; };
 		EC427EF721B6987C001EC77F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427EF521B6987C001EC77F /* Main.storyboard */; };
@@ -54,6 +57,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03B7869BB95524603C3E74D6 /* Pods_ContentExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ContentExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DABFD3BB7EF4EDDA54A6063 /* Pods_WEGExtensionApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WEGExtensionApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		9BF50C59DA4335AEA9E11A71 /* Pods_ServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.release.xcconfig"; sourceTree = "<group>"; };
+		CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.release.xcconfig"; sourceTree = "<group>"; };
 		EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WEGExtensionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC427EF121B6987C001EC77F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC427EF321B6987C001EC77F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +81,7 @@
 		EC427F1E21B698BA001EC77F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		EC427F2121B698BA001EC77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		EC427F2321B698BA001EC77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C234AE98C6C910400C3E8E2A /* Pods_WEGExtensionApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B9A105F58DE51E8F3E39F9F /* Pods_ServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,12 +107,26 @@
 			files = (
 				EC427F1C21B698BA001EC77F /* UserNotificationsUI.framework in Frameworks */,
 				EC427F1A21B698BA001EC77F /* UserNotifications.framework in Frameworks */,
+				7D1365C4D5438E054965D635 /* Pods_ContentExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80CC95AF2BC732EC1E166EAF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */,
+				CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */,
+				B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */,
+				F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */,
+				56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */,
+				BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EC427EE521B6987C001EC77F = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +135,7 @@
 				EC427F1D21B698BA001EC77F /* ContentExtension */,
 				EC427F1821B698BA001EC77F /* Frameworks */,
 				EC427EEF21B6987C001EC77F /* Products */,
+				80CC95AF2BC732EC1E166EAF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +176,9 @@
 			children = (
 				EC427F1921B698BA001EC77F /* UserNotifications.framework */,
 				EC427F1B21B698BA001EC77F /* UserNotificationsUI.framework */,
+				03B7869BB95524603C3E74D6 /* Pods_ContentExtension.framework */,
+				9BF50C59DA4335AEA9E11A71 /* Pods_ServiceExtension.framework */,
+				3DABFD3BB7EF4EDDA54A6063 /* Pods_WEGExtensionApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,10 +200,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC427F0021B6987D001EC77F /* Build configuration list for PBXNativeTarget "WEGExtensionApp" */;
 			buildPhases = (
+				F16A2A59397B8F4AD3A22D55 /* [CP] Check Pods Manifest.lock */,
 				EC427EEA21B6987C001EC77F /* Sources */,
 				EC427EEB21B6987C001EC77F /* Frameworks */,
 				EC427EEC21B6987C001EC77F /* Resources */,
 				EC427F1221B698A3001EC77F /* Embed App Extensions */,
+				EA037E9B183C6C1C7C392F5B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -188,6 +222,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC427F0F21B698A3001EC77F /* Build configuration list for PBXNativeTarget "ServiceExtension" */;
 			buildPhases = (
+				79D8A8E5865AE18FCADCEFA9 /* [CP] Check Pods Manifest.lock */,
 				EC427F0321B698A3001EC77F /* Sources */,
 				EC427F0421B698A3001EC77F /* Frameworks */,
 				EC427F0521B698A3001EC77F /* Resources */,
@@ -205,6 +240,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC427F2721B698BB001EC77F /* Build configuration list for PBXNativeTarget "ContentExtension" */;
 			buildPhases = (
+				562C45CBF4B55C1A0643F7C8 /* [CP] Check Pods Manifest.lock */,
 				EC427F1321B698BA001EC77F /* Sources */,
 				EC427F1421B698BA001EC77F /* Frameworks */,
 				EC427F1521B698BA001EC77F /* Resources */,
@@ -286,6 +322,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		562C45CBF4B55C1A0643F7C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ContentExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79D8A8E5865AE18FCADCEFA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA037E9B183C6C1C7C392F5B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework",
+				"${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebEngageBannerPush.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebEngageAppEx.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F16A2A59397B8F4AD3A22D55 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WEGExtensionApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC427EEA21B6987C001EC77F /* Sources */ = {
@@ -474,6 +603,7 @@
 		};
 		EC427F0121B6987D001EC77F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -494,6 +624,7 @@
 		};
 		EC427F0221B6987D001EC77F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -514,6 +645,7 @@
 		};
 		EC427F1021B698A3001EC77F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
@@ -534,6 +666,7 @@
 		};
 		EC427F1121B698A3001EC77F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
@@ -554,6 +687,7 @@
 		};
 		EC427F2821B698BB001EC77F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -576,6 +710,7 @@
 		};
 		EC427F2921B698BB001EC77F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
