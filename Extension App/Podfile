@@ -10,12 +10,12 @@ end
 
 target 'ServiceExtension' do
   extensionSettings
-  pod 'WebEngageBannerPush'
+  pod 'WebEngageBannerPush', :path => '../'
 end
 
 target 'ContentExtension' do
   extensionSettings
-  pod 'WebEngageAppEx/ContentExtension'
+  pod 'WebEngageAppEx/ContentExtension', :path => '../'
 end
 
 
