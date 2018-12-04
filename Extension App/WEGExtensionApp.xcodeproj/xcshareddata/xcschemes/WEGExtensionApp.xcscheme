@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "WebEngageAppEx_Example.app"
-               BlueprintName = "WebEngageAppEx_Example"
-               ReferencedContainer = "container:WebEngageAppEx.xcodeproj">
+               BlueprintIdentifier = "EC427EED21B6987C001EC77F"
+               BuildableName = "WEGExtensionApp.app"
+               BlueprintName = "WEGExtensionApp"
+               ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,24 +28,14 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "WebEngageAppEx_Tests.xctest"
-               BlueprintName = "WebEngageAppEx_Tests"
-               ReferencedContainer = "container:WebEngageAppEx.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "WebEngageAppEx_Example.app"
-            BlueprintName = "WebEngageAppEx_Example"
-            ReferencedContainer = "container:WebEngageAppEx.xcodeproj">
+            BlueprintIdentifier = "EC427EED21B6987C001EC77F"
+            BuildableName = "WEGExtensionApp.app"
+            BlueprintName = "WEGExtensionApp"
+            ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "WebEngageAppEx_Example.app"
-            BlueprintName = "WebEngageAppEx_Example"
-            ReferencedContainer = "container:WebEngageAppEx.xcodeproj">
+            BlueprintIdentifier = "EC427EED21B6987C001EC77F"
+            BuildableName = "WEGExtensionApp.app"
+            BlueprintName = "WEGExtensionApp"
+            ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -84,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "WebEngageAppEx_Example.app"
-            BlueprintName = "WebEngageAppEx_Example"
-            ReferencedContainer = "container:WebEngageAppEx.xcodeproj">
+            BlueprintIdentifier = "EC427EED21B6987C001EC77F"
+            BuildableName = "WEGExtensionApp.app"
+            BlueprintName = "WEGExtensionApp"
+            ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
