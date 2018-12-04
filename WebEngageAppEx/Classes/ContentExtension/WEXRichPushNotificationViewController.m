@@ -13,6 +13,7 @@
 #import "WEXRatingPushNotificationViewController.h"
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
+#import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 
 
 @interface WEXRichPushNotificationViewController ()
