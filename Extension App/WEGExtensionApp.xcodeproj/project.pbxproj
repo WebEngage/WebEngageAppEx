@@ -246,8 +246,8 @@
 		EC9A3D7821B6B07900C63B7D /* WebEngageAppEx */ = {
 			isa = PBXGroup;
 			children = (
-				EC9A3D7921B6B07900C63B7D /* Classes */,
 				EC9A3D8F21B6B07900C63B7D /* Assets */,
+				EC9A3D7921B6B07900C63B7D /* Classes */,
 			);
 			name = WebEngageAppEx;
 			path = ../WebEngageAppEx;
@@ -256,10 +256,10 @@
 		EC9A3D7921B6B07900C63B7D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				EC9A3D7A21B6B07900C63B7D /* NotificationService */,
-				EC9A3D7D21B6B07900C63B7D /* ContentExtension */,
 				EC9A3D8721B6B07900C63B7D /* .gitkeep */,
+				EC9A3D7D21B6B07900C63B7D /* ContentExtension */,
 				EC9A3D8821B6B07900C63B7D /* CoreApi */,
+				EC9A3D7A21B6B07900C63B7D /* NotificationService */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -267,8 +267,8 @@
 		EC9A3D7A21B6B07900C63B7D /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
-				EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */,
 				EC9A3D7C21B6B07900C63B7D /* WEXPushNotificationService.h */,
+				EC9A3D7B21B6B07900C63B7D /* WEXPushNotificationService.m */,
 			);
 			path = NotificationService;
 			sourceTree = "<group>";
@@ -277,14 +277,14 @@
 			isa = PBXGroup;
 			children = (
 				EC9A3D7E21B6B07900C63B7D /* WEXRichPushNotificationViewController+Private.h */,
-				EC9A3D7F21B6B07900C63B7D /* WEXRichPushLayout.h */,
-				EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */,
-				EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */,
-				EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */,
-				EC9A3D8321B6B07900C63B7D /* WEXRichPushNotificationViewController.h */,
-				EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */,
 				EC9A3D8521B6B07900C63B7D /* WEXCarouselPushNotificationViewController.h */,
+				EC9A3D8121B6B07900C63B7D /* WEXCarouselPushNotificationViewController.m */,
 				EC9A3D8621B6B07900C63B7D /* WEXRatingPushNotificationViewController.h */,
+				EC9A3D8221B6B07900C63B7D /* WEXRatingPushNotificationViewController.m */,
+				EC9A3D7F21B6B07900C63B7D /* WEXRichPushLayout.h */,
+				EC9A3D8421B6B07900C63B7D /* WEXRichPushLayout.m */,
+				EC9A3D8321B6B07900C63B7D /* WEXRichPushNotificationViewController.h */,
+				EC9A3D8021B6B07900C63B7D /* WEXRichPushNotificationViewController.m */,
 			);
 			path = ContentExtension;
 			sourceTree = "<group>";
@@ -292,12 +292,12 @@
 		EC9A3D8821B6B07900C63B7D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
-				EC9A3D8921B6B07900C63B7D /* WEXUser.h */,
 				EC9A3D8A21B6B07900C63B7D /* WEXAnalytics.h */,
-				EC9A3D8B21B6B07900C63B7D /* WEXCoreUtils.h */,
 				EC9A3D8C21B6B07900C63B7D /* WEXAnalytics.m */,
-				EC9A3D8D21B6B07900C63B7D /* WEXUser.m */,
+				EC9A3D8B21B6B07900C63B7D /* WEXCoreUtils.h */,
 				EC9A3D8E21B6B07900C63B7D /* WEXCoreUtils.m */,
+				EC9A3D8921B6B07900C63B7D /* WEXUser.h */,
+				EC9A3D8D21B6B07900C63B7D /* WEXUser.m */,
 			);
 			path = CoreApi;
 			sourceTree = "<group>";
