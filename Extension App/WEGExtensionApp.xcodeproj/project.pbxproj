@@ -1,0 +1,641 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF121B6987C001EC77F /* AppDelegate.swift */; };
+		EC427EF421B6987C001EC77F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF321B6987C001EC77F /* ViewController.swift */; };
+		EC427EF721B6987C001EC77F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427EF521B6987C001EC77F /* Main.storyboard */; };
+		EC427EF921B6987D001EC77F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC427EF821B6987D001EC77F /* Assets.xcassets */; };
+		EC427EFC21B6987D001EC77F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427EFA21B6987D001EC77F /* LaunchScreen.storyboard */; };
+		EC427F0A21B698A3001EC77F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427F0921B698A3001EC77F /* NotificationService.swift */; };
+		EC427F0E21B698A3001EC77F /* ServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EC427F0721B698A3001EC77F /* ServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EC427F1A21B698BA001EC77F /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC427F1921B698BA001EC77F /* UserNotifications.framework */; };
+		EC427F1C21B698BA001EC77F /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC427F1B21B698BA001EC77F /* UserNotificationsUI.framework */; };
+		EC427F1F21B698BA001EC77F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427F1E21B698BA001EC77F /* NotificationViewController.swift */; };
+		EC427F2221B698BA001EC77F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427F2021B698BA001EC77F /* MainInterface.storyboard */; };
+		EC427F2621B698BA001EC77F /* ContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EC427F1721B698BA001EC77F /* ContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC427F0C21B698A3001EC77F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC427EE621B6987C001EC77F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC427F0621B698A3001EC77F;
+			remoteInfo = ServiceExtension;
+		};
+		EC427F2421B698BA001EC77F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC427EE621B6987C001EC77F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC427F1621B698BA001EC77F;
+			remoteInfo = ContentExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EC427F1221B698A3001EC77F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EC427F2621B698BA001EC77F /* ContentExtension.appex in Embed App Extensions */,
+				EC427F0E21B698A3001EC77F /* ServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WEGExtensionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC427EF121B6987C001EC77F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC427EF321B6987C001EC77F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EC427EF621B6987C001EC77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC427EF821B6987D001EC77F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EC427EFB21B6987D001EC77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EC427EFD21B6987D001EC77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC427F0721B698A3001EC77F /* ServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC427F0921B698A3001EC77F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		EC427F0B21B698A3001EC77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC427F1721B698BA001EC77F /* ContentExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ContentExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC427F1921B698BA001EC77F /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		EC427F1B21B698BA001EC77F /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		EC427F1E21B698BA001EC77F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		EC427F2121B698BA001EC77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		EC427F2321B698BA001EC77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC427EEB21B6987C001EC77F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F0421B698A3001EC77F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F1421B698BA001EC77F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427F1C21B698BA001EC77F /* UserNotificationsUI.framework in Frameworks */,
+				EC427F1A21B698BA001EC77F /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC427EE521B6987C001EC77F = {
+			isa = PBXGroup;
+			children = (
+				EC427EF021B6987C001EC77F /* WEGExtensionApp */,
+				EC427F0821B698A3001EC77F /* ServiceExtension */,
+				EC427F1D21B698BA001EC77F /* ContentExtension */,
+				EC427F1821B698BA001EC77F /* Frameworks */,
+				EC427EEF21B6987C001EC77F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC427EEF21B6987C001EC77F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */,
+				EC427F0721B698A3001EC77F /* ServiceExtension.appex */,
+				EC427F1721B698BA001EC77F /* ContentExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC427EF021B6987C001EC77F /* WEGExtensionApp */ = {
+			isa = PBXGroup;
+			children = (
+				EC427EF121B6987C001EC77F /* AppDelegate.swift */,
+				EC427EF321B6987C001EC77F /* ViewController.swift */,
+				EC427EF521B6987C001EC77F /* Main.storyboard */,
+				EC427EF821B6987D001EC77F /* Assets.xcassets */,
+				EC427EFA21B6987D001EC77F /* LaunchScreen.storyboard */,
+				EC427EFD21B6987D001EC77F /* Info.plist */,
+			);
+			path = WEGExtensionApp;
+			sourceTree = "<group>";
+		};
+		EC427F0821B698A3001EC77F /* ServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EC427F0921B698A3001EC77F /* NotificationService.swift */,
+				EC427F0B21B698A3001EC77F /* Info.plist */,
+			);
+			path = ServiceExtension;
+			sourceTree = "<group>";
+		};
+		EC427F1821B698BA001EC77F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC427F1921B698BA001EC77F /* UserNotifications.framework */,
+				EC427F1B21B698BA001EC77F /* UserNotificationsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC427F1D21B698BA001EC77F /* ContentExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EC427F1E21B698BA001EC77F /* NotificationViewController.swift */,
+				EC427F2021B698BA001EC77F /* MainInterface.storyboard */,
+				EC427F2321B698BA001EC77F /* Info.plist */,
+			);
+			path = ContentExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC427EED21B6987C001EC77F /* WEGExtensionApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC427F0021B6987D001EC77F /* Build configuration list for PBXNativeTarget "WEGExtensionApp" */;
+			buildPhases = (
+				EC427EEA21B6987C001EC77F /* Sources */,
+				EC427EEB21B6987C001EC77F /* Frameworks */,
+				EC427EEC21B6987C001EC77F /* Resources */,
+				EC427F1221B698A3001EC77F /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC427F0D21B698A3001EC77F /* PBXTargetDependency */,
+				EC427F2521B698BA001EC77F /* PBXTargetDependency */,
+			);
+			name = WEGExtensionApp;
+			productName = WEGExtensionApp;
+			productReference = EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC427F0621B698A3001EC77F /* ServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC427F0F21B698A3001EC77F /* Build configuration list for PBXNativeTarget "ServiceExtension" */;
+			buildPhases = (
+				EC427F0321B698A3001EC77F /* Sources */,
+				EC427F0421B698A3001EC77F /* Frameworks */,
+				EC427F0521B698A3001EC77F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ServiceExtension;
+			productName = ServiceExtension;
+			productReference = EC427F0721B698A3001EC77F /* ServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		EC427F1621B698BA001EC77F /* ContentExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC427F2721B698BB001EC77F /* Build configuration list for PBXNativeTarget "ContentExtension" */;
+			buildPhases = (
+				EC427F1321B698BA001EC77F /* Sources */,
+				EC427F1421B698BA001EC77F /* Frameworks */,
+				EC427F1521B698BA001EC77F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ContentExtension;
+			productName = ContentExtension;
+			productReference = EC427F1721B698BA001EC77F /* ContentExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC427EE621B6987C001EC77F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Yogesh Singh";
+				TargetAttributes = {
+					EC427EED21B6987C001EC77F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					EC427F0621B698A3001EC77F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					EC427F1621B698BA001EC77F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = EC427EE921B6987C001EC77F /* Build configuration list for PBXProject "WEGExtensionApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EC427EE521B6987C001EC77F;
+			productRefGroup = EC427EEF21B6987C001EC77F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC427EED21B6987C001EC77F /* WEGExtensionApp */,
+				EC427F0621B698A3001EC77F /* ServiceExtension */,
+				EC427F1621B698BA001EC77F /* ContentExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC427EEC21B6987C001EC77F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427EFC21B6987D001EC77F /* LaunchScreen.storyboard in Resources */,
+				EC427EF921B6987D001EC77F /* Assets.xcassets in Resources */,
+				EC427EF721B6987C001EC77F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F0521B698A3001EC77F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F1521B698BA001EC77F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427F2221B698BA001EC77F /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC427EEA21B6987C001EC77F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427EF421B6987C001EC77F /* ViewController.swift in Sources */,
+				EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F0321B698A3001EC77F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427F0A21B698A3001EC77F /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC427F1321B698BA001EC77F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC427F1F21B698BA001EC77F /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC427F0D21B698A3001EC77F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC427F0621B698A3001EC77F /* ServiceExtension */;
+			targetProxy = EC427F0C21B698A3001EC77F /* PBXContainerItemProxy */;
+		};
+		EC427F2521B698BA001EC77F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC427F1621B698BA001EC77F /* ContentExtension */;
+			targetProxy = EC427F2421B698BA001EC77F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EC427EF521B6987C001EC77F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC427EF621B6987C001EC77F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EC427EFA21B6987D001EC77F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC427EFB21B6987D001EC77F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EC427F2021B698BA001EC77F /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC427F2121B698BA001EC77F /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC427EFE21B6987D001EC77F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EC427EFF21B6987D001EC77F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC427F0121B6987D001EC77F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC427F0221B6987D001EC77F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EC427F1021B698A3001EC77F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC427F1121B698A3001EC77F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = ServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EC427F2821B698BB001EC77F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = ContentExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ContentExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC427F2921B698BB001EC77F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				INFOPLIST_FILE = ContentExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ContentExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC427EE921B6987C001EC77F /* Build configuration list for PBXProject "WEGExtensionApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC427EFE21B6987D001EC77F /* Debug */,
+				EC427EFF21B6987D001EC77F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC427F0021B6987D001EC77F /* Build configuration list for PBXNativeTarget "WEGExtensionApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC427F0121B6987D001EC77F /* Debug */,
+				EC427F0221B6987D001EC77F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC427F0F21B698A3001EC77F /* Build configuration list for PBXNativeTarget "ServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC427F1021B698A3001EC77F /* Debug */,
+				EC427F1121B698A3001EC77F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC427F2721B698BB001EC77F /* Build configuration list for PBXNativeTarget "ContentExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC427F2821B698BB001EC77F /* Debug */,
+				EC427F2921B698BB001EC77F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC427EE621B6987C001EC77F /* Project object */;
+}
