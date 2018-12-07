@@ -12,7 +12,7 @@ s.license          = { :type => 'OTHER', :file => 'LICENSE' }
 s.author           = { 'saumitrabhave' => 'saumitra@webklipper.com' }
 s.source           = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => s.version.to_s }
 
-s.ios.deployment_target = '8.0'
+s.ios.deployment_target = '10.0'
 s.subspec 'CoreApi' do |api|
 api.source_files = 'WebEngageAppEx/Classes/CoreApi/**/*.{h,m}'
 api.public_header_files = 'WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h', 'WebEngageAppEx/Classes/CoreApi/WEXUser.h'
