@@ -30,7 +30,7 @@
     return self;
 }
 
--(void)didReceiveNotification:(UNNotification *)notification {}
+-(void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){}
 #endif
 
 @end
