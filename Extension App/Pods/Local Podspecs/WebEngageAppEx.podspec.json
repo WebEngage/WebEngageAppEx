@@ -16,7 +16,7 @@
     "tag": "0.1.1"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
   "subspecs": [
     {

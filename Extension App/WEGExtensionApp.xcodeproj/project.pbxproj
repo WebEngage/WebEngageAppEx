@@ -472,6 +472,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp-frameworks.sh",
+				"${PODS_ROOT}/WebEngage/xc10/WebEngage.framework",
+				"${PODS_ROOT}/WebEngage/xc10/WebEngage.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework",
 				"${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework",
 			);
@@ -479,6 +481,8 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebEngage.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/WebEngage.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebEngageBannerPush.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebEngageAppEx.framework",
 			);

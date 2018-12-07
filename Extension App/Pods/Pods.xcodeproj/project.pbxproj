@@ -94,6 +94,7 @@
 		4A9E5C066E8564A59B3C21400291F438 /* WebEngageBannerPush.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WebEngageBannerPush.modulemap; sourceTree = "<group>"; };
 		4DFBF09B698AB8D070C24FCEC31B56F6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E2182D1D4E1F161C207480D0E2DCF22 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53AF23068E0FEB4FC84EF477DE4B1E7C /* WebEngage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebEngage.framework; path = xc10/WebEngage.framework; sourceTree = "<group>"; };
 		5E17C177DF69F10324EDFB70B53DD522 /* WEXCarouselPushNotificationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WEXCarouselPushNotificationViewController.m; path = WebEngageAppEx/Classes/ContentExtension/WEXCarouselPushNotificationViewController.m; sourceTree = "<group>"; };
 		6026420A8A1E13DCEE0DB7A7AF5C985E /* Pods-WEGExtensionApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WEGExtensionApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		615705B902A53034BEE6B625117D252F /* Pods-ContentExtension-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ContentExtension-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -201,6 +202,15 @@
 			name = Pod;
 			sourceTree = "<group>";
 		};
+		18782A9085B77E56F5AF7F5627C38E4F /* WebEngage */ = {
+			isa = PBXGroup;
+			children = (
+				C91F0C34953BB534A8AD3E760F9371B4 /* Xcode10 */,
+			);
+			name = WebEngage;
+			path = WebEngage;
+			sourceTree = "<group>";
+		};
 		1F61D9026445050A48FEC63321755BE0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,12 +301,21 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		6DA6EE54936C49923BFA982C5275F493 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53AF23068E0FEB4FC84EF477DE4B1E7C /* WebEngage.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				A1CC2B707A0F005858B70880BBF8190C /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				EA0A79FF5304509CBC149DDD2FE228C6 /* Pods */,
 				1F61D9026445050A48FEC63321755BE0 /* Products */,
 				974F3C031984B46890A07B7782DB7DFE /* Targets Support Files */,
 			);
@@ -364,6 +383,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C91F0C34953BB534A8AD3E760F9371B4 /* Xcode10 */ = {
+			isa = PBXGroup;
+			children = (
+				6DA6EE54936C49923BFA982C5275F493 /* Frameworks */,
+			);
+			name = Xcode10;
+			sourceTree = "<group>";
+		};
 		D2129DC851D11505186A3549628177A7 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +417,14 @@
 			);
 			name = "Support Files";
 			path = "Extension App/Pods/Target Support Files/WebEngageBannerPush";
+			sourceTree = "<group>";
+		};
+		EA0A79FF5304509CBC149DDD2FE228C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				18782A9085B77E56F5AF7F5627C38E4F /* WebEngage */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -764,6 +799,43 @@
 			};
 			name = Debug;
 		};
+		247DB38765D42C55B9A8A14D3A8657B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB62F786F9D6CEB51DF48047FC180A94 /* WebEngageAppEx.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
+				PRODUCT_MODULE_NAME = WebEngageAppEx;
+				PRODUCT_NAME = WebEngageAppEx;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		3C3D51F8F3137DDE3F3E66A6AC804EEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8819E53749512D08433346CA13C0E037 /* WebEngageBannerPush.xcconfig */;
@@ -1048,6 +1120,44 @@
 			};
 			name = Debug;
 		};
+		993BD169F26E8AB4BBCF4B3D22F268FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB62F786F9D6CEB51DF48047FC180A94 /* WebEngageAppEx.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
+				PRODUCT_MODULE_NAME = WebEngageAppEx;
+				PRODUCT_NAME = WebEngageAppEx;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		C409538A01CA3CADB471FF5F6BF55A7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 074418E0A0DA2CDFC0D5BF2E8F5AD921 /* Pods-WEGExtensionApp.debug.xcconfig */;
@@ -1084,79 +1194,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		C8D4F1FA259E530FAC7D3AB29A22381A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB62F786F9D6CEB51DF48047FC180A94 /* WebEngageAppEx.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
-				PRODUCT_MODULE_NAME = WebEngageAppEx;
-				PRODUCT_NAME = WebEngageAppEx;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		EF3A7B7E12DF01895D194F3AB30B1640 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB62F786F9D6CEB51DF48047FC180A94 /* WebEngageAppEx.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/WebEngageAppEx/WebEngageAppEx-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/WebEngageAppEx/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/WebEngageAppEx/WebEngageAppEx.modulemap";
-				PRODUCT_MODULE_NAME = WebEngageAppEx;
-				PRODUCT_NAME = WebEngageAppEx;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		F8FFA79E20B987508FABA6F0A4B923B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1248,8 +1285,8 @@
 		EC3D05306F193D6AC939310F896EAD68 /* Build configuration list for PBXNativeTarget "WebEngageAppEx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C8D4F1FA259E530FAC7D3AB29A22381A /* Debug */,
-				EF3A7B7E12DF01895D194F3AB30B1640 /* Release */,
+				247DB38765D42C55B9A8A14D3A8657B4 /* Debug */,
+				993BD169F26E8AB4BBCF4B3D22F268FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

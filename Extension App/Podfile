@@ -21,4 +21,5 @@ end
 
 target 'WEGExtensionApp' do
   use_frameworks!
+  pod 'WebEngage'
 end

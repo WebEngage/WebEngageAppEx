@@ -143,10 +143,14 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${PODS_ROOT}/WebEngage/xc10/WebEngage.framework"
+  install_dsym "${PODS_ROOT}/WebEngage/xc10/WebEngage.framework.dSYM"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${PODS_ROOT}/WebEngage/xc10/WebEngage.framework"
+  install_dsym "${PODS_ROOT}/WebEngage/xc10/WebEngage.framework.dSYM"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework"
 fi
