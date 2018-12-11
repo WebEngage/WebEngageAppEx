@@ -21,8 +21,7 @@ pod 'WebEngageAppEx'
 
 ## Author
 
-Saumitra Bhave saumitra@webklipper.com <br/>
-Yogesh Singh yogesh.singh@webklipper.com
+saumitra@webklipper.com
 
 ## License
 

@@ -15,7 +15,6 @@
 #define MAX_DESCRIPTION_LINE_COUNT 3
 #define TEXT_PADDING 10
 
-API_AVAILABLE(ios(10.0))
 @interface StarPickerManager : NSObject
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 <UIPickerViewDataSource, UIPickerViewDelegate>
@@ -24,7 +23,7 @@ API_AVAILABLE(ios(10.0))
 @property (strong, nonatomic) UNNotification* notification;
 @property (strong, nonatomic) NSArray* starRatingRows;
 
--(instancetype) initWithNotification: (UNNotification*) notification API_AVAILABLE(ios(10.0));
+-(instancetype) initWithNotification: (UNNotification*) notification;
 
 #endif
 @end
@@ -33,7 +32,7 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
--(instancetype) initWithNotification: (UNNotification*) notification  API_AVAILABLE(ios(10.0)){
+-(instancetype) initWithNotification: (UNNotification*) notification {
     
     if (self = [super init]) {
         
@@ -99,7 +98,6 @@ API_AVAILABLE(ios(10.0))
 
 @end
 
-API_AVAILABLE(ios(10.0))
 @interface WEXRatingPushNotificationViewController ()
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
@@ -140,28 +138,21 @@ API_AVAILABLE(ios(10.0))
         
         if (self.notification.request.content.attachments
             && self.notification.request.content.attachments.count > 0) {
-            
-            if (@available(iOS 10.0, *)) {
+            UNNotificationAttachment* attachment = self.notification.request.content.attachments.firstObject;
+            if ([attachment.URL startAccessingSecurityScopedResource]) {
                 
-                UNNotificationAttachment* attachment = self.notification.request.content.attachments.firstObject;
+                NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
+                UIImage *image = [UIImage imageWithData:imageData];
                 
-                if ([attachment.URL startAccessingSecurityScopedResource]) {
-                    
-                    NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
-                    UIImage *image = [UIImage imageWithData:imageData];
-                    
-                    [attachment.URL stopAccessingSecurityScopedResource];
-                    
-                    if (image) {
-                        backgroundImage = YES;
-                        UIImageView* imageView = [[UIImageView alloc] init];
-                        imageView.image = image;
-                        imageView.contentMode = UIViewContentModeScaleAspectFill;
-                        [mainContentView addSubview:imageView];
-                    }
+                [attachment.URL stopAccessingSecurityScopedResource];
+                
+                if (image) {
+                    backgroundImage = YES;
+                    UIImageView* imageView = [[UIImageView alloc] init];
+                    imageView.image = image;
+                    imageView.contentMode = UIViewContentModeScaleAspectFill;
+                    [mainContentView addSubview:imageView];
                 }
-            } else {
-                NSLog(@"Expected to be running iOS version 10 or above");
             }
         }
     }
@@ -268,8 +259,8 @@ API_AVAILABLE(ios(10.0))
     
     NSInteger selectedCount = self.selectedCount;
     NSInteger totalCount =
-    [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"]
-     integerValue];
+        [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"]
+                                                                            integerValue];
     
     self.selectedLabel.textAlignment = NSTextAlignmentNatural;
     
@@ -328,125 +319,117 @@ API_AVAILABLE(ios(10.0))
     UIView* separator = superViewWrapper.subviews[1];
     UIView* starRatingWrapper = superViewWrapper.subviews[2];
     
+    superViewWrapper.translatesAutoresizingMaskIntoConstraints = NO;
+    [superViewWrapper.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [superViewWrapper.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [superViewWrapper.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [superViewWrapper.bottomAnchor constraintEqualToAnchor:starRatingWrapper.bottomAnchor].active = YES;
+    //superViewWrapper.contentMode = UIViewContentModeScaleToFill;
     
-    if (@available(iOS 10.0, *)) {
+    //Top level view constraints
+    mainContentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [mainContentView.leadingAnchor constraintEqualToAnchor:mainContentView.superview.leadingAnchor].active = YES;
+    [mainContentView.trailingAnchor constraintEqualToAnchor:mainContentView.superview.trailingAnchor].active = YES;
+    [mainContentView.topAnchor constraintEqualToAnchor:mainContentView.superview.topAnchor].active = YES;
+    
+    separator.translatesAutoresizingMaskIntoConstraints = NO;
+    [separator.leadingAnchor constraintEqualToAnchor:separator.superview.leadingAnchor].active = YES;
+    [separator.trailingAnchor constraintEqualToAnchor:separator.superview.trailingAnchor].active = YES;
+    [separator.topAnchor constraintEqualToAnchor:mainContentView.bottomAnchor].active = YES;
+    [separator.heightAnchor constraintEqualToConstant:0.5].active = YES;
+    
+    starRatingWrapper.translatesAutoresizingMaskIntoConstraints = NO;
+    [starRatingWrapper.leadingAnchor constraintEqualToAnchor:starRatingWrapper.superview.leadingAnchor].active = YES;
+    [starRatingWrapper.trailingAnchor constraintEqualToAnchor:starRatingWrapper.superview.trailingAnchor].active = YES;
+    [starRatingWrapper.topAnchor constraintEqualToAnchor:separator.bottomAnchor].active = YES;
+    [starRatingWrapper.heightAnchor constraintEqualToConstant:STAR_BAR_HEIGHT].active = YES;
+    
+    //self.view.translatesAutoresizingMaskIntoConstraints = NO;
+    //[self.view.bottomAnchor constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
+    
+    [self.viewController.bottomLayoutGuide.topAnchor
+     constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
+    
+    //Main Content View Internal Constraints
+    NSInteger textDisplaySubviewIndex = 0;
+    if (imageViewIncluded) {
         
-        superViewWrapper.translatesAutoresizingMaskIntoConstraints = NO;
-        [superViewWrapper.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+        UIImageView* imageView = mainContentView.subviews[0];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
+        [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
+        [imageView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
+        [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:1.0/3.0].active = YES;
+        [mainContentView.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
         
-        [superViewWrapper.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-        [superViewWrapper.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-        [superViewWrapper.bottomAnchor constraintEqualToAnchor:starRatingWrapper.bottomAnchor].active = YES;
-        //superViewWrapper.contentMode = UIViewContentModeScaleToFill;
-        
-        //Top level view constraints
-        mainContentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [mainContentView.leadingAnchor constraintEqualToAnchor:mainContentView.superview.leadingAnchor].active = YES;
-        [mainContentView.trailingAnchor constraintEqualToAnchor:mainContentView.superview.trailingAnchor].active = YES;
-        [mainContentView.topAnchor constraintEqualToAnchor:mainContentView.superview.topAnchor].active = YES;
-        
-        separator.translatesAutoresizingMaskIntoConstraints = NO;
-        [separator.leadingAnchor constraintEqualToAnchor:separator.superview.leadingAnchor].active = YES;
-        [separator.trailingAnchor constraintEqualToAnchor:separator.superview.trailingAnchor].active = YES;
-        [separator.topAnchor constraintEqualToAnchor:mainContentView.bottomAnchor].active = YES;
-        [separator.heightAnchor constraintEqualToConstant:0.5].active = YES;
-        
-        starRatingWrapper.translatesAutoresizingMaskIntoConstraints = NO;
-        [starRatingWrapper.leadingAnchor constraintEqualToAnchor:starRatingWrapper.superview.leadingAnchor].active = YES;
-        [starRatingWrapper.trailingAnchor constraintEqualToAnchor:starRatingWrapper.superview.trailingAnchor].active = YES;
-        [starRatingWrapper.topAnchor constraintEqualToAnchor:separator.bottomAnchor].active = YES;
-        [starRatingWrapper.heightAnchor constraintEqualToConstant:STAR_BAR_HEIGHT].active = YES;
-        
-        //self.view.translatesAutoresizingMaskIntoConstraints = NO;
-        //[self.view.bottomAnchor constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
-        
-        [self.viewController.bottomLayoutGuide.topAnchor
-         constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
-        
-        //Main Content View Internal Constraints
-        NSInteger textDisplaySubviewIndex = 0;
-        if (imageViewIncluded) {
-            
-            UIImageView* imageView = mainContentView.subviews[0];
-            imageView.translatesAutoresizingMaskIntoConstraints = NO;
-            [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
-            [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
-            [imageView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
-            [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:1.0/3.0].active = YES;
-            [mainContentView.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
-            
-            textDisplaySubviewIndex = 1;
-        }
-        
-        UIView* textDisplayView = mainContentView.subviews[textDisplaySubviewIndex];
-        textDisplayView.translatesAutoresizingMaskIntoConstraints = NO;
-        [textDisplayView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
-        [textDisplayView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
-        [textDisplayView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
-        if (!imageViewIncluded) {
-            [mainContentView.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor].active = YES;
-        }
-        
-        
-        //TextDisplayView internal constraints
-        NSInteger messageSubViewIndex = 0;
-        UILabel* titleLabel;
-        if (titlePresent) {
-            
-            messageSubViewIndex = 1;
-            titleLabel = textDisplayView.subviews[0];
-            titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            [titleLabel.leadingAnchor constraintEqualToAnchor:textDisplayView.leadingAnchor constant:TEXT_PADDING].active = YES;
-            [titleLabel.trailingAnchor constraintEqualToAnchor:textDisplayView.trailingAnchor constant:0-TEXT_PADDING].active = YES;
-            [titleLabel.topAnchor constraintEqualToAnchor:textDisplayView.topAnchor constant:TEXT_PADDING].active = YES;
-            
-            if (!messagePresent) {
-                [titleLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant:0-TEXT_PADDING].active = YES;
-            }
-        }
-        
-        if (messagePresent) {
-            
-            UILabel* messageLabel = textDisplayView.subviews[messageSubViewIndex];
-            messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            [messageLabel.leadingAnchor constraintEqualToAnchor:textDisplayView.leadingAnchor constant:TEXT_PADDING].active = YES;
-            [messageLabel.trailingAnchor constraintEqualToAnchor:textDisplayView.trailingAnchor constant:0-TEXT_PADDING].active = YES;
-            
-            if (titlePresent) {
-                [messageLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:TEXT_PADDING].active = YES;
-            } else {
-                [messageLabel.topAnchor constraintEqualToAnchor:textDisplayView.topAnchor constant:TEXT_PADDING].active = YES;
-            }
-            
-            [messageLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant: 0-TEXT_PADDING].active = YES;
-            
-        }
-        
-        
-        //Star rating view internal constraints
-        self.labelsWrapper.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.labelsWrapper.topAnchor constraintEqualToAnchor:self.labelsWrapper.superview.topAnchor].active = YES;
-        [self.labelsWrapper.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.superview.bottomAnchor].active = YES;
-        [self.labelsWrapper.centerXAnchor constraintEqualToAnchor:self.labelsWrapper.superview.centerXAnchor].active = YES;
-        
-        self.selectedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.selectedLabel.topAnchor constraintEqualToAnchor:self.labelsWrapper.topAnchor].active = YES;
-        [self.selectedLabel.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.bottomAnchor].active = YES;
-        [self.selectedLabel.leadingAnchor constraintEqualToAnchor:self.labelsWrapper.leadingAnchor].active = YES;
-        
-        self.unselectedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.unselectedLabel.topAnchor constraintEqualToAnchor:self.labelsWrapper.topAnchor].active = YES;
-        [self.unselectedLabel.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.bottomAnchor].active = YES;
-        [self.unselectedLabel.trailingAnchor constraintEqualToAnchor:self.labelsWrapper.trailingAnchor].active = YES;
-        
-        [self.unselectedLabel.leadingAnchor constraintEqualToAnchor:self.selectedLabel.trailingAnchor].active = YES;
-        
-        //[superViewWrapper.heightAnchor constraintEqualToConstant:mainContentView.frame.size.height + separator.frame.size.height + starRatingWrapper.frame.size.height].active = YES;
-        
-        
-    } else {
-        NSLog(@"Expected to be running iOS version 10 or above");
+        textDisplaySubviewIndex = 1;
     }
+    
+    UIView* textDisplayView = mainContentView.subviews[textDisplaySubviewIndex];
+    textDisplayView.translatesAutoresizingMaskIntoConstraints = NO;
+    [textDisplayView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
+    [textDisplayView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
+    [textDisplayView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
+    if (!imageViewIncluded) {
+        [mainContentView.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor].active = YES;
+    }
+    
+    
+    //TextDisplayView internal constraints
+    NSInteger messageSubViewIndex = 0;
+    UILabel* titleLabel;
+    if (titlePresent) {
+        
+        messageSubViewIndex = 1;
+        titleLabel = textDisplayView.subviews[0];
+        titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [titleLabel.leadingAnchor constraintEqualToAnchor:textDisplayView.leadingAnchor constant:TEXT_PADDING].active = YES;
+        [titleLabel.trailingAnchor constraintEqualToAnchor:textDisplayView.trailingAnchor constant:0-TEXT_PADDING].active = YES;
+        [titleLabel.topAnchor constraintEqualToAnchor:textDisplayView.topAnchor constant:TEXT_PADDING].active = YES;
+        
+        if (!messagePresent) {
+            [titleLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant:0-TEXT_PADDING].active = YES;
+        }
+    }
+    
+    if (messagePresent) {
+        
+        UILabel* messageLabel = textDisplayView.subviews[messageSubViewIndex];
+        messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [messageLabel.leadingAnchor constraintEqualToAnchor:textDisplayView.leadingAnchor constant:TEXT_PADDING].active = YES;
+        [messageLabel.trailingAnchor constraintEqualToAnchor:textDisplayView.trailingAnchor constant:0-TEXT_PADDING].active = YES;
+        
+        if (titlePresent) {
+            [messageLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:TEXT_PADDING].active = YES;
+        } else {
+            [messageLabel.topAnchor constraintEqualToAnchor:textDisplayView.topAnchor constant:TEXT_PADDING].active = YES;
+        }
+        
+        [messageLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant: 0-TEXT_PADDING].active = YES;
+        
+    }
+    
+    
+    //Star rating view internal constraints
+    self.labelsWrapper.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.labelsWrapper.topAnchor constraintEqualToAnchor:self.labelsWrapper.superview.topAnchor].active = YES;
+    [self.labelsWrapper.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.superview.bottomAnchor].active = YES;
+    [self.labelsWrapper.centerXAnchor constraintEqualToAnchor:self.labelsWrapper.superview.centerXAnchor].active = YES;
+    
+    self.selectedLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.selectedLabel.topAnchor constraintEqualToAnchor:self.labelsWrapper.topAnchor].active = YES;
+    [self.selectedLabel.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.bottomAnchor].active = YES;
+    [self.selectedLabel.leadingAnchor constraintEqualToAnchor:self.labelsWrapper.leadingAnchor].active = YES;
+    
+    self.unselectedLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.unselectedLabel.topAnchor constraintEqualToAnchor:self.labelsWrapper.topAnchor].active = YES;
+    [self.unselectedLabel.bottomAnchor constraintEqualToAnchor:self.labelsWrapper.bottomAnchor].active = YES;
+    [self.unselectedLabel.trailingAnchor constraintEqualToAnchor:self.labelsWrapper.trailingAnchor].active = YES;
+    
+    [self.unselectedLabel.leadingAnchor constraintEqualToAnchor:self.selectedLabel.trailingAnchor].active = YES;
+    
+    //[superViewWrapper.heightAnchor constraintEqualToConstant:mainContentView.frame.size.height + separator.frame.size.height + starRatingWrapper.frame.size.height].active = YES;
+    
 }
 
 
@@ -476,18 +459,11 @@ API_AVAILABLE(ios(10.0))
     [inputAccessoryView addSubview:doneButton];
     
     doneButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [doneButton.trailingAnchor constraintEqualToAnchor:inputAccessoryView.trailingAnchor constant:-10.0].active = YES;
+    [doneButton.topAnchor constraintEqualToAnchor:inputAccessoryView.topAnchor].active = YES;
+    [doneButton.bottomAnchor constraintEqualToAnchor:inputAccessoryView.bottomAnchor].active = YES;
     
-    if (@available(iOS 10.0, *)) {
-        
-        [doneButton.trailingAnchor constraintEqualToAnchor:inputAccessoryView.trailingAnchor constant:-10.0].active = YES;
-        [doneButton.topAnchor constraintEqualToAnchor:inputAccessoryView.topAnchor].active = YES;
-        [doneButton.bottomAnchor constraintEqualToAnchor:inputAccessoryView.bottomAnchor].active = YES;
-        
-        [doneButton addTarget:self action:@selector(doneButtonClicked:) forControlEvents:UIControlEventTouchDown];
-        
-    } else {
-        NSLog(@"Expected to be running iOS version 10 or above");
-    }
+    [doneButton addTarget:self action:@selector(doneButtonClicked:) forControlEvents:UIControlEventTouchDown];
     
     return inputAccessoryView;
 }
@@ -506,7 +482,7 @@ API_AVAILABLE(ios(10.0))
     [self.viewController resignFirstResponder];
 }
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotification:(UNNotification *)notification {
     
     self.notification = notification;
     [self initialiseViewHierarchy];
@@ -523,72 +499,68 @@ API_AVAILABLE(ios(10.0))
     [self.pickerView selectRow:noOfStars/2 inComponent:0 animated:NO];
 }
 
--(void) didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)){
+-(void) didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
     
-    if (@available(iOS 10.0, *)) {
-        UNNotificationContentExtensionResponseOption completionOption =
-        UNNotificationContentExtensionResponseOptionDoNotDismiss;
-        if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
+    UNNotificationContentExtensionResponseOption completionOption =
+                                                UNNotificationContentExtensionResponseOptionDoNotDismiss;
+    if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
+        
+        [self.viewController becomeFirstResponder];
+        
+    } else if([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
+        
+        if (self.selectedCount > 0) {
             
-            [self.viewController becomeFirstResponder];
+            NSDictionary* userInfo = self.notification.request.content.userInfo;
+            NSDictionary* expandableDetails = userInfo[@"expandableDetails"];
             
-        } else if([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
+            NSString* expId = userInfo[@"experiment_id"];
+            NSString* notifId = userInfo[@"notification_id"];
             
-            if (self.selectedCount > 0) {
+            //NSString* callToAction = items[index][@"id"];
+            if (expandableDetails) {
                 
-                NSDictionary* userInfo = self.notification.request.content.userInfo;
-                NSDictionary* expandableDetails = userInfo[@"expandableDetails"];
                 
-                NSString* expId = userInfo[@"experiment_id"];
-                NSString* notifId = userInfo[@"notification_id"];
+                NSMutableDictionary* systemData = [[NSMutableDictionary alloc] init];
                 
-                //NSString* callToAction = items[index][@"id"];
-                if (expandableDetails) {
+                [systemData addEntriesFromDictionary:@{
+                                                       @"id": notifId,
+                                                       @"experiment_id": expId
+                                                      }];
+                
+                
+                
+                
+                NSString* submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
+                if (submitCTA) {
+                    
+                    NSString* submitCTAId = expandableDetails[@"submitCTA"][@"id"];
+                    [systemData setObject:submitCTAId forKey:@"call_to_action"];
+                    
+                    [self.viewController setCTAWithId:submitCTAId andLink:submitCTA];
                     
                     
-                    NSMutableDictionary* systemData = [[NSMutableDictionary alloc] init];
-                    
-                    [systemData addEntriesFromDictionary:@{
-                                                           @"id": notifId,
-                                                           @"experiment_id": expId
-                                                           }];
-                    
-                    
-                    
-                    
-                    NSString* submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
-                    if (submitCTA) {
-                        
-                        NSString* submitCTAId = expandableDetails[@"submitCTA"][@"id"];
-                        [systemData setObject:submitCTAId forKey:@"call_to_action"];
-                        
-                        [self.viewController setCTAWithId:submitCTAId andLink:submitCTA];
-                        
-                        
-                    }
-                    
-                    completionOption = UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
-                    
-                    [self.viewController addSystemEventWithName:WEX_RATING_SUBMITTED_EVENT_NAME
-                                                     systemData: systemData
-                                                applicationData:@{
-                                                                  @"we_wk_rating":
-                                                                      [NSNumber numberWithInteger:
-                                                                       self.selectedCount]
-                                                                  }];
                 }
                 
-            } else {
+                completionOption = UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
                 
-                //Here UI may be updated to prompt choosing a rating value.
+                [self.viewController addSystemEventWithName:WEX_RATING_SUBMITTED_EVENT_NAME
+                                                   systemData: systemData
+                                              applicationData:@{
+                                                                @"we_wk_rating":
+                                                                    [NSNumber numberWithInteger:
+                                                                     self.selectedCount]
+                                                                }];
             }
             
+        } else {
+        
+            //Here UI may be updated to prompt choosing a rating value.
         }
         
-        completion(completionOption);
-    } else {
-        NSLog(@"Expected to be running iOS version 10 or above");
     }
+    
+    completion(completionOption);
     
 }
 

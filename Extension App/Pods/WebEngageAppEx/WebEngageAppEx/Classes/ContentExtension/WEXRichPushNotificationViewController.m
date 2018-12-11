@@ -13,10 +13,8 @@
 #import "WEXRatingPushNotificationViewController.h"
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
-#import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 
 
-API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 @property (strong, nonatomic) UILabel* label;
@@ -79,7 +77,7 @@ API_AVAILABLE(ios(10.0))
     if (self.currentLayout && [self.currentLayout respondsToSelector:@selector(inputAccessoryView)]) {
         return [self.currentLayout performSelector:@selector(inputAccessoryView)];
     } else {
-        
+    
         return [super inputAccessoryView];
     }
 }
@@ -93,7 +91,7 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotification:(UNNotification *)notification {
     
     self.notification = notification;
     self.isRendering = YES;
@@ -105,7 +103,7 @@ API_AVAILABLE(ios(10.0))
         /*
          Retrieving the app bundle identifier using the method described here:
          https://stackoverflow.com/a/27849695/1357328
-         */
+        */
         
         NSBundle *bundle = [NSBundle mainBundle];
         if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
@@ -143,10 +141,11 @@ API_AVAILABLE(ios(10.0))
     return nil;
 }
 
--(void) didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)){
+-(void) didReceiveNotificationResponse:(UNNotificationResponse *)response
+                     completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
     
     [self.currentLayout didReceiveNotificationResponse:response
-                                     completionHandler:completion];
+                                         completionHandler:completion];
 }
 
 
@@ -209,27 +208,26 @@ API_AVAILABLE(ios(10.0))
              systemData:(NSDictionary *)systemData
         applicationData:(NSDictionary *)applicationData
                category: (NSString*) category {
-    
     id customData = self.notification.request.content.userInfo[@"customData"];
     NSMutableDictionary* customDataDictionary = [[NSMutableDictionary alloc] init];
     if (customData && [customData isKindOfClass:[NSArray class]]) {
-        NSArray *customDataArray = customData;
-        for (NSDictionary *customDataItem in customDataArray) {
-            customDataDictionary[customDataItem[@"key"]] = customDataItem[@"value"];
+      NSArray *customDataArray = customData;
+      for (NSDictionary *customDataItem in customDataArray) {
+        customDataDictionary[customDataItem[@"key"]] = customDataItem[@"value"];
         }
     }
     if (applicationData) {
         [customDataDictionary addEntriesFromDictionary:applicationData];
     }
     if ([category isEqualToString:@"system"]) {
-        [WEXAnalytics
-         trackEventWithName:[@"we_" stringByAppendingString:eventName]
-         andValue:@{
-                    @"system_data_overrides" : systemData ? systemData : @{},
-                    @"event_data_overrides" : customDataDictionary
+      [WEXAnalytics
+          trackEventWithName:[@"we_" stringByAppendingString:eventName]
+                    andValue:@{
+                      @"system_data_overrides" : systemData ? systemData : @{},
+                      @"event_data_overrides" : customDataDictionary
                     }];
     } else {
-        [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
+            [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
 }
 
