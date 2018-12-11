@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'WebEngageBannerPush'
-s.version          = '0.1.0'
+s.version          = '0.2.0'
 s.summary          = 'Extension For Using WebEngage Banner or Attachment Based Notifications'
 
 s.description      = <<-DESC
