@@ -2,10 +2,8 @@
 //  WEXRichPushNotificationViewController.m
 //  WebEngage
 //
-//  Created by Arpit Agrawal on 09/11/16.
-//  Copyright © 2016 Saumitra R. Bhave. All rights reserved.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
-
 
 
 #import "WEXRichPushNotificationViewController+Private.h"
@@ -18,23 +16,26 @@
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-@property (strong, nonatomic) UILabel* label;
-@property (strong, nonatomic) WEXRichPushLayout *currentLayout;
 
-@property (strong, nonatomic) UNNotification* notification;
-
-@property (strong, nonatomic) NSUserDefaults* richPushDefaults;
+@property (nonatomic) UILabel *label;
+@property (nonatomic) WEXRichPushLayout *currentLayout;
+@property (nonatomic) UNNotification *notification;
+@property (nonatomic) NSUserDefaults *richPushDefaults;
 
 @property (atomic) BOOL isRendering;
+
 #endif
+
 @end
 
 
 @implementation WEXRichPushNotificationViewController
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
--(void) loadView {
+- (void)loadView {
     self.view = [[UIView alloc] init];
 }
 
@@ -47,26 +48,23 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
--(void) viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     
     [super viewDidDisappear:animated];
-    
 }
 
--(void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     
     [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"collapsed"];
     [super viewWillDisappear:animated];
-    
 }
 
--(BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder {
     
     if (self.currentLayout && [self.currentLayout respondsToSelector:@selector(canBecomeFirstResponder)]) {
         return (BOOL)[self.currentLayout performSelector:@selector(canBecomeFirstResponder)];
@@ -74,7 +72,7 @@ API_AVAILABLE(ios(10.0))
     return NO;
 }
 
--(UIView *)inputAccessoryView {
+- (UIView *)inputAccessoryView {
     
     if (self.currentLayout && [self.currentLayout respondsToSelector:@selector(inputAccessoryView)]) {
         return [self.currentLayout performSelector:@selector(inputAccessoryView)];
@@ -84,7 +82,7 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
--(UIView *)inputView {
+- (UIView *)inputView {
     
     if (self.currentLayout && [self.currentLayout respondsToSelector:@selector(inputView)]) {
         return [self.currentLayout performSelector:@selector(inputView)];
@@ -93,12 +91,12 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
     
     self.notification = notification;
     self.isRendering = YES;
     
-    NSString* appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
+    NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
     
     if (!appGroup) {
         
@@ -108,6 +106,7 @@ API_AVAILABLE(ios(10.0))
          */
         
         NSBundle *bundle = [NSBundle mainBundle];
+        
         if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
             // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
             bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
@@ -123,16 +122,15 @@ API_AVAILABLE(ios(10.0))
     [self updateActivityWithObject:[NSNumber numberWithBool:NO] forKey:@"collapsed"];
     [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"expanded"];
     
-    NSString* style = self.notification.request.content.userInfo[@"expandableDetails"][@"style"];
+    NSString *style = self.notification.request.content.userInfo[@"expandableDetails"][@"style"];
     self.currentLayout = [self layoutForStyle:style];
     
     if (self.currentLayout) {
         [self.currentLayout didReceiveNotification:notification];
     }
-    
 }
 
--(WEXRichPushLayout*) layoutForStyle:(NSString*) style {
+- (WEXRichPushLayout *)layoutForStyle:(NSString *)style {
     
     if (style && [style isEqualToString:@"CAROUSEL_V1"]) {
         return [[WEXCarouselPushNotificationViewController alloc] initWithNotificationViewController:self];
@@ -143,28 +141,29 @@ API_AVAILABLE(ios(10.0))
     return nil;
 }
 
--(void) didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)) {
     
-    [self.currentLayout didReceiveNotificationResponse:response
-                                     completionHandler:completion];
+    [self.currentLayout didReceiveNotificationResponse:response completionHandler:completion];
 }
 
 
--(NSMutableDictionary*) getActivityDictionaryForCurrentNotification {
+- (NSMutableDictionary *) getActivityDictionaryForCurrentNotification {
     
-    NSString* expId = self.notification.request.content.userInfo[@"experiment_id"];
-    NSString* notifId = self.notification.request.content.userInfo[@"notification_id"];
-    NSString* finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
-    NSString* expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
+    NSString *expId = self.notification.request.content.userInfo[@"experiment_id"];
+    NSString *notifId = self.notification.request.content.userInfo[@"notification_id"];
+    NSString *finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
+    NSString *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
+    
     id customData = self.notification.request.content.userInfo[@"customData"];
     
-    NSMutableDictionary* dictionary = [[self.richPushDefaults dictionaryForKey:finalNotifId] mutableCopy];
+    NSMutableDictionary *dictionary = [[self.richPushDefaults dictionaryForKey:finalNotifId] mutableCopy];
     
     if (!dictionary) {
         dictionary = [[NSMutableDictionary alloc] init];
         [dictionary setObject:expId forKey:@"experiment_id"];
         [dictionary setObject:notifId forKey:@"notification_id"];
         [dictionary setObject:expandableDetails forKey:@"expandableDetails"];
+        
         if (customData && [customData isKindOfClass:[NSArray class]]) {
             [dictionary setObject:customData forKey:@"customData"];
         }
@@ -173,73 +172,74 @@ API_AVAILABLE(ios(10.0))
     return dictionary;
 }
 
--(void)updateActivityWithObject: (id) object forKey: (NSString*) key {
+- (void)updateActivityWithObject:(id)object forKey:(NSString *)key {
     
-    NSMutableDictionary* activityDictionary = [self getActivityDictionaryForCurrentNotification];
+    NSMutableDictionary *activityDictionary = [self getActivityDictionaryForCurrentNotification];
     
     [activityDictionary setObject:object forKey:key];
     
     [self setActivityForCurrentNotification:activityDictionary];
-    
 }
 
--(void)setActivityForCurrentNotification:(NSDictionary *)activity {
+- (void)setActivityForCurrentNotification:(NSDictionary *)activity {
     
-    NSString* expId = self.notification.request.content.userInfo[@"experiment_id"];
-    NSString* notifId = self.notification.request.content.userInfo[@"notification_id"];
+    NSString *expId = self.notification.request.content.userInfo[@"experiment_id"];
+    NSString *notifId = self.notification.request.content.userInfo[@"notification_id"];
     
-    NSString* finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
+    NSString *finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
     
     [self.richPushDefaults setObject:activity forKey:finalNotifId];
     [self.richPushDefaults synchronize];
-    
 }
 
--(void)addSystemEventWithName:(NSString *)eventName
-                   systemData:(NSDictionary *)systemData
-              applicationData:(NSDictionary *)applicationData {
+- (void)addSystemEventWithName:(NSString *)eventName
+                    systemData:(NSDictionary *)systemData
+               applicationData:(NSDictionary *)applicationData {
     
     [self addEventWithName:eventName
                 systemData:systemData
-           applicationData:applicationData category:@"system"];
-    
+           applicationData:applicationData
+                  category:@"system"];
 }
 
--(void)addEventWithName:(NSString *)eventName
-             systemData:(NSDictionary *)systemData
-        applicationData:(NSDictionary *)applicationData
-               category: (NSString*) category {
+- (void)addEventWithName:(NSString *)eventName
+              systemData:(NSDictionary *)systemData
+         applicationData:(NSDictionary *)applicationData
+                category:(NSString *)category {
     
     id customData = self.notification.request.content.userInfo[@"customData"];
-    NSMutableDictionary* customDataDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc] init];
+    
     if (customData && [customData isKindOfClass:[NSArray class]]) {
         NSArray *customDataArray = customData;
         for (NSDictionary *customDataItem in customDataArray) {
             customDataDictionary[customDataItem[@"key"]] = customDataItem[@"value"];
         }
     }
+    
     if (applicationData) {
         [customDataDictionary addEntriesFromDictionary:applicationData];
     }
+    
     if ([category isEqualToString:@"system"]) {
-        [WEXAnalytics
-         trackEventWithName:[@"we_" stringByAppendingString:eventName]
-         andValue:@{
-                    @"system_data_overrides" : systemData ? systemData : @{},
-                    @"event_data_overrides" : customDataDictionary
-                    }];
+        [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
+                                andValue:@{
+                                            @"system_data_overrides": systemData ? systemData : @{},
+                                            @"event_data_overrides": customDataDictionary
+                                        }];
     } else {
         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
 }
 
--(void)setCTAWithId:(NSString *)ctaId andLink:(NSString *)actionLink {
+- (void)setCTAWithId:(NSString *)ctaId andLink:(NSString *)actionLink {
     
-    NSDictionary* cta = @{@"id": ctaId, @"actionLink": actionLink};
+    NSDictionary *cta = @{@"id": ctaId, @"actionLink": actionLink};
     
     [self updateActivityWithObject:cta forKey:@"cta"];
-    
 }
-#endif
-@end
 
+#endif
+
+@end

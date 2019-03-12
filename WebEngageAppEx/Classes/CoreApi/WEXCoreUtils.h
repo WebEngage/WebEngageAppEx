@@ -1,13 +1,16 @@
 //
-//  WEXCoreUtils.m
-//  Pods-WebEngageAppEx_Tests
+//  WEXCoreUtils.h
+//  WebEngage
 //
-//  Created by Saumitra R. Bhave on 03/10/17.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface WEXCoreUtils : NSObject
-+(NSUserDefaults*) getDefaults;
-+(NSDateFormatter*) getDateFormatter;
+
++ (NSUserDefaults *)getDefaults;
+
++ (NSDateFormatter *)getDateFormatter;
+
 @end

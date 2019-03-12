@@ -2,14 +2,14 @@
 //  WEXCarouselPushNotificationViewController.m
 //  WebEngage
 //
-//  Created by Arpit on 05/12/16.
-//  Copyright © 2016 Saumitra R. Bhave. All rights reserved.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
+
 
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
 
-#define CONTENT_PADDING 10
+#define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
 
 API_AVAILABLE(ios(10.0))
@@ -17,27 +17,26 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-@property(nonatomic) NSInteger current;
-@property(strong, nonatomic) NSMutableArray *images;
-@property(strong, nonatomic) NSMutableArray *wasLoaded;
+@property (nonatomic) NSInteger current;
 
-@property(strong, nonatomic) NSMutableArray *carouselItems;
+@property (nonatomic) NSMutableArray *images;
+@property (nonatomic) NSMutableArray *wasLoaded;
+@property (nonatomic) NSMutableArray *carouselItems;
+@property (nonatomic) NSMutableArray *viewContainers;
+@property (nonatomic) NSMutableArray *imageViews;
+@property (nonatomic) NSMutableArray *descriptionViews;
+@property (nonatomic) NSMutableArray *descriptionLabels;
+@property (nonatomic) NSMutableArray *alphaViews;
 
-@property(strong, nonatomic) NSMutableArray *viewContainers;
-@property(strong, nonatomic) NSMutableArray *imageViews;
-@property(strong, nonatomic) NSMutableArray *descriptionViews;
-@property(strong, nonatomic) NSMutableArray *descriptionLabels;
-@property(strong, nonatomic) NSMutableArray *alphaViews;
+@property (nonatomic) UNNotification *notification;
 
-@property(atomic) NSInteger nextViewIndexToReturn;
+@property (nonatomic) UIImage *errorImage;
+@property (nonatomic) UIImage *loadingImage;
 
-@property(strong, nonatomic) UNNotification *notification;
-@property(strong, nonatomic) UIImage *errorImage;
-@property(strong, nonatomic) UIImage *loadingImage;
+@property (nonatomic) NSUserDefaults *richPushDefaults;
 
-@property(strong, nonatomic) NSUserDefaults *richPushDefaults;
-
-@property(atomic) BOOL isRendering;
+@property (atomic) NSInteger nextViewIndexToReturn;
+@property (atomic) BOOL isRendering;
 
 #endif
 
@@ -47,32 +46,27 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     
     self.isRendering = YES;
     self.notification = notification;
     self.current = 0;
     
-    NSDictionary *expandedDetails =
-    notification.request.content.userInfo[@"expandableDetails"];
+    NSDictionary *expandedDetails = notification.request.content.userInfo[@"expandableDetails"];
     
     self.carouselItems = expandedDetails[@"items"];
     
     if (self.carouselItems && self.carouselItems.count > 0) {
         
-        self.images =
-        [[NSMutableArray alloc] initWithCapacity:self.carouselItems.count];
-        self.wasLoaded =
-        [[NSMutableArray alloc] initWithCapacity:self.carouselItems.count];
+        self.images = [[NSMutableArray alloc] initWithCapacity:self.carouselItems.count];
+        self.wasLoaded = [[NSMutableArray alloc] initWithCapacity:self.carouselItems.count];
         
-        NSInteger downloadedCount =
-        notification.request.content.attachments
-        ? notification.request.content.attachments.count
-        : 0;
+        NSInteger downloadedCount = notification.request.content.attachments ? notification.request.content.attachments.count : 0;
         
         [self setCTAForIndex:0];
         
         BOOL firstImageAdded = NO;
+        
         if (downloadedCount == 0) {
             
             // Don't save the file here instead add to images directly.
@@ -80,19 +74,16 @@ API_AVAILABLE(ios(10.0))
             // wasLoaded, viewEventForIndex and addToImages
             
             NSString *imageURL = self.carouselItems[0][@"image"];
-            NSData *imageData =
-            [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
             
             UIImage *image = [UIImage imageWithData:imageData];
+            
             if (image) {
-                
                 [self.images addObject:image];
                 [self.wasLoaded addObject:[NSNumber numberWithBool:YES]];
                 
                 [self addViewEventForIndex:0 isFirst:YES];
-                
             } else {
-                
                 [self.images addObject:[self getErrorImage]];
                 [self.wasLoaded addObject:[NSNumber numberWithBool:NO]];
             }
@@ -103,11 +94,10 @@ API_AVAILABLE(ios(10.0))
         
         // After the change of adding the first image directly above this loop
         // should start from 1 only
-        
-        for (NSUInteger i = firstImageAdded ? 1 : 0; i < self.carouselItems.count;
-             i++) {
+        for (NSUInteger i = firstImageAdded ? 1 : 0; i < self.carouselItems.count; i++) {
             
             [self.wasLoaded addObject:[NSNumber numberWithBool:NO]];
+            
             if (i < downloadedCount) {
                 
                 // This if condition means that this file was downloaded and saved
@@ -118,11 +108,9 @@ API_AVAILABLE(ios(10.0))
                 BOOL addedSuccessfully = NO;
                 if (@available(iOS 10.0, *)) {
                     UNNotificationAttachment __block *attachmentValue = nil;
-                    [notification.request.content.attachments
-                     enumerateObjectsUsingBlock:^(UNNotificationAttachment *_Nonnull obj,
-                                                  NSUInteger idx, BOOL *_Nonnull stop) {
-                         if ([obj.identifier
-                              isEqualToString:[NSString stringWithFormat:@"%ld", (unsigned long)i]]) {
+                    [notification.request.content.attachments enumerateObjectsUsingBlock:^(UNNotificationAttachment *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                        
+                         if ([obj.identifier isEqualToString:[NSString stringWithFormat:@"%ld", (unsigned long)i]]) {
                              attachmentValue = obj;
                              *stop = YES;
                          }
@@ -131,10 +119,10 @@ API_AVAILABLE(ios(10.0))
                     if (attachmentValue) {
                         
                         UNNotificationAttachment *attachment = attachmentValue;
+                        
                         if ([attachment.URL startAccessingSecurityScopedResource]) {
                             
-                            NSData *imageData =
-                            [NSData dataWithContentsOfFile:attachment.URL.path];
+                            NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
                             UIImage *image = [UIImage imageWithData:imageData];
                             
                             [attachment.URL stopAccessingSecurityScopedResource];
@@ -155,13 +143,10 @@ API_AVAILABLE(ios(10.0))
                     if (!addedSuccessfully) {
                         [self.images addObject:[self getErrorImage]];
                     }
-                    
                 } else {
                     NSLog(@"Expected to be running iOS version 10 or above");
                 }
-                
             } else {
-                
                 [self.images addObject:[self getLoadingImage]];
             }
         }
@@ -180,16 +165,16 @@ API_AVAILABLE(ios(10.0))
     for (NSUInteger i = downloadFromIndex; i < self.carouselItems.count; i++) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             NSString *imageURL = self.carouselItems[i][@"image"];
-            NSData *imageData =
-            [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
             
             UIImage *image = [UIImage imageWithData:imageData];
+            
             if (image) {
                 self.images[i] = image;
                 self.wasLoaded[i] = [NSNumber numberWithBool:YES];
             } else {
-                
                 self.images[i] = [self getErrorImage];
                 self.wasLoaded[i] = [NSNumber numberWithBool:NO];
             }
@@ -197,7 +182,7 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (void)initialiseCarouselForNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)initialiseCarouselForNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     
     [self initialiseViewContainers];
     
@@ -206,15 +191,14 @@ API_AVAILABLE(ios(10.0))
     
     float superViewWidth = self.view.frame.size.width;
     
-    float viewWidth =
-    superViewWidth * mainViewToSuperViewWidthRatio - 2 * verticalMargins;
+    float viewWidth = superViewWidth * mainViewToSuperViewWidthRatio - 2 * verticalMargins;
     float viewHeight = viewWidth;
     
     // for portrait
     float superViewHeight = viewHeight + 2 * verticalMargins;
     
-    NSString *mode =
-    notification.request.content.userInfo[@"expandableDetails"][@"mode"];
+    NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
+    
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
     if (!isPortrait) {
@@ -255,22 +239,15 @@ API_AVAILABLE(ios(10.0))
         nextView.subviews[2].alpha = SIDE_VIEWS_FADE_ALPHA;
     }
     
-    UIView *topSeparator =
-    [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewWidth, 0.5)];
+    UIView *topSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewWidth, 0.5)];
     topSeparator.backgroundColor = [UIColor lightGrayColor];
     
-    UIView *bottomSeparator =
-    [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5,
-                                             superViewWidth, 0.5)];
+    UIView *bottomSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5, superViewWidth, 0.5)];
     bottomSeparator.backgroundColor = [UIColor lightGrayColor];
     
-    NSDictionary *extensionAttributes = [[NSBundle mainBundle]
-                                         objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
+    NSDictionary *extensionAttributes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
     
-    BOOL defaultContentHidden =
-    [extensionAttributes ? extensionAttributes[
-                                               @"UNNotificationExtensionDefaultContentHidden"]
-     : @(0) boolValue];
+    BOOL defaultContentHidden = [extensionAttributes ? extensionAttributes[ @"UNNotificationExtensionDefaultContentHidden" ] : @(0) boolValue];
     
     [self.view addSubview:topSeparator];
     [self.view addSubview:bottomSeparator];
@@ -287,14 +264,11 @@ API_AVAILABLE(ios(10.0))
         titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        // titleLabel.backgroundColor = [UIColor orangeColor];
-        
         UILabel *bodyLabel = [[UILabel alloc] init];
         bodyLabel.text = notification.request.content.body;
         bodyLabel.textColor = [UIColor blackColor];
         bodyLabel.textAlignment = NSTextAlignmentLeft;
         bodyLabel.numberOfLines = 0;
-        // bodyLabel.backgroundColor = [UIColor greenColor];
         
         [notificationContentView addSubview:titleLabel];
         [notificationContentView addSubview:bodyLabel];
@@ -407,8 +381,7 @@ API_AVAILABLE(ios(10.0))
     
     float viewWidth, viewHeight;
     
-    NSString *mode =
-    self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
+    NSString *mode = self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
     if (isPortrait) {
@@ -426,10 +399,9 @@ API_AVAILABLE(ios(10.0))
     return CGSizeMake(viewWidth, viewHeight);
 }
 
-- (void)renderAnimated:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)renderAnimated:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     
-    NSString *mode =
-    notification.request.content.userInfo[@"expandableDetails"][@"mode"];
+    NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     
     NSUInteger count = self.carouselItems.count;
     
@@ -459,10 +431,8 @@ API_AVAILABLE(ios(10.0))
     
     if (isPortrait) {
         slideBy = currentMainView.frame.size.width + INTER_VIEW_MARGINS;
-        
         nextRightView.subviews[2].alpha = 0.0;
     } else {
-        
         slideBy = currentMainView.frame.size.width;
     }
     
@@ -483,7 +453,6 @@ API_AVAILABLE(ios(10.0))
                              
                              nextRightView.subviews[2].alpha = SIDE_VIEWS_FADE_ALPHA;
                          }
-                         
                      }
                      completion:^(BOOL finished) {
                          
@@ -527,7 +496,7 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
-                     completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)) {
+                     completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion API_AVAILABLE(ios(10.0)) {
     
     BOOL dismissed = NO;
     
@@ -658,8 +627,7 @@ API_AVAILABLE(ios(10.0))
 - (NSInteger)cachedViewsIndexForViewAtIndex:(NSInteger)index {
     
     NSUInteger returnIndex = self.nextViewIndexToReturn;
-    self.nextViewIndexToReturn =
-    (self.nextViewIndexToReturn + 1) % self.viewContainers.count;
+    self.nextViewIndexToReturn = (self.nextViewIndexToReturn + 1) % self.viewContainers.count;
     return returnIndex;
 }
 
@@ -679,8 +647,7 @@ API_AVAILABLE(ios(10.0))
     (1.0 - mainViewToSuperViewWidthRatio) / 2.0 * superViewWidth;
     float currentViewY = verticalMargins;
     
-    NSString *mode =
-    self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
+    NSString *mode = self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
     if (!isPortrait) {
@@ -706,8 +673,7 @@ API_AVAILABLE(ios(10.0))
 - (void)addViewEventForIndex:(NSInteger)index isFirst:(BOOL)first {
     
     NSDictionary *userInfo = self.notification.request.content.userInfo;
-    NSArray *items = self.notification.request.content
-    .userInfo[@"expandableDetails"][@"items"];
+    NSArray *items = self.notification.request.content.userInfo[@"expandableDetails"][@"items"];
     NSInteger count = items.count;
     
     NSString *expId = userInfo[@"experiment_id"];
@@ -733,8 +699,8 @@ API_AVAILABLE(ios(10.0))
 
 - (void)setCTAForIndex:(NSInteger)index {
     
-    NSArray *items = self.notification.request.content
-    .userInfo[@"expandableDetails"][@"items"];
+    NSArray *items = self.notification.request.content.userInfo[@"expandableDetails"][@"items"];
+    
     if (items) {
         
         NSString *ctaId = items[index][@"id"];

@@ -1,6 +1,6 @@
 {
   "name": "WebEngageBannerPush",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "summary": "Extension For Using WebEngage Banner or Attachment Based Notifications",
   "description": "This is Small Pod which contains the reference implentation of iOS Notification Service Extension, Clients can just pull this dependency and extend their Root Notification Service class with the one provided in this pod",
   "homepage": "https://github.com/WebEngage/WebEngageAppEx",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/WebEngage/WebEngageAppEx.git",
-    "tag": "0.1.0"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "10.0"

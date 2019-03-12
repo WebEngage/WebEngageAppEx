@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'WebEngageBannerPush'
-s.version          = '0.2.0'
+s.version          = '0.3.0'
 s.summary          = 'Extension For Using WebEngage Banner or Attachment Based Notifications'
 
 s.description      = <<-DESC
@@ -9,7 +9,8 @@ DESC
 
 s.homepage         = 'https://github.com/WebEngage/WebEngageAppEx'
 s.license          = { :type => 'OTHER', :file => 'LICENSE' }
-s.author           = { 'saumitrabhave' => 'saumitra@webklipper.com' }
+s.author           = { "Saumitra R. Bhave" => "saumitra@webklipper.com",
+                       "Yogesh Singh" => "yogesh.singh@webklipper.com" }
 s.source           = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '10.0'

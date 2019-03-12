@@ -2,12 +2,12 @@
 //  WEXPushNotificationService.h
 //  WebEngage
 //
-//  Created by Arpit Agrawal on 11/11/16.
-//  Copyright © 2016 Saumitra R. Bhave. All rights reserved.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
 
 #import <Foundation/Foundation.h>
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 #import <UserNotifications/UserNotifications.h>
 #endif

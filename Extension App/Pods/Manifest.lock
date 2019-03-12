@@ -1,11 +1,11 @@
 PODS:
-  - WebEngage (4.0.22):
-    - WebEngage/Xcode10 (= 4.0.22)
-  - WebEngage/Xcode10 (4.0.22)
-  - WebEngageAppEx/ContentExtension (0.1.1):
+  - WebEngage (4.3.0):
+    - WebEngage/Xcode10 (= 4.3.0)
+  - WebEngage/Xcode10 (4.3.0)
+  - WebEngageAppEx/ContentExtension (0.2.0):
     - WebEngageAppEx/CoreApi
-  - WebEngageAppEx/CoreApi (0.1.1)
-  - WebEngageBannerPush (0.1.0)
+  - WebEngageAppEx/CoreApi (0.2.0)
+  - WebEngageBannerPush (0.2.0)
 
 DEPENDENCIES:
   - WebEngage
@@ -23,9 +23,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WebEngage: 8c1ebcde2d0da51123d40c2d4e10ee0f1fca9f39
-  WebEngageAppEx: 5df0c27a5da6ef18b6151a4306660cf55dd0136c
-  WebEngageBannerPush: 4fef9d09101a3000c3224619175b8434e9445ce0
+  WebEngage: df06adfbede096e2334b761202ad0635691801bd
+  WebEngageAppEx: bd4a66bc53f5f8cf64f09347c4adaa026e4dc1c2
+  WebEngageBannerPush: a2c7ba27d633018f6087953b448a057bb30a6beb
 
 PODFILE CHECKSUM: 015a39c8e28012b91bce7d8e0354049356991b93
 

@@ -1,19 +1,20 @@
 //
 //  WEXCoreUtils.m
-//  Pods-WebEngageAppEx_Tests
+//  WebEngage
 //
-//  Created by Saumitra R. Bhave on 03/10/17.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
 #import "WEXCoreUtils.h"
 
 @implementation WEXCoreUtils
 
-+(NSUserDefaults*) getDefaults{
-    static NSUserDefaults* sharedDefaults = nil;
++ (NSUserDefaults *)getDefaults {
+    
+    static NSUserDefaults *sharedDefaults = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString* appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEG_APP_GROUP"];
+        NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEG_APP_GROUP"];
         if (!appGroup) {
             /*
              Retrieving the app bundle identifier using the method described here:
@@ -24,6 +25,7 @@
                 // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
                 bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
             }
+            
             NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
             appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
         }
@@ -32,8 +34,8 @@
     return sharedDefaults;
 }
 
-+(NSDateFormatter*) getDateFormatter{
-    static NSDateFormatter* birthDateFormatter = nil;
++ (NSDateFormatter *)getDateFormatter {
+    static NSDateFormatter *birthDateFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         birthDateFormatter = [[NSDateFormatter alloc] init];
@@ -43,4 +45,5 @@
     });
     return birthDateFormatter;
 }
+
 @end

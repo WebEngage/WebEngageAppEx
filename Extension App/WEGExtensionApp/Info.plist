@@ -4,19 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>WEGLicenseCode</key>
-	<string>~2024c585</string>
-	<key>WEGEnableLocationAuthorizationRequest</key>
-	<string>IN_USE</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To enable location services</string>
-	<key>WEGLogLevel</key>
-	<string>VERBOSE</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>location</string>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,6 +20,13 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To enable location services</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -54,5 +48,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>WEGEnableLocationAuthorizationRequest</key>
+	<string>IN_USE</string>
+	<key>WEGLicenseCode</key>
+	<string>311c5607</string>
+	<key>WEGLogLevel</key>
+	<string>VERBOSE</string>
 </dict>
 </plist>

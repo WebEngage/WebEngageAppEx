@@ -2,9 +2,9 @@
 //  WEXRatingPushNotificationViewController.m
 //  WebEngage
 //
-//  Created by Arpit on 04/04/17.
-//  Copyright © 2017 Saumitra R. Bhave. All rights reserved.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
+
 
 #import "WEXRatingPushNotificationViewController.h"
 
@@ -21,19 +21,18 @@ API_AVAILABLE(ios(10.0))
 <UIPickerViewDataSource, UIPickerViewDelegate>
 
 
-@property (strong, nonatomic) UNNotification* notification;
-@property (strong, nonatomic) NSArray* starRatingRows;
-
--(instancetype) initWithNotification: (UNNotification*) notification API_AVAILABLE(ios(10.0));
+@property (nonatomic) UNNotification *notification;
+@property (nonatomic) NSArray *starRatingRows;
 
 #endif
 @end
+
 
 @implementation StarPickerManager
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
--(instancetype) initWithNotification: (UNNotification*) notification  API_AVAILABLE(ios(10.0)){
+- (instancetype)initWithNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
     
     if (self = [super init]) {
         
@@ -49,12 +48,11 @@ API_AVAILABLE(ios(10.0))
         data = [NSData dataWithBytes:starCharUnselected length:strlen(starCharUnselected)];
         NSString *unselectedStarString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        NSMutableArray* pickerData = [[NSMutableArray alloc] initWithCapacity:noOfStars];
-        
+        NSMutableArray *pickerData = [[NSMutableArray alloc] initWithCapacity:noOfStars];
         
         for (NSUInteger i=1; i <= noOfStars; i++) {
             
-            NSMutableString* starRowString = [[NSMutableString alloc] initWithCapacity:noOfStars];
+            NSMutableString *starRowString = [[NSMutableString alloc] initWithCapacity:noOfStars];
             for (NSUInteger j=1; j<=i; j++) {
                 [starRowString appendString:selectedStarString];
             }
@@ -67,31 +65,29 @@ API_AVAILABLE(ios(10.0))
         }
         
         self.starRatingRows = pickerData;
-        
     }
     
     return self;
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    NSInteger noOfStars = [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
-    return noOfStars;
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+   
+    return [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
 }
 
--(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return pickerView.frame.size.width;
 }
 
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
     return 50.0;// This may depend on a no of factors like font, etc which may again be a function of notification data
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return self.starRatingRows[row];
 }
 
@@ -99,41 +95,42 @@ API_AVAILABLE(ios(10.0))
 
 @end
 
+
 API_AVAILABLE(ios(10.0))
 @interface WEXRatingPushNotificationViewController ()
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-@property (strong, nonatomic) UIPickerView* pickerView;
-@property (strong, nonatomic) UNNotification* notification;
-@property (strong, nonatomic) StarPickerManager* pickerManager;
-@property (strong, nonatomic) UILabel* selectedLabel;
-@property (strong, nonatomic) UILabel* unselectedLabel;
-@property (strong, nonatomic) UIView* labelsWrapper;
+@property (nonatomic) UIPickerView *pickerView;
+@property (nonatomic) UNNotification *notification;
+@property (nonatomic) StarPickerManager *pickerManager;
+@property (nonatomic) UILabel *selectedLabel;
+@property (nonatomic) UILabel *unselectedLabel;
+@property (nonatomic) UIView *labelsWrapper;
 
 @property (nonatomic) NSInteger selectedCount;
-
 @property (nonatomic) NSUInteger noOfStars;
 
 #endif
 @end
 
+
 @implementation WEXRatingPushNotificationViewController
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-
--(void) initialiseViewHierarchy {
+- (void)initialiseViewHierarchy {
     
     self.view.backgroundColor = [UIColor yellowColor];
     
-    UIView* superViewWrapper = [[UIView alloc] init];
+    UIView *superViewWrapper = [[UIView alloc] init];
     
     [self.view addSubview:superViewWrapper];
     
-    UIView* mainContentView = [[UIView alloc] init];
+    UIView *mainContentView = [[UIView alloc] init];
     
     [superViewWrapper addSubview:mainContentView];
     
-    NSDictionary* expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
+    NSDictionary *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
     
     BOOL backgroundImage = NO;
     if (expandableDetails[@"image"]) {
@@ -143,7 +140,7 @@ API_AVAILABLE(ios(10.0))
             
             if (@available(iOS 10.0, *)) {
                 
-                UNNotificationAttachment* attachment = self.notification.request.content.attachments.firstObject;
+                UNNotificationAttachment *attachment = self.notification.request.content.attachments.firstObject;
                 
                 if ([attachment.URL startAccessingSecurityScopedResource]) {
                     
@@ -154,7 +151,7 @@ API_AVAILABLE(ios(10.0))
                     
                     if (image) {
                         backgroundImage = YES;
-                        UIImageView* imageView = [[UIImageView alloc] init];
+                        UIImageView *imageView = [[UIImageView alloc] init];
                         imageView.image = image;
                         imageView.contentMode = UIViewContentModeScaleAspectFill;
                         [mainContentView addSubview:imageView];
@@ -166,7 +163,7 @@ API_AVAILABLE(ios(10.0))
         }
     }
     
-    NSDictionary* content = expandableDetails[@"content"];
+    NSDictionary *content = expandableDetails[@"content"];
     NSString *title, *message, *textColor, *bckColor;
     
     if (content) {
@@ -176,7 +173,7 @@ API_AVAILABLE(ios(10.0))
         bckColor = content[@"bckColor"];
     }
     
-    UIView* textDisplayView = [[UIView alloc] init];
+    UIView *textDisplayView = [[UIView alloc] init];
     
     if (backgroundImage) {
         textDisplayView.opaque = NO;
@@ -191,7 +188,7 @@ API_AVAILABLE(ios(10.0))
         
     }
     
-    UILabel* titleLabel;
+    UILabel *titleLabel;
     BOOL contentTitlePresent = title &&  ![title isEqualToString:@""];
     BOOL contentMessagePresent = message && ![message isEqualToString:@""];
     if (!contentTitlePresent && !contentMessagePresent && !backgroundImage) {
@@ -217,12 +214,11 @@ API_AVAILABLE(ios(10.0))
         [textDisplayView addSubview:titleLabel];
     }
     
-    
-    
     if (messagePresent) {
-        UILabel* messageLabel = [[UILabel alloc] init];
+        UILabel *messageLabel = [[UILabel alloc] init];
         messageLabel.textAlignment = NSTextAlignmentLeft;
         messageLabel.text = message;
+        
         if (textColor) {
             messageLabel.textColor = [self colorWithHexString:textColor];
         } else {
@@ -232,18 +228,16 @@ API_AVAILABLE(ios(10.0))
         messageLabel.numberOfLines = 3;
         
         [textDisplayView addSubview:messageLabel];
-        
     }
-    
     
     [mainContentView addSubview:textDisplayView];
     
-    UIView* separator = [[UIView alloc] init];
+    UIView *separator = [[UIView alloc] init];
     separator.backgroundColor = [UIColor lightGrayColor];
     
     [superViewWrapper addSubview:separator];
     
-    UIView* starRatingView = [[UIView alloc] init];
+    UIView *starRatingView = [[UIView alloc] init];
     starRatingView.backgroundColor = [UIColor whiteColor];
     
     
@@ -261,32 +255,28 @@ API_AVAILABLE(ios(10.0))
     [self setUpConstraintsWithImageView:backgroundImage titlePresent:titlePresent messagePresent:messagePresent];
     
     [self renderStarControl];
-    
 }
 
--(void) renderStarControl {
+- (void)renderStarControl {
     
     NSInteger selectedCount = self.selectedCount;
-    NSInteger totalCount =
-    [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"]
-     integerValue];
+    NSInteger totalCount = [self.notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
     
     self.selectedLabel.textAlignment = NSTextAlignmentNatural;
     
     char starChar[] = "\u2605";
-    NSData* data = [NSData dataWithBytes:starChar
-                                  length:strlen(starChar)];
+    NSData *data = [NSData dataWithBytes:starChar length:strlen(starChar)];
     
-    NSString *starString = [[NSString alloc] initWithData:data
-                                                 encoding:NSUTF8StringEncoding];
+    NSString *starString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSString* spaceAppendString = @" ";
+    NSString *spaceAppendString = @" ";
     
     if (totalCount <= 5) {
         spaceAppendString = @"  ";
     }
     
-    NSMutableString* starStringSelected = [[NSMutableString alloc] init];
+    NSMutableString *starStringSelected = [[NSMutableString alloc] init];
+    
     for (NSUInteger i=1; i<=selectedCount; i++) {
         
         [starStringSelected appendString:starString];
@@ -294,7 +284,6 @@ API_AVAILABLE(ios(10.0))
         if (i < totalCount) {
             [starStringSelected appendString:spaceAppendString];
         }
-        
     }
     
     self.selectedLabel.text = starStringSelected;
@@ -305,39 +294,37 @@ API_AVAILABLE(ios(10.0))
     self.unselectedLabel.textAlignment = NSTextAlignmentNatural;
     
     
-    NSMutableString* starStringUnselected = [[NSMutableString alloc] init];
+    NSMutableString *starStringUnselected = [[NSMutableString alloc] init];
+    
     for (NSUInteger i=selectedCount+1; i<=totalCount; i++) {
         [starStringUnselected appendString:starString];
         if (i < totalCount) {
             [starStringUnselected appendString:spaceAppendString];
         }
     }
+    
     self.unselectedLabel.text = starStringUnselected;
     
     self.unselectedLabel.textColor = [UIColor lightGrayColor];
     self.unselectedLabel.font = [self.unselectedLabel.font fontWithSize:STAR_FONT_SIZE];
-    //self.unselectedLabel.backgroundColor = [UIColor greenColor];
 }
 
--(void) setUpConstraintsWithImageView:(BOOL) imageViewIncluded
-                         titlePresent:(BOOL) titlePresent
-                       messagePresent:(BOOL) messagePresent {
+- (void)setUpConstraintsWithImageView:(BOOL)imageViewIncluded
+                         titlePresent:(BOOL)titlePresent
+                       messagePresent:(BOOL)messagePresent {
     
-    UIView* superViewWrapper = self.view.subviews[0];
-    UIView* mainContentView = superViewWrapper.subviews[0];
-    UIView* separator = superViewWrapper.subviews[1];
-    UIView* starRatingWrapper = superViewWrapper.subviews[2];
-    
+    UIView *superViewWrapper = self.view.subviews[0];
+    UIView *mainContentView = superViewWrapper.subviews[0];
+    UIView *separator = superViewWrapper.subviews[1];
+    UIView *starRatingWrapper = superViewWrapper.subviews[2];
     
     if (@available(iOS 10.0, *)) {
         
         superViewWrapper.translatesAutoresizingMaskIntoConstraints = NO;
         [superViewWrapper.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-        
         [superViewWrapper.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
         [superViewWrapper.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
         [superViewWrapper.bottomAnchor constraintEqualToAnchor:starRatingWrapper.bottomAnchor].active = YES;
-        //superViewWrapper.contentMode = UIViewContentModeScaleToFill;
         
         //Top level view constraints
         mainContentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -357,17 +344,13 @@ API_AVAILABLE(ios(10.0))
         [starRatingWrapper.topAnchor constraintEqualToAnchor:separator.bottomAnchor].active = YES;
         [starRatingWrapper.heightAnchor constraintEqualToConstant:STAR_BAR_HEIGHT].active = YES;
         
-        //self.view.translatesAutoresizingMaskIntoConstraints = NO;
-        //[self.view.bottomAnchor constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
-        
-        [self.viewController.bottomLayoutGuide.topAnchor
-         constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
+        [self.viewController.bottomLayoutGuide.topAnchor constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
         
         //Main Content View Internal Constraints
         NSInteger textDisplaySubviewIndex = 0;
         if (imageViewIncluded) {
             
-            UIImageView* imageView = mainContentView.subviews[0];
+            UIImageView *imageView = mainContentView.subviews[0];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;
             [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
             [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
@@ -378,19 +361,20 @@ API_AVAILABLE(ios(10.0))
             textDisplaySubviewIndex = 1;
         }
         
-        UIView* textDisplayView = mainContentView.subviews[textDisplaySubviewIndex];
+        UIView *textDisplayView = mainContentView.subviews[textDisplaySubviewIndex];
         textDisplayView.translatesAutoresizingMaskIntoConstraints = NO;
         [textDisplayView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
         [textDisplayView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
         [textDisplayView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
+        
         if (!imageViewIncluded) {
             [mainContentView.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor].active = YES;
         }
         
-        
         //TextDisplayView internal constraints
         NSInteger messageSubViewIndex = 0;
-        UILabel* titleLabel;
+        UILabel *titleLabel;
+        
         if (titlePresent) {
             
             messageSubViewIndex = 1;
@@ -407,7 +391,7 @@ API_AVAILABLE(ios(10.0))
         
         if (messagePresent) {
             
-            UILabel* messageLabel = textDisplayView.subviews[messageSubViewIndex];
+            UILabel *messageLabel = textDisplayView.subviews[messageSubViewIndex];
             messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [messageLabel.leadingAnchor constraintEqualToAnchor:textDisplayView.leadingAnchor constant:TEXT_PADDING].active = YES;
             [messageLabel.trailingAnchor constraintEqualToAnchor:textDisplayView.trailingAnchor constant:0-TEXT_PADDING].active = YES;
@@ -418,10 +402,8 @@ API_AVAILABLE(ios(10.0))
                 [messageLabel.topAnchor constraintEqualToAnchor:textDisplayView.topAnchor constant:TEXT_PADDING].active = YES;
             }
             
-            [messageLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant: 0-TEXT_PADDING].active = YES;
-            
+            [messageLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant:0-TEXT_PADDING].active = YES;
         }
-        
         
         //Star rating view internal constraints
         self.labelsWrapper.translatesAutoresizingMaskIntoConstraints = NO;
@@ -441,28 +423,24 @@ API_AVAILABLE(ios(10.0))
         
         [self.unselectedLabel.leadingAnchor constraintEqualToAnchor:self.selectedLabel.trailingAnchor].active = YES;
         
-        //[superViewWrapper.heightAnchor constraintEqualToConstant:mainContentView.frame.size.height + separator.frame.size.height + starRatingWrapper.frame.size.height].active = YES;
-        
-        
     } else {
         NSLog(@"Expected to be running iOS version 10 or above");
     }
 }
 
 
--(BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder {
     return YES;
 }
 
--(UIView *)inputAccessoryView {
+- (UIView *)inputAccessoryView {
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
     
-    
-    UIView* inputAccessoryView = [[UIView alloc] initWithFrame:frame];
+    UIView *inputAccessoryView = [[UIView alloc] initWithFrame:frame];
     inputAccessoryView.backgroundColor = [UIColor lightTextColor];
     
-    UIButton* doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
     NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:@"Done"
                                                                     attributes:@{
                                                                                  NSUnderlineStyleAttributeName:
@@ -492,12 +470,12 @@ API_AVAILABLE(ios(10.0))
     return inputAccessoryView;
 }
 
--(UIView *)inputView {
+- (UIView *)inputView {
     
     return self.pickerView;
 }
 
--(void)doneButtonClicked:(id) sender {
+- (void)doneButtonClicked:(id)sender {
     
     NSInteger rowIndex = [self.pickerView selectedRowInComponent:0];
     
@@ -506,7 +484,7 @@ API_AVAILABLE(ios(10.0))
     [self.viewController resignFirstResponder];
 }
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
     
     self.notification = notification;
     [self initialiseViewHierarchy];
@@ -523,48 +501,43 @@ API_AVAILABLE(ios(10.0))
     [self.pickerView selectRow:noOfStars/2 inComponent:0 animated:NO];
 }
 
--(void) didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)){
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)) {
     
     if (@available(iOS 10.0, *)) {
-        UNNotificationContentExtensionResponseOption completionOption =
-        UNNotificationContentExtensionResponseOptionDoNotDismiss;
+        
+        UNNotificationContentExtensionResponseOption completionOption = UNNotificationContentExtensionResponseOptionDoNotDismiss;
+        
         if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
             
             [self.viewController becomeFirstResponder];
             
-        } else if([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
+        } else if ([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
             
             if (self.selectedCount > 0) {
                 
-                NSDictionary* userInfo = self.notification.request.content.userInfo;
-                NSDictionary* expandableDetails = userInfo[@"expandableDetails"];
+                NSDictionary *userInfo = self.notification.request.content.userInfo;
+                NSDictionary *expandableDetails = userInfo[@"expandableDetails"];
                 
-                NSString* expId = userInfo[@"experiment_id"];
-                NSString* notifId = userInfo[@"notification_id"];
+                NSString *expId = userInfo[@"experiment_id"];
+                NSString *notifId = userInfo[@"notification_id"];
                 
-                //NSString* callToAction = items[index][@"id"];
                 if (expandableDetails) {
                     
-                    
-                    NSMutableDictionary* systemData = [[NSMutableDictionary alloc] init];
+                    NSMutableDictionary *systemData = [[NSMutableDictionary alloc] init];
                     
                     [systemData addEntriesFromDictionary:@{
                                                            @"id": notifId,
                                                            @"experiment_id": expId
                                                            }];
                     
+                    NSString *submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
                     
-                    
-                    
-                    NSString* submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
                     if (submitCTA) {
                         
-                        NSString* submitCTAId = expandableDetails[@"submitCTA"][@"id"];
+                        NSString *submitCTAId = expandableDetails[@"submitCTA"][@"id"];
                         [systemData setObject:submitCTAId forKey:@"call_to_action"];
                         
                         [self.viewController setCTAWithId:submitCTAId andLink:submitCTA];
-                        
-                        
                     }
                     
                     completionOption = UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
@@ -577,22 +550,21 @@ API_AVAILABLE(ios(10.0))
                                                                        self.selectedCount]
                                                                   }];
                 }
-                
             } else {
                 
                 //Here UI may be updated to prompt choosing a rating value.
             }
-            
         }
         
         completion(completionOption);
+        
     } else {
         NSLog(@"Expected to be running iOS version 10 or above");
     }
-    
 }
 
 - (UIColor *)colorWithHexString:(NSString *)hexString {
+    
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner setScanLocation:1]; // bypass '#' character
@@ -605,4 +577,5 @@ API_AVAILABLE(ios(10.0))
 
 
 #endif
+
 @end

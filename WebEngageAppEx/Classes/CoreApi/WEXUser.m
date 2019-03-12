@@ -1,32 +1,24 @@
 //
-//  AEUser.m
-//  appEngageSdk
+//  WEXUser.m
+//  WebEngage
 //
-//  Created by Saumitra R. Bhave on 27/07/15.
-//  Copyright (c) 2015 Saumitra R. Bhave. All rights reserved.
+//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
 #import "WEXUser.h"
 #import "WEXCoreUtils.h"
 
-@interface WEXUser ()
-+ (void)setAttribute:(NSString *)attributeName withAnyValue:(id)value;
-@end
-
 @implementation WEXUser
 
 // TODO: unify following flavors.
 + (void)setAttribute:(NSString *)attributeName withAnyValue:(id)value {
+    
     if (attributeName && ![attributeName isEqualToString:@""]) {
         if (value) {
-            [WEXAnalytics
-             trackEventWithName:
-             [@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_UPDATE]
-             andValue:@{
-                        @"event_data_overrides" : @{attributeName : value}
-                        }];
+            [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_UPDATE]
+                                    andValue:@{ @"event_data_overrides": @{attributeName : value} }];
         } else {
-            NSLog(@"Invalid value(nil) in `setAttribute` for attribute %@: ",attributeName);
+            NSLog(@"Invalid value(nil) in `setAttribute` for attribute %@: ", attributeName);
         }
     } else {
         NSLog(@"Invalid attribute name in `setAttribute`: nil or empty string");
@@ -56,12 +48,8 @@
 }
 
 + (void)deleteAttribute:(NSString *)attributeName {
-  [WEXAnalytics
-      trackEventWithName:[@"we_"
-                             stringByAppendingString:WEG_EVENT_NAME_USER_DELETE_ATTRS]
-                andValue:@{
-                  @"event_data_overrides" : @{attributeName : [NSNull null]}
-                }];
+    [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_DELETE_ATTRS]
+                            andValue:@{ @"event_data_overrides": @{attributeName: [NSNull null]}}];
 }
 
 + (void)deleteAttributes:(NSArray *)attributes {
@@ -70,12 +58,9 @@
     for (NSString *s in attributes) {
         [dict setObject:[NSNull null] forKey:s];
     }
-    [WEXAnalytics
-        trackEventWithName:
-            [@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_DELETE_ATTRS]
-                  andValue:@{
-                    @"event_data_overrides" : dict
-                  }];
+    
+    [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_DELETE_ATTRS]
+                            andValue:@{ @"event_data_overrides": dict }];
 }
 
 + (void)setEmail:(NSString *)email {
@@ -116,6 +101,7 @@
     
     [self setSystemAttribute:@"first_name" withValue:name];
 }
+
 + (void)setLastName:(NSString *)name {
     [self setSystemAttribute:@"last_name" withValue:name];
 }
@@ -126,6 +112,7 @@
 
 + (void)setOptInStatusForChannel:(WEGEngagementChannel)channel
                           status:(BOOL)statusValue {
+    
     NSString *attrName = nil;
     
     switch (channel) {
@@ -144,21 +131,18 @@
     }
     
     if (attrName) {
-        [self setSystemAttribute:attrName
-                       withValue:[NSNumber numberWithBool:statusValue]];
+        [self setSystemAttribute:attrName withValue:[NSNumber numberWithBool:statusValue]];
     }
 }
 
 + (void)setSystemAttribute:(NSString *)attributeName withValue:(id)value {
+    
     if (value) {
-      [WEXAnalytics
-          trackEventWithName:
-              [@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_UPDATE]
-                    andValue:@{
-                      @"system_data_overrides" : @{attributeName : value}
-                    }];
+        [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:WEG_EVENT_NAME_USER_UPDATE]
+                                andValue:@{ @"system_data_overrides": @{ attributeName: value }}];
     } else {
-      NSLog(@"Invalid Value(nil) for System Attribute `%@`", attributeName);
+        NSLog(@"Invalid Value(nil) for System Attribute `%@`", attributeName);
     }
 }
+
 @end

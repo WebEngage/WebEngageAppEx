@@ -1,6 +1,6 @@
 {
   "name": "WebEngageAppEx",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "summary": "Extension For Using WebEngage APIs from Application Extensions",
   "description": "This pod includes various subspecs which are intended for use in Application Extensions, and depends on APIs which are App Extension Safe. The Core subspecs provides APIs which lets you track Users and Events from within Application Extensions.",
   "homepage": "https://github.com/WebEngage/WebEngageAppEx",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/WebEngage/WebEngageAppEx.git",
-    "tag": "0.1.1"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "10.0"
