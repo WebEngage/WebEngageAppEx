@@ -1,25 +1,22 @@
 
+# Avoid use_frameworks! declaration in your Podfile. Contact us at support@webengage.com if you face any issue.
+# CocoaPods version 1.6.1
+
 platform :ios, '9.0'
 
 workspace '../WEGExtension'
 
-def extensionSettings
-  platform :ios, '10.0'
-  use_frameworks!
+target 'WEGExtensionApp' do
+  pod 'WebEngage'
 end
 
+
 target 'ServiceExtension' do
-  extensionSettings
+  platform :ios, '10.0'
   pod 'WebEngageBannerPush', :path => '../'
 end
 
 target 'ContentExtension' do
-  extensionSettings
+  platform :ios, '10.0'
   pod 'WebEngageAppEx/ContentExtension', :path => '../'
-end
-
-
-target 'WEGExtensionApp' do
-  use_frameworks!
-  pod 'WebEngage'
 end
