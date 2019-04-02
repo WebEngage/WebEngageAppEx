@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC427F1621B698BA001EC77F"
+               BlueprintIdentifier = "EC7FA0D922423D1B00910E1B"
                BuildableName = "ContentExtension.appex"
                BlueprintName = "ContentExtension"
                ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC427F1621B698BA001EC77F"
+            BlueprintIdentifier = "EC7FA0D922423D1B00910E1B"
             BuildableName = "ContentExtension.appex"
             BlueprintName = "ContentExtension"
             ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
