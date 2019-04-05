@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC427F0621B698A3001EC77F"
+               BlueprintIdentifier = "EC7FA0CA22423D0900910E1B"
                BuildableName = "ServiceExtension.appex"
                BlueprintName = "ServiceExtension"
                ReferencedContainer = "container:WEGExtensionApp.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC427F0621B698A3001EC77F"
+            BlueprintIdentifier = "EC7FA0CA22423D0900910E1B"
             BuildableName = "ServiceExtension.appex"
             BlueprintName = "ServiceExtension"
             ReferencedContainer = "container:WEGExtensionApp.xcodeproj">

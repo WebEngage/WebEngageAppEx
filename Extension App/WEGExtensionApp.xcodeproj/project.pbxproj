@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F7EF3EDCB55550C6F7C608A /* libPods-WEGExtensionApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78309AFBF7371C00043A9B04 /* libPods-WEGExtensionApp.a */; };
-		84D1A4B3A3C0AEEF2D991B13 /* libPods-ServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86CF371E30B7E924148CC7BD /* libPods-ServiceExtension.a */; };
-		B329E94D0D67C4EFA5E041B2 /* libPods-ContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2F1DCE9391AB3CFE0F86D9B /* libPods-ContentExtension.a */; };
+		020CF31F1616AA196EBC6EB9 /* libPods-WEGExtensionApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */; };
+		13BC25B02A53AE6781BB7989 /* libPods-ServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F6D721B5CA3D9E091692E7 /* libPods-ServiceExtension.a */; };
+		E4B8DBC3C26E4089EA6553EE /* libPods-ContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CF75C2CE610E7FDA5DD83E /* libPods-ContentExtension.a */; };
 		EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF121B6987C001EC77F /* AppDelegate.swift */; };
 		EC427EF421B6987C001EC77F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC427EF321B6987C001EC77F /* ViewController.swift */; };
 		EC427EF721B6987C001EC77F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC427EF521B6987C001EC77F /* Main.storyboard */; };
@@ -57,13 +57,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30F6D721B5CA3D9E091692E7 /* libPods-ServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CF75C2CE610E7FDA5DD83E /* libPods-ContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.debug.xcconfig"; sourceTree = "<group>"; };
-		78309AFBF7371C00043A9B04 /* libPods-WEGExtensionApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WEGExtensionApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WEGExtensionApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		86CF371E30B7E924148CC7BD /* libPods-ServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.release.xcconfig"; sourceTree = "<group>"; };
-		C2F1DCE9391AB3CFE0F86D9B /* libPods-ContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.release.xcconfig"; sourceTree = "<group>"; };
 		EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WEGExtensionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC427EF121B6987C001EC77F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F7EF3EDCB55550C6F7C608A /* libPods-WEGExtensionApp.a in Frameworks */,
+				020CF31F1616AA196EBC6EB9 /* libPods-WEGExtensionApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D1A4B3A3C0AEEF2D991B13 /* libPods-ServiceExtension.a in Frameworks */,
+				13BC25B02A53AE6781BB7989 /* libPods-ServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +128,7 @@
 			files = (
 				EC7FA0DC22423D1B00910E1B /* UserNotificationsUI.framework in Frameworks */,
 				EC7FA0DB22423D1B00910E1B /* UserNotifications.framework in Frameworks */,
-				B329E94D0D67C4EFA5E041B2 /* libPods-ContentExtension.a in Frameworks */,
+				E4B8DBC3C26E4089EA6553EE /* libPods-ContentExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,9 +189,9 @@
 			children = (
 				EC427F1921B698BA001EC77F /* UserNotifications.framework */,
 				EC427F1B21B698BA001EC77F /* UserNotificationsUI.framework */,
-				C2F1DCE9391AB3CFE0F86D9B /* libPods-ContentExtension.a */,
-				86CF371E30B7E924148CC7BD /* libPods-ServiceExtension.a */,
-				78309AFBF7371C00043A9B04 /* libPods-WEGExtensionApp.a */,
+				47CF75C2CE610E7FDA5DD83E /* libPods-ContentExtension.a */,
+				30F6D721B5CA3D9E091692E7 /* libPods-ServiceExtension.a */,
+				8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -357,14 +357,15 @@
 				TargetAttributes = {
 					EC427EED21B6987C001EC77F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					EC7FA0CA22423D0900910E1B = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					EC7FA0D922423D1B00910E1B = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -711,7 +712,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -733,7 +734,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -756,7 +757,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ServiceExtension/ServiceExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -778,7 +779,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ServiceExtension/ServiceExtension-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -801,7 +802,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ContentExtension/ContentExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -823,7 +824,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ContentExtension/ContentExtension-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

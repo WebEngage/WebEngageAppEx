@@ -16,7 +16,7 @@ s.source           = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git'
 s.ios.deployment_target = '10.0'
 s.source_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
 s.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
-s.frameworks = 'Foundation'
+s.frameworks = 'Foundation', 'UIKit'
 s.weak_frameworks = 'UserNotifications'
 
 end
