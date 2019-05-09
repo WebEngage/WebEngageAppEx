@@ -1,4 +1,4 @@
-framework module WebEngageAppEx {
+module WebEngageAppEx {
   umbrella header "WebEngageAppEx-umbrella.h"
 
   export *

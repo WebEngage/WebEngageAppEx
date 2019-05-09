@@ -65,6 +65,9 @@
 		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.release.xcconfig"; sourceTree = "<group>"; };
 		CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.release.xcconfig"; sourceTree = "<group>"; };
+		EC074272225F8B4900557BB7 /* WEGExtensionApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WEGExtensionApp.entitlements; sourceTree = "<group>"; };
+		EC074273225F8B5600557BB7 /* ServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceExtension.entitlements; sourceTree = "<group>"; };
+		EC074274225F8B5E00557BB7 /* ContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContentExtension.entitlements; sourceTree = "<group>"; };
 		EC427EEE21B6987C001EC77F /* WEGExtensionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WEGExtensionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC427EF121B6987C001EC77F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC427EF321B6987C001EC77F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 		EC427EF021B6987C001EC77F /* WEGExtensionApp */ = {
 			isa = PBXGroup;
 			children = (
+				EC074272225F8B4900557BB7 /* WEGExtensionApp.entitlements */,
 				EC427EF121B6987C001EC77F /* AppDelegate.swift */,
 				EC427EF321B6987C001EC77F /* ViewController.swift */,
 				EC427EF521B6987C001EC77F /* Main.storyboard */,
@@ -199,6 +203,7 @@
 		EC7FA0CC22423D0900910E1B /* ServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
+				EC074273225F8B5600557BB7 /* ServiceExtension.entitlements */,
 				EC7FA0EB22423D6100910E1B /* NotificationService.swift */,
 				EC7FA0CF22423D0900910E1B /* Info.plist */,
 				EC7FA0EA22423D6000910E1B /* ServiceExtension-Bridging-Header.h */,
@@ -209,6 +214,7 @@
 		EC7FA0DD22423D1B00910E1B /* ContentExtension */ = {
 			isa = PBXGroup;
 			children = (
+				EC074274225F8B5E00557BB7 /* ContentExtension.entitlements */,
 				EC7FA0DE22423D1B00910E1B /* NotificationViewController.swift */,
 				EC7FA0E022423D1B00910E1B /* MainInterface.storyboard */,
 				EC7FA0E322423D1B00910E1B /* Info.plist */,
@@ -358,14 +364,29 @@
 					EC427EED21B6987C001EC77F = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EC7FA0CA22423D0900910E1B = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EC7FA0D922423D1B00910E1B = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -701,6 +722,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WEGExtensionApp/WEGExtensionApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
@@ -723,6 +745,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WEGExtensionApp/WEGExtensionApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
@@ -744,6 +767,7 @@
 			baseConfigurationReference = B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;
@@ -767,6 +791,7 @@
 			baseConfigurationReference = F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;
@@ -789,6 +814,7 @@
 			baseConfigurationReference = 8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContentExtension/ContentExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = ContentExtension/Info.plist;
@@ -812,6 +838,7 @@
 			baseConfigurationReference = CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContentExtension/ContentExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E59R2H2BZQ;
 				INFOPLIST_FILE = ContentExtension/Info.plist;

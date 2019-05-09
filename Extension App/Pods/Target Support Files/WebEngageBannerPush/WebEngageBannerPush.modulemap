@@ -1,4 +1,4 @@
-framework module WebEngageBannerPush {
+module WebEngageBannerPush {
   umbrella header "WebEngageBannerPush-umbrella.h"
 
   export *
