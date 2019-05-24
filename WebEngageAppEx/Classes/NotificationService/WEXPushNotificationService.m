@@ -7,6 +7,7 @@
 
 
 #import "WEXPushNotificationService.h"
+#import "WebP/UIImage+WebP.h"
 
 @interface WEXPushNotificationService ()
 
@@ -133,35 +134,44 @@
     __block UNNotificationAttachment *attachment = nil;
     __block NSURL *attachmentURL = [NSURL URLWithString:urlString];
     
-    NSString *fileExt = [@"." stringByAppendingString:[urlString pathExtension]];
-    
     NSURLSessionDownloadTask *task = [self.session downloadTaskWithURL:attachmentURL
                                                      completionHandler:^(NSURL *temporaryFileLocation,  NSURLResponse *response, NSError *error) {
                                                          
-                                          if (error != nil) {
-                                              NSLog(@"%@", error);
-                                          } else {
-                                              
-                                              NSFileManager *fileManager = [NSFileManager defaultManager];
-                                              
-                                              NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
-                                              
-                                              [fileManager moveItemAtURL:temporaryFileLocation
-                                                                   toURL:localURL
-                                                                   error:&error];
-                                              
-                                              NSError *attachmentError = nil;
-                                              
-                                              attachment = [UNNotificationAttachment attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",(unsigned long)idx] URL:localURL options:nil error:&attachmentError];
-                                              
-                                              if (attachmentError) {
-                                                  NSLog(@"%@", attachmentError);
-                                              }
-                                          }
-                                          
-                                          NSLog(@"Sending Callback");
-                                          completionHandler(attachment, idx);
-                                      }];
+                                                         if (error != nil) {
+                                                             NSLog(@"%@", error);
+                                                         } else {
+                                                             
+                                                             NSString *fileExt = [@"." stringByAppendingString:[urlString pathExtension]];
+                                                             
+                                                             if ([[urlString pathExtension] isEqualToString:@"webp"]) {
+                                                                 fileExt = [@"." stringByAppendingString:@"png"];
+                                                             }
+                                                             
+                                                             NSFileManager *fileManager = [NSFileManager defaultManager];
+                                                             
+                                                             NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
+                                                             
+                                                             [fileManager moveItemAtURL:temporaryFileLocation
+                                                                                  toURL:localURL
+                                                                                  error:&error];
+                                                             
+                                                             NSError *attachmentError = nil;
+                                                             
+                                                             if ([[urlString pathExtension] isEqualToString:@"webp"]) {
+                                                                 UIImage *image = [UIImage imageWithWebPData:[NSData dataWithContentsOfURL:localURL]];
+                                                                 NSData *imageData = UIImagePNGRepresentation(image);
+                                                                 [imageData writeToURL:localURL atomically:YES];
+                                                             }
+                                                             attachment = [UNNotificationAttachment attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",(unsigned long)idx] URL:localURL options:nil error:&attachmentError];
+                                                             
+                                                             if (attachmentError) {
+                                                                 NSLog(@"%@", attachmentError);
+                                                             }
+                                                         }
+                                                         
+                                                         NSLog(@"Sending Callback");
+                                                         completionHandler(attachment, idx);
+                                                     }];
     
     [task resume];
 }
