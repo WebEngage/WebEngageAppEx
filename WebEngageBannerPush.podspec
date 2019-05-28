@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'WebEngageBannerPush'
-s.version          = '0.3.0'
+s.version          = '0.4.0'
 s.summary          = 'Extension For Using WebEngage Banner or Attachment Based Notifications'
 
 s.description      = <<-DESC
@@ -14,7 +14,7 @@ s.author           = { "Saumitra R. Bhave" => "saumitra@webklipper.com",
 s.source           = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '10.0'
-s.source_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
+s.source_files = 'WebEngageAppEx/Classes/NotificationService/**/*.{h,m}'
 s.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
 s.frameworks = 'Foundation', 'UIKit'
 s.weak_frameworks = 'UserNotifications'
