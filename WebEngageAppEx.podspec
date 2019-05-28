@@ -21,10 +21,14 @@ api.frameworks = 'Foundation'
 end
 
 s.subspec 'NotificationService' do |ns|
-ns.source_files = 'WebEngageAppEx/Classes/NotificationService/**/*.{h,m}'
+ns.source_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
 ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
 ns.frameworks = 'Foundation'
 ns.weak_frameworks = 'UserNotifications'
+ns.subspec 'WebP' do |wp|
+	wp.source_files = 'WebEngageAppEx/Classes/NotificationService/WebP/**/*.{h,m}'
+end
+
 end
 
 s.subspec 'ContentExtension' do |cs|
