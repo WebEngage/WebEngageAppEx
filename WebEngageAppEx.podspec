@@ -27,8 +27,6 @@ ns.frameworks = 'Foundation'
 ns.weak_frameworks = 'UserNotifications'
 end
 
-end
-
 s.subspec 'ContentExtension' do |cs|
 cs.source_files = 'WebEngageAppEx/Classes/ContentExtension/**/*.{h,m}'
 cs.public_header_files = 'WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h'
