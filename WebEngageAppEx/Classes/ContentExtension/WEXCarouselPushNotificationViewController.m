@@ -130,6 +130,10 @@ API_AVAILABLE(ios(10.0))
                             NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
                             UIImage *image = [UIImage imageWithData:imageData];
                             
+                            if (!image && [[attachment.URL pathExtension] isEqualToString:@"webp"]){
+                                image = [UIImage imageWithWebPData:imageData];
+                            }
+                            
                             [attachment.URL stopAccessingSecurityScopedResource];
                             
                             if (image) {
