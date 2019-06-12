@@ -7,7 +7,7 @@
 
 
 #import "WEXPushNotificationService.h"
-#import "WebP/UIImage+WebP.h"
+#import "UIImage+WebP.h"
 
 @interface WEXPushNotificationService ()
 

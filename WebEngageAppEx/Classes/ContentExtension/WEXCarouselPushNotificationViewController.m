@@ -8,7 +8,7 @@
 
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
-#import "WebP/UIImage+WebP.h"
+#import "UIImage+WebP.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5

@@ -25,6 +25,7 @@ ns.source_files = 'WebEngageAppEx/Classes/NotificationService/**/*.{h,m}'
 ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
 ns.frameworks = 'Foundation'
 ns.weak_frameworks = 'UserNotifications'
+ns.ios.dependency 'libwebp', '~> 1.0.2'
 end
 
 s.subspec 'ContentExtension' do |cs|
@@ -33,6 +34,7 @@ cs.public_header_files = 'WebEngageAppEx/Classes/ContentExtension/WEXRichPushNot
 cs.frameworks = 'Foundation'
 cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
 cs.dependency 'WebEngageAppEx/CoreApi'
+cs.ios.dependency 'libwebp', '~> 1.0.2'
 end
 
 end
