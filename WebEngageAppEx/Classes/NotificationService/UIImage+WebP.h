@@ -3,8 +3,13 @@
 //  iOS-WebP
 
 #import <UIKit/UIKit.h>
-#import "libwebp/webp/decode.h"
-#import "libwebp/webp/encode.h"
+#if __has_include("webp/decode.h") && __has_include("webp/encode.h")
+#import "webp/decode.h"
+#import "webp/encode.h"
+#elif __has_include(<libwebp/decode.h>) && __has_include(<libwebp/encode.h>)
+#import <libwebp/decode.h>
+#import <libwebp/encode.h>
+#endif
 
 @interface UIImage (WebP)
 
