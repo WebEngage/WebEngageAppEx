@@ -18,6 +18,9 @@ s.source_files = 'WebEngageAppEx/Classes/NotificationService/**/*.{h,m}'
 s.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
 s.frameworks = 'Foundation', 'UIKit'
 s.weak_frameworks = 'UserNotifications'
-s.ios.dependency 'libwebp', '~> 1.0.2'
+s.xcconfig = {
+    'USER_HEADER_SEARCH_PATHS' => '$(inherited) $(SRCROOT)/libwebp/src'
+  }
+s.dependency 'libwebp', '~> 1.0.2'
 
 end
