@@ -25,10 +25,11 @@ ns.source_files = 'WebEngageAppEx/Classes/NotificationService/**/*.{h,m}'
 ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
 ns.frameworks = 'Foundation'
 ns.weak_frameworks = 'UserNotifications'
-ns.xcconfig = {
-    'USER_HEADER_SEARCH_PATHS' => '$(inherited) $(SRCROOT)/libwebp/src'
-  }
-ns.dependency 'libwebp', '~> 1.0.2'
+ns.header_mappings_dir = 'src'
+# ns.xcconfig = {
+#     'USER_HEADER_SEARCH_PATHS' => '$(inherited) $(SRCROOT)/libwebp/src'
+#   }
+# ns.dependency 'libwebp', '~> 1.0.2'
 end
 
 s.subspec 'ContentExtension' do |cs|
@@ -37,10 +38,11 @@ cs.public_header_files = 'WebEngageAppEx/Classes/ContentExtension/WEXRichPushNot
 cs.frameworks = 'Foundation'
 cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
 cs.dependency 'WebEngageAppEx/CoreApi'
-cs.xcconfig = {
-    'USER_HEADER_SEARCH_PATHS' => '$(inherited) $(SRCROOT)/libwebp/src'
-  }
-cs.dependency 'libwebp', '~> 1.0.2	'
+cs.header_mappings_dir = 'src'
+# cs.xcconfig = {
+#     'USER_HEADER_SEARCH_PATHS' => '$(inherited) $(SRCROOT)/libwebp/src'
+#   }
+# cs.dependency 'libwebp', '~> 1.0.2'
 end
 
 end

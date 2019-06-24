@@ -52,8 +52,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
   WebEngage: 3893bb6d4ca56b0bcc954d8c6375215a2612b759
-  WebEngageAppEx: 8886c93421bca64c137d23626fb958bf2dcc62ca
-  WebEngageBannerPush: 65e5c72c05c6807edbb94e39cea01ed6b92cfea7
+  WebEngageAppEx: 5c4d5f8e6e2c61ab56e90df77346be7650fa5c8f
+  WebEngageBannerPush: cbfe169f0017883b574fe8624e8ad7fb8a49b634
 
 PODFILE CHECKSUM: e6e5d3acc715b026b89f8998c0dc88f9d23ea68e
 
