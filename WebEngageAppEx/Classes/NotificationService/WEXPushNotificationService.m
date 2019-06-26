@@ -40,6 +40,8 @@
     UNNotificationContent *content = request.content;
     NSDictionary *expandableDetails = content.userInfo[@"expandableDetails"];
     
+    NSLog(@"Push Notification content: %@", request.content.userInfo);
+    
     NSString *style = expandableDetails[@"style"];
     
     if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {

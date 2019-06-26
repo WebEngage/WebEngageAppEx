@@ -1,6 +1,5 @@
 
 # Avoid use_frameworks! declaration in your Podfile. Contact us at support@webengage.com if you face any issue.
-# CocoaPods version 1.6.1
 
 platform :ios, '9.0'
 
