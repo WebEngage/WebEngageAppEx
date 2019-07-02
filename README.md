@@ -5,11 +5,18 @@
 [![Platform](https://img.shields.io/cocoapods/p/WebEngageAppEx.svg?style=flat)](http://cocoapods.org/pods/WebEngageAppEx)
 [![LastUpdated](https://img.shields.io/github/last-commit/WebEngage/WebEngageAppEx.svg)](https://cocoapods.org/pods/WebEngageAppEx)
 
+<br/>
+
+Detailed Documentation is hosted [here](https://docs.webengage.com/docs/ios-push-messaging#section-5-rich-push-notifications).
+
+
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run `pod install` in the `Extension App` folder.
 
 ## Requirements
+
+`WebEngageAppEx` works for iOS Notification Service & Notification Content Extension Targets for `iOS 10.0+`
 
 ## Installation
 
