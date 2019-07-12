@@ -7,7 +7,7 @@
 
 <br/>
 
-Detailed Documentation is hosted [here](https://docs.webengage.com/docs/ios-push-messaging#section-5-rich-push-notifications).
+Detailed Documentation is available [here](https://docs.webengage.com/docs/ios-push-messaging#section-5-rich-push-notifications).
 
 
 ## Example

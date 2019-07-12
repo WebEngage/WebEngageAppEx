@@ -5,12 +5,10 @@ PODS:
   - WebEngageAppEx/ContentExtension (0.4.0):
     - WebEngageAppEx/CoreApi
   - WebEngageAppEx/CoreApi (0.4.0)
-  - WebEngageBannerPush (0.4.0)
 
 DEPENDENCIES:
   - WebEngage
   - WebEngageAppEx/ContentExtension (from `../`)
-  - WebEngageBannerPush (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -19,14 +17,11 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   WebEngageAppEx:
     :path: "../"
-  WebEngageBannerPush:
-    :path: "../"
 
 SPEC CHECKSUMS:
   WebEngage: b77d3bc788974bd978354df4554a49481bee825f
   WebEngageAppEx: 2af4d1ac59a22c376c8a62d42bfb600f572cac8b
-  WebEngageBannerPush: 8aefaadd37817221acd185d0711f44d43309ac8e
 
-PODFILE CHECKSUM: 0b4ef334b6d57d756e3a9bfc7b1edfaecff90d1e
+PODFILE CHECKSUM: 6b411b59475ba6fbe9987c4bfaad45262aaa9d9c
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.7.4

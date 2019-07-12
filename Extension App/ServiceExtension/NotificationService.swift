@@ -8,4 +8,4 @@
 
 import UserNotifications
 
-class NotificationService: WEXPushNotificationService { }
+class NotificationService: UNNotificationServiceExtension { }

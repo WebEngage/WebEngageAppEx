@@ -35,9 +35,7 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-- (void)loadView {
-    self.view = [[UIView alloc] init];
-}
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
     
@@ -46,16 +44,6 @@ API_AVAILABLE(ios(10.0))
     if (self.label) {
         [self.label removeFromSuperview];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    
-    [super viewDidDisappear:animated];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,7 +79,10 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
+
+#pragma mark - Content Extension Delegates
+
+- (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)){
     
     self.notification = notification;
     self.isRendering = YES;
@@ -99,11 +90,6 @@ API_AVAILABLE(ios(10.0))
     NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
     
     if (!appGroup) {
-        
-        /*
-         Retrieving the app bundle identifier using the method described here:
-         https://stackoverflow.com/a/27849695/1357328
-         */
         
         NSBundle *bundle = [NSBundle mainBundle];
         

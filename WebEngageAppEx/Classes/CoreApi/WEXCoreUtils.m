@@ -16,10 +16,7 @@
     dispatch_once(&onceToken, ^{
         NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEG_APP_GROUP"];
         if (!appGroup) {
-            /*
-             Retrieving the app bundle identifier using the method described here:
-             https://stackoverflow.com/a/27849695/1357328
-             */
+            
             NSBundle *bundle = [NSBundle mainBundle];
             if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
                 // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
