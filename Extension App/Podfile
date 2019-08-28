@@ -12,7 +12,8 @@ end
 
 target 'ServiceExtension' do
   platform :ios, '10.0'
-  pod 'WebEngageBannerPush', :path => '../'
+  # pod 'WebEngageBannerPush', :path => '../'
+  pod 'WebEngageAppEx/NotificationService', :path => '../'
 end
 
 target 'ContentExtension' do

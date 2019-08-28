@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## WebEngageBannerPush
+## WebEngageAppEx
 
 Copyright (c) 2017 WebEngage 
 

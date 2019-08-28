@@ -3,4 +3,4 @@
 // Required if ServiceExtension Target is in Swift
 
 #import <UserNotifications/UserNotifications.h>
-#import <WebEngageBannerPush/WEXPushNotificationService.h>
+#import <WebEngageAppEx/WEXPushNotificationService.h>
