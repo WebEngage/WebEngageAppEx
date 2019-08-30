@@ -1,7 +1,7 @@
 PODS:
-  - WebEngage (4.9.1):
-    - WebEngage/Xcode10 (= 4.9.1)
-  - WebEngage/Xcode10 (4.9.1)
+  - WebEngage (4.9.5):
+    - WebEngage/Xcode10 (= 4.9.5)
+  - WebEngage/Xcode10 (4.9.5)
   - WebEngageAppEx/ContentExtension (0.4.0):
     - WebEngageAppEx/CoreApi
   - WebEngageAppEx/CoreApi (0.4.0)
@@ -21,9 +21,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WebEngage: b77d3bc788974bd978354df4554a49481bee825f
+  WebEngage: bfd178de2072ef0d0c740feaafa37289fc451197
   WebEngageAppEx: 2af4d1ac59a22c376c8a62d42bfb600f572cac8b
 
 PODFILE CHECKSUM: fc3fc6b6cd90337d22c88222817873f4dbcbdcfd
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.5
