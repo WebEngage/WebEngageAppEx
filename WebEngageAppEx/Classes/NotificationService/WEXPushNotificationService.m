@@ -57,42 +57,43 @@
                                       at:itemCounter
                        completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
                            
-                           imageDownloadAttemptCounter++;
-                           
-                           if (attachment) {
-                               NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
-                               [attachmentsArray addObject:attachment];
-                               self.bestAttemptContent.attachments = attachmentsArray;
-                           }
-                           
-                           if (imageDownloadAttemptCounter == carouselItems.count) {
-                               NSLog(@"Ending WebEngage Rich Push Service");
-                               self.contentHandler(self.bestAttemptContent);
-                           }
-                       }];
+                    imageDownloadAttemptCounter++;
+
+                    if (attachment) {
+                       NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
+                       [attachmentsArray addObject:attachment];
+                       self.bestAttemptContent.attachments = attachmentsArray;
+                    }
+
+                    if (imageDownloadAttemptCounter == carouselItems.count) {
+                       NSLog(@"Ending WebEngage Rich Push Service");
+                       self.contentHandler(self.bestAttemptContent);
+                    }
+                }];
                 itemCounter++;
             }
         }
-    } else if (expandableDetails && style &&
-               ([style isEqualToString:@"RATING_V1"] ||
-                [style isEqualToString:@"BIG_PICTURE"])) {
+    }
+    else if (expandableDetails && style &&
+             ([style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"BIG_PICTURE"])) {
+        
+        NSString *urlStr = expandableDetails[@"image"];
+        
+        [self fetchAttachmentFor:urlStr
+                              at:0
+               completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
                    
-                   NSString *urlStr = expandableDetails[@"image"];
-                   
-                   [self fetchAttachmentFor:urlStr
-                                         at:0
-                          completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-                              
-                              if (attachment) {
-                                  NSLog(@"WebEngage Downloaded Image for Rating Layout");
-                                  self.bestAttemptContent.attachments = @[ attachment ];
-                              }
-                              
-                              self.contentHandler(self.bestAttemptContent);
-                          }];
-               } else {
-                   self.contentHandler(self.bestAttemptContent);
-               }
+            if (attachment) {
+               NSLog(@"WebEngage Downloaded Image for Rating Layout");
+               self.bestAttemptContent.attachments = @[ attachment ];
+            }
+
+            self.contentHandler(self.bestAttemptContent);
+        }];
+    }
+    else {
+        self.contentHandler(self.bestAttemptContent);
+    }
 }
 
 - (void)serviceExtensionTimeWillExpire {
@@ -145,4 +146,3 @@
 #endif
 
 @end
-
