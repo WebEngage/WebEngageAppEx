@@ -164,10 +164,11 @@
     
     request.HTTPBody = [str dataUsingEncoding:NSUTF8StringEncoding];
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error) {
-            NSLog(@"error: %@", error);
+            NSLog(@"Could not log push_notification_view event with error: %@", error);
         }
         else {
             NSLog(@"URLResponse: %@", response);
