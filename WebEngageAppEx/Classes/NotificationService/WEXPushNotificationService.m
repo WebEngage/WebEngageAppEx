@@ -66,8 +66,11 @@
                     }
 
                     if (imageDownloadAttemptCounter == carouselItems.count) {
-                       NSLog(@"Ending WebEngage Rich Push Service");
-                       self.contentHandler(self.bestAttemptContent);
+                        
+                        [self trackEventWithCompletion:^{
+                            NSLog(@"Ending WebEngage Rich Push Service");
+                            self.contentHandler(self.bestAttemptContent);
+                        }];
                     }
                 }];
                 itemCounter++;
@@ -84,20 +87,24 @@
                completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
                    
             if (attachment) {
-               NSLog(@"WebEngage Downloaded Image for Rating Layout");
-               self.bestAttemptContent.attachments = @[ attachment ];
+                NSLog(@"WebEngage Downloaded Image for Rating Layout");
+                self.bestAttemptContent.attachments = @[ attachment ];
             }
-
-            self.contentHandler(self.bestAttemptContent);
-        }];
+          
+            [self trackEventWithCompletion:^{
+                self.contentHandler(self.bestAttemptContent);
+            }];
+       }];
     }
     else {
-        self.contentHandler(self.bestAttemptContent);
+        [self trackEventWithCompletion:^{
+            self.contentHandler(self.bestAttemptContent);
+        }];
     }
 }
 
 - (void)serviceExtensionTimeWillExpire {
-    
+    NSLog(@"%@", @(__FUNCTION__));
     self.contentHandler(self.bestAttemptContent);
 }
 
@@ -141,6 +148,35 @@
          completionHandler(attachment, index);
          
      }] resume];
+}
+
+- (void)trackEventWithCompletion:(void(^)(void))completion {
+    
+    NSURL *url = [NSURL URLWithString:@"https://c.webengage.com/tracker"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    
+    [request setValue:@"application/transit+json" forHTTPHeaderField:@"Content-type"];
+    [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
+    
+    NSString *str = @"{\"license_code\":\"311c5607\",\"interface_id\":\"com.WebEngageExampleSwift|7304B686-39DD-4A9A-AB42-216D276FC569\",\"suid\":null,\"luid\":null,\"cuid\":null,\"category\":\"system\",\"event_name\":\"push_notification_view\",\"event_time\":\"~t2019-07-20T00:00:00.000Z\",\"event_data\":{},\"system_data\":{\"sdk_id\":3,\"sdk_version\":3333,\"app_id\":\"com.webengage.testapp1\",\"experiment_id\":\"~~848i0||~3290i1d8e12a56i_56c907ca-db7b-441f-8073-2d5170c27620#8:1566988938000\",\"id\":\"5n81eg4\"}}";
+    
+    request.HTTPBody = [str dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"error: %@", error);
+        }
+        else {
+            NSLog(@"URLResponse: %@", response);
+        }
+
+        if (completion) {
+            completion();
+        }
+    }] resume];
 }
 
 #endif
