@@ -62,7 +62,7 @@
 }
 
 
-#pragma mark - View Helpers
+#pragma mark - Rich Push View Helpers
 
 - (void)drawCarouselViewWith:(NSArray *)items {
     
@@ -119,9 +119,6 @@
            }];
 }
 
-
-#pragma mark - Network Helpers
-
 - (void)fetchAttachmentFor:(NSString *)urlString
                         at:(NSUInteger)index
          completionHandler:(void (^)(UNNotificationAttachment *, NSUInteger))completionHandler {
@@ -164,6 +161,9 @@
      }] resume];
 }
 
+
+#pragma mark - Tracker Event Helpers
+
 - (void)trackEventWithCompletion:(void(^)(void))completion {
     
     NSURLRequest *request = [self getRequestForTracker];
@@ -175,7 +175,7 @@
             NSLog(@"Could not log push_notification_view event with error: %@", error);
         }
         else {
-            NSLog(@"URLResponse: %@", response);
+            NSLog(@"Push Tracker URLResponse: %@", response);
         }
 
         if (completion) {
@@ -189,16 +189,97 @@
     NSURL *url = [NSURL URLWithString:@"https://c.webengage.com/tracker"];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
     request.HTTPMethod = @"POST";
     
     [request setValue:@"application/transit+json" forHTTPHeaderField:@"Content-type"];
     [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     
-    NSString *str = @"{\"license_code\":\"311c5607\",\"interface_id\":\"com.WebEngageExampleSwift|7304B686-39DD-4A9A-AB42-216D276FC569\",\"suid\":null,\"luid\":null,\"cuid\":null,\"category\":\"system\",\"event_name\":\"push_notification_view\",\"event_time\":\"~t2019-07-20T00:00:00.000Z\",\"event_data\":{},\"system_data\":{\"sdk_id\":3,\"sdk_version\":3333,\"app_id\":\"com.webengage.testapp1\",\"experiment_id\":\"~~848i0||~3290i1d8e12a56i_56c907ca-db7b-441f-8073-2d5170c27620#8:1566988938000\",\"id\":\"5n81eg4\"}}";
-    
-    request.HTTPBody = [str dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody = [self getTrackerRequestBody];
     
     return request;
+}
+
+- (NSData *)getTrackerRequestBody {
+    
+    NSDictionary *userDefaultsData = [self getDataFromSharedUserDefaults];
+    
+    NSMutableDictionary *body = [NSMutableDictionary dictionary];
+    
+    body[@"event_name"] = @"push_notification_view";
+    body[@"category"] = @"system";
+    body[@"suid"] = @"null";
+    body[@"luid"] = @"null";
+    body[@"cuid"] = @"null";
+    body[@"event_time"] = [self getCurrentFormattedTime];
+    body[@"license_code"] = userDefaultsData[@"license_code"];
+    body[@"interface_id"] = userDefaultsData[@"interface_id"];
+    body[@"event_data"] = @{};
+    
+    NSMutableDictionary *systemData = [NSMutableDictionary dictionary];
+    systemData[@"sdk_id"] = @(3);
+    systemData[@"sdk_version"] = userDefaultsData[@"sdk_version"];
+    systemData[@"app_id"] = userDefaultsData[@"app_id"];
+    systemData[@"experiment_id"] = self.bestAttemptContent.userInfo[@"experiment_id"];
+    systemData[@"id"] = self.bestAttemptContent.userInfo[@"notification_id"];
+    
+    body[@"system_data"] = systemData;
+    
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:body options:NSJSONWritingPrettyPrinted error:&error];
+    
+    if (error) {
+        NSLog(@"Error in converting data: %@", error);
+    }
+    
+    return data;
+}
+
+- (NSString *)getCurrentFormattedTime {
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"'~t'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"gb"];
+    return [formatter stringFromDate:[NSDate date]];
+}
+
+- (NSDictionary<NSString *, NSString *> *)getDataFromSharedUserDefaults {
+    
+    NSUserDefaults *defaults = [self getSharedUserDefaults];
+    
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    
+    data[@"license_code"] = [defaults objectForKey:@"license_code"];
+    data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
+    data[@"sdk_version"] = [defaults objectForKey:@"sdk_version"];
+    data[@"app_id"] = [defaults objectForKey:@"app_id"];
+    
+    return data;
+}
+
+- (NSUserDefaults *)getSharedUserDefaults {
+    
+    NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
+    
+    if (!appGroup) {
+        NSBundle *bundle = [NSBundle mainBundle];
+        
+        if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
+            bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+        }
+        
+        NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+        
+        appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
+    }
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
+    
+    if (!defaults) {
+        NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
+    }
+    
+    return defaults;
 }
 
 #endif
