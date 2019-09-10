@@ -25,7 +25,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
-		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -48,6 +48,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>WEGAlternateAppSupport</key>
+	<true/>
 	<key>WEGEnableLocationAuthorizationRequest</key>
 	<string>IN_USE</string>
 	<key>WEGLicenseCode</key>
