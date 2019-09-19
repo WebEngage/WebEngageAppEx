@@ -27,13 +27,21 @@ WebEngage SDK is supported for `iOS8` and above. The following frameworks should
 
           # For Xcode 10 and above:
 
-          target 'WebEngageExample' do
+          target 'YourAppTarget' do
+              platform :ios, '8.0'
               pod 'WebEngage'
           end
 
-          # For Xcode 9:
-          target 'WebEngageExample' do
-              pod 'WebEngage/Xcode9'
+          # ServiceExtension Target
+          target 'NotificationService' do
+              platform :ios, '10.0'
+              pod 'WebEngageBannerPush'
+          end
+
+          # ContentExtension Target
+          target 'NotificationViewController' do
+              platform :ios, '10.0'
+              pod 'WebEngageAppEx/ContentExtension'
           end
 
 2. Install WebEngage SDK by running `pod install`
