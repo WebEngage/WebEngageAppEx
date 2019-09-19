@@ -5,6 +5,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/WebEngageAppEx.svg?style=flat)](http://cocoapods.org/pods/WebEngageAppEx)
 [![LastUpdated](https://img.shields.io/github/last-commit/WebEngage/WebEngageAppEx.svg)](https://cocoapods.org/pods/WebEngageAppEx)
 
+Detailed Setup Guide available [here](https://docs.webengage.com/docs/ios-getting-started).
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
