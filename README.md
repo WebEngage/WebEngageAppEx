@@ -5,6 +5,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/WebEngageAppEx.svg?style=flat)](http://cocoapods.org/pods/WebEngageAppEx)
 [![LastUpdated](https://img.shields.io/github/last-commit/WebEngage/WebEngageAppEx.svg)](https://cocoapods.org/pods/WebEngageAppEx)
 
+Detailed Setup Guide available [here](https://docs.webengage.com/docs/ios-getting-started).
+
 #### Minimum SDK Requirements ####
 
 WebEngage SDK is supported for `iOS8` and above. The following frameworks should be linked as part of the Xcode project (Direct Integration).
