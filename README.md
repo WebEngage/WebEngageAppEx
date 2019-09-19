@@ -5,28 +5,61 @@
 [![Platform](https://img.shields.io/cocoapods/p/WebEngageAppEx.svg?style=flat)](http://cocoapods.org/pods/WebEngageAppEx)
 [![LastUpdated](https://img.shields.io/github/last-commit/WebEngage/WebEngageAppEx.svg)](https://cocoapods.org/pods/WebEngageAppEx)
 
-Detailed Setup Guide available [here](https://docs.webengage.com/docs/ios-getting-started).
+#### Minimum SDK Requirements ####
 
-## Example
+WebEngage SDK is supported for `iOS8` and above. The following frameworks should be linked as part of the Xcode project (Direct Integration).
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+    1. CoreLocation.framework
 
-## Requirements
+    2. SystemConfiguration.framework
 
-## Installation
+    3. AdSupport.framework
 
-WebEngageAppEx is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+    4. -lsqlite3
 
-```ruby
-pod 'WebEngageAppEx'
-```
+#### There are 2 ways of integrating WebEngage to your existing/new Xcode Project.
 
-## Author
+#### 1. CocoaPods Integration (Recommended)
 
-Saumitra Bhave saumitra@webklipper.com <br/>
-Yogesh Singh yogesh.singh@webklipper.com
+  1. Add the following to your Podfile
 
-## License
+          # For Xcode 10 and above:
 
-WebEngageAppEx is available under the MIT license. See the LICENSE file for more info.
+          target 'WebEngageExample' do
+              pod 'WebEngage'
+          end
+
+          # For Xcode 9:
+          target 'WebEngageExample' do
+              pod 'WebEngage/Xcode9'
+          end
+
+2. Install WebEngage SDK by running `pod install`
+
+
+Check out Swift Bridging Header details [here](https://docs.webengage.com/docs/ios-getting-started#section-4-support-for-swift).
+
+Learn about Podfile Specifications [here](https://guides.cocoapods.org/using/the-podfile.html).
+
+#### 2. Direct Integration (Manual) ####
+
+1. Download the SDK file [here](https://s3-us-west-2.amazonaws.com/webengage-sdk/ios/latest/WebEngageFramework.zip). Extract the downloaded zip file. In the extracted zip there would be two directories - xc6 and xc7. If you are using Xcode 9 use the `Webengage.framework` within the `xc9` directory. For Xcode 10 and above use the one in `xc10`. Save the appropriate `Webengage.framework` it in a location on your computer.
+
+2. Select the name of the project in the project navigator. The project editor appears in the editor area of the Xcode workspace window.
+
+3. Click on the `General` Tab at the top of project editor.
+
+4. In the section `Embedded Libraries` click on `+` button. It will open up the file chooser for your project. Open WebEngage.framework and select `Copy if needed` option. This will copy the framework to your project directory.
+
+5. Below Embedded Libraries, there is `Linked Frameworks and Libraries` click the `+` button and add the following frameworks:
+    ```
+    SystemConfiguration.framework
+    CoreLocation.framework
+    AdSupport.framework
+    ```
+6. Go to 'Build Settings' tab on the top of the project editor. Search for `Other Linker Flags` option.
+Add `-lsqlite3` under it.
+
+At this point, WebEngage SDK integration is complete and your project should build successfully.
+
+Check out more details [here](https://docs.webengage.com/docs/ios-getting-started).
