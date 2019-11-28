@@ -22,6 +22,7 @@
 		EC7FA0E222423D1B00910E1B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC7FA0E022423D1B00910E1B /* MainInterface.storyboard */; };
 		EC7FA0E622423D1B00910E1B /* ContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EC7FA0DA22423D1B00910E1B /* ContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EC7FA0EC22423D6100910E1B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7FA0EB22423D6100910E1B /* NotificationService.swift */; };
+		ECC54FFB238E8900006101BC /* WEXPushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC54FFA238E8900006101BC /* WEXPushNotificationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		ECBC238123268AD9000CE01B /* WEGExtensionApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WEGExtensionApp.entitlements; sourceTree = "<group>"; };
 		ECBC238223268B0C000CE01B /* ServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceExtension.entitlements; sourceTree = "<group>"; };
 		ECBC238323268B1F000CE01B /* ContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContentExtension.entitlements; sourceTree = "<group>"; };
+		ECC54FFA238E8900006101BC /* WEXPushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEXPushNotificationService.swift; sourceTree = "<group>"; };
 		F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 			children = (
 				EC9A3DB321B6B15300C63B7D /* WEXPushNotificationService.h */,
 				EC9A3DB221B6B15300C63B7D /* WEXPushNotificationService.m */,
+				ECC54FFA238E8900006101BC /* WEXPushNotificationService.swift */,
 			);
 			path = NotificationService;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECC54FFB238E8900006101BC /* WEXPushNotificationService.swift in Sources */,
 				EC7FA0EC22423D6100910E1B /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
