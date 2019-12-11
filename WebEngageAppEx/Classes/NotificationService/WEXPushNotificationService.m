@@ -277,6 +277,8 @@
         NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
     }
     
+    NSLog(@"Retrieved App Group Defaults: %@", [defaults dictionaryRepresentation]);
+    
     return defaults;
 }
 

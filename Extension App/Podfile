@@ -1,7 +1,7 @@
 
 # Avoid use_frameworks! declaration in your Podfile. Contact us at support@webengage.com if you face any issue.
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 workspace '../WEGExtension'
 
@@ -11,12 +11,10 @@ end
 
 
 target 'ServiceExtension' do
-  platform :ios, '10.0'
   pod 'WebEngageBannerPush', :path => '../'
   # pod 'WebEngageAppEx/NotificationService', :path => '../'
 end
 
 target 'ContentExtension' do
-  platform :ios, '10.0'
   pod 'WebEngageAppEx/ContentExtension', :path => '../'
 end
