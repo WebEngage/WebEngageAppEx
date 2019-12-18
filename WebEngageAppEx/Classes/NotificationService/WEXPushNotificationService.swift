@@ -167,6 +167,39 @@ class WEXPushNotificationService: UNNotificationServiceExtension {
     
     func trackEvent(completion: @escaping () -> Void) {
         
+//        URLSession.shared.dataTask(with: <#T##URLRequest#>, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
+        
         completion()
+    }
+    
+    func getTrackerRequest() -> URLRequest? {
+        
+        if let trackerURL = URL(string: "https://c.webengage.com/tracker") {
+            
+            var request = URLRequest(url: trackerURL)
+            
+            request.httpMethod = "POST"
+            request.setValue("application/transit+json", forHTTPHeaderField: "Content-type")
+            request.setValue("no-cache", forHTTPHeaderField: "Cache-Control")
+            request.httpBody = getTrackerBody()
+            
+            return request
+        }
+        
+        return nil
+    }
+    
+    func getTrackerBody() -> Data? {
+        
+        if let userDefaultsData = getUserDefaultsData() {
+            NSLog("User Defaults Data: \(userDefaultsData)")
+        }
+        
+        return nil
+    }
+    
+    func getUserDefaultsData() -> [AnyHashable: Any]? {
+        
+        return nil
     }
 }
