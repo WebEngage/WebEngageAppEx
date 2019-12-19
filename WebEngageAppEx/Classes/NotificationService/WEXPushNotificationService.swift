@@ -157,7 +157,7 @@ class WEXPushNotificationService: UNNotificationServiceExtension {
     
     
     func fireTracker() {
-        self.trackEvent {
+        trackEvent {
             self.handler(self.bestAttemptContent)
         }
     }
@@ -167,9 +167,21 @@ class WEXPushNotificationService: UNNotificationServiceExtension {
     
     func trackEvent(completion: @escaping () -> Void) {
         
-//        URLSession.shared.dataTask(with: <#T##URLRequest#>, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
+        if let request = getTrackerRequest() {
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
         
-        completion()
+                if let error = error {
+                    NSLog("Error - Could not log push_notification_view event: \(error)")
+                } else {
+                    NSLog("Successfully fired push_notification_view event")
+                }
+                
+                completion()
+            }
+        } else {
+            completion()
+        }
     }
     
     func getTrackerRequest() -> URLRequest? {
@@ -192,14 +204,106 @@ class WEXPushNotificationService: UNNotificationServiceExtension {
     func getTrackerBody() -> Data? {
         
         if let userDefaultsData = getUserDefaultsData() {
-            NSLog("User Defaults Data: \(userDefaultsData)")
+            
+            var body = [String: Any]()
+            body["event_name"] = "push_notification_view"
+            body["category"] = "system"
+            body["suid"] = "null"
+            body["luid"] = "null"
+            body["cuid"] = "null"
+            body["event_data"] = []
+            body["event_time"] = sanitizeForTransit(for: getFormattedTime())
+            
+            if let licenseCode = userDefaultsData["license_code"] as? String {
+                body["license_code"] = sanitizeForTransit(for: licenseCode)
+            }
+            
+            if let interfaceID = userDefaultsData["interface_id"] as? String {
+                body["interface_id"] = sanitizeForTransit(for: interfaceID)
+            }
+            
+            var systemData = [String: Any]()
+            systemData["sdk_id"] = 3
+            systemData["sdk_version"] = userDefaultsData["sdk_version"]
+            systemData["app_id"] = userDefaultsData["app_id"]
+            systemData["experiment_id"] = bestAttemptContent.userInfo["experiment_id"]
+            systemData["id"] = bestAttemptContent.userInfo["notification_id"]
+            
+            body["system_data"] = systemData
+            
+            do {
+                let data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+                
+                return data
+                
+            } catch let error {
+                NSLog("Error: \(error)")
+            }
         }
         
         return nil
     }
     
-    func getUserDefaultsData() -> [AnyHashable: Any]? {
+    func sanitizeForTransit(for string: String) -> String? {
+        
+        var sanitizedString: String? = string
+        
+        if string.hasPrefix("~") && !string.hasPrefix("~t") {
+            sanitizedString = "~" + string
+        } else if string.hasPrefix("^") {
+            sanitizedString = "^" + string
+        } else if string.hasPrefix("`") {
+            sanitizedString = "`" + string
+        } else if string == "null" {
+            sanitizedString = nil
+        }
+        
+        return sanitizedString
+    }
+    
+    
+    func getUserDefaultsData() -> [String: Any]? {
+        
+        if let appGroup = getAppGroup() {
+            
+            if let userDefaults = UserDefaults(suiteName: appGroup) {
+                
+                NSLog("User Defaults Data: \(userDefaults.dictionaryRepresentation())")
+                
+                return userDefaults.dictionaryRepresentation()
+            }
+        }
         
         return nil
+    }
+    
+    func getAppGroup() -> String? {
+        
+        if let appGroup = Bundle.main.object(forInfoDictionaryKey: "WEX_APP_GROUP") as? String {
+            
+            return appGroup
+        }
+            
+        if Bundle.main.bundleURL.pathExtension == "appex" {
+            
+            if let bundle = Bundle(url: Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()) {
+                if let identifier = bundle.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String {
+                    
+                    return "group.\(identifier).WEGNotificationGroup"
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    func getFormattedTime() -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "'~t'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.locale = Locale(identifier: "gb")
+
+        return formatter.string(from: Date())
     }
 }
