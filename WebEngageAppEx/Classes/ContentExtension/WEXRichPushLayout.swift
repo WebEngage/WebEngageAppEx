@@ -22,4 +22,8 @@ class WEXRichPushLayout: NSObject, UNNotificationContentExtension {
     func didReceive(_ notification: UNNotification) {
         
     }
+    
+    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
+    }
 }

@@ -43,6 +43,12 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
         }
     }
     
+    func didReceive(_ response: UNNotificationResponse,
+                    completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
+        currentLayout?.didReceive(response, completionHandler: completion)
+    }
+    
     
     // MARK: - View Helpers
     

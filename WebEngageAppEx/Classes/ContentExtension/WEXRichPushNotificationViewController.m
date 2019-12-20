@@ -119,7 +119,7 @@ API_AVAILABLE(ios(10.0))
         [self.currentLayout didReceiveNotification:notification];
     }
 }
-
+ 
 - (WEXRichPushLayout *)layoutForStyle:(NSString *)style {
     
     if (style && [style isEqualToString:@"CAROUSEL_V1"]) {
