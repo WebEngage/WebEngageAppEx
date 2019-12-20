@@ -13,6 +13,7 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
     var isRendering = false
     var notification: UNNotification?
     var userDefaults: UserDefaults?
+    var currentLayout: WEXRichPushLayout?
     
     
     // MARK: - Content Extension Delegates
@@ -25,10 +26,25 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
         if let appGroup = getAppGroup() {
             userDefaults = UserDefaults(suiteName: appGroup)
         }
+        
+        updateActivity(object: false, key: "collapsed")
+        updateActivity(object: true, key: "expanded")
+        
+        if let expandableDetails = notification.request.content.userInfo["expandableDetails"] as? [AnyHashable: Any] {
+            
+            if let style = expandableDetails["style"] as? String {
+                
+                if let currentLayout = getLayout(for: style) {
+                    
+                    self.currentLayout = currentLayout
+                    currentLayout.didReceive(notification)
+                }
+            }
+        }
     }
     
     
-    // MARK: -
+    // MARK: - View Helpers
     
     func getAppGroup() -> String? {
         
@@ -48,5 +64,78 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
         }
         
         return nil
+    }
+    
+    
+    func getLayout(for style: String) -> WEXRichPushLayout? {
+        
+        switch style {
+        case "CAROUSEL_V1":
+            return WEXCarouselPushNotificationViewController(with: self)
+        case "RATING_V1":
+            return WEXRatingPushNotificationViewController(with: self)
+        default:
+            return nil
+        }
+    }
+    
+    
+    // MARK: - Notification Activity Data
+    
+    func getActivity() -> [AnyHashable: Any]? {
+        
+        guard
+            let notification = notification,
+            let expID = notification.request.content.userInfo["experiment_id"] as? String,
+            let notifID = notification.request.content.userInfo["notification_id"] as? String,
+            let expandableDetails = notification.request.content.userInfo["expandableDetails"],
+            let userDefaults = userDefaults
+        else {
+            return nil
+        }
+        
+        let finalNotifID = expID + "|" + notifID
+
+        if let dictionary = userDefaults.dictionary(forKey: finalNotifID) {
+            return dictionary
+        } else {
+           
+            var dictionary = [AnyHashable: Any]()
+            dictionary["experiment_id"] = expID
+            dictionary["notification_id"] = notifID
+            dictionary["expandableDetails"] = expandableDetails
+            
+            if let customData = notification.request.content.userInfo["customData"] {
+                dictionary["customData"] = customData
+            }
+            
+            return dictionary
+        }
+    }
+    
+    func setActivity(for activity: [AnyHashable: Any]) {
+        
+        guard
+            let notification = notification,
+            let expID = notification.request.content.userInfo["experiment_id"] as? String,
+            let notifID = notification.request.content.userInfo["notification_id"] as? String,
+            let userDefaults = userDefaults
+        else {
+            return
+        }
+        
+        let finalNotifID = expID + "|" + notifID
+        
+        userDefaults.set(activity, forKey: finalNotifID)
+    }
+    
+    func updateActivity(object: Any, key: String) {
+        
+        if var activity = getActivity() {
+            
+            activity[key] = object
+            
+            setActivity(for: activity)
+        }
     }
 }
