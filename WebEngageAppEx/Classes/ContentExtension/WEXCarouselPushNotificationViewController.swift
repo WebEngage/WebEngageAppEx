@@ -16,7 +16,7 @@ class WEXCarouselPushNotificationViewController: WEXRichPushLayout {
     var images: [String]?
     var wasLoaded: [String]?
     
-//    var notification: UNNotification?
+    var notification: UNNotification?
 //    var userDefaults: UserDefaults?
 //    var currentLayout: WEXRichPushLayout?
     
@@ -24,8 +24,9 @@ class WEXCarouselPushNotificationViewController: WEXRichPushLayout {
     
     override func didReceive(_ notification: UNNotification) {
         
-        isRendering = true
         current = 0
+        isRendering = true
+        self.notification = notification
         
         if setupCarouselItems(from: notification) {
         

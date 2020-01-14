@@ -71,7 +71,7 @@ API_AVAILABLE(ios(10.0))
             
             // Don't save the file here instead add to images directly.
             // Also handle the events for the same accordingly.
-            // wasLoaded, viewEventForIndex and addToImages
+            // wasLoaded, viewEventForIndex and addToImages 
             
             NSString *imageURL = self.carouselItems[0][@"image"];
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
