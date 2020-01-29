@@ -8,37 +8,18 @@
 
 import UIKit
 import os.log
+import UserNotificationsUI
 
 
 class WEXRichPushNotificationViewController: UIViewController {
     
     var isRendering = false
+    let analytics = WEXAnalytics()
     var notification: UNNotification?
-    var userDefaults: UserDefaults?
     var controller: UNNotificationContentExtension?
     
     
     // MARK: - View Helpers
-    
-    func getAppGroup() -> String? {
-        
-        if let appGroup = Bundle.main.object(forInfoDictionaryKey: "WEX_APP_GROUP") as? String {
-            
-            return appGroup
-        }
-            
-        if Bundle.main.bundleURL.pathExtension == "appex" {
-            
-            if let bundle = Bundle(url: Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()) {
-                if let identifier = bundle.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String {
-                    
-                    return "group.\(identifier).WEGNotificationGroup"
-                }
-            }
-        }
-        
-        return nil
-    }
     
     func getController(for notification: UNNotification) -> UNNotificationContentExtension? {
         
@@ -73,7 +54,7 @@ class WEXRichPushNotificationViewController: UIViewController {
             let expID = notification.request.content.userInfo["experiment_id"] as? String,
             let notifID = notification.request.content.userInfo["notification_id"] as? String,
             let expandableDetails = notification.request.content.userInfo["expandableDetails"],
-            let userDefaults = userDefaults
+            let userDefaults = analytics.userDefaults
         else {
             return nil
         }
@@ -103,7 +84,7 @@ class WEXRichPushNotificationViewController: UIViewController {
             let notification = notification,
             let expID = notification.request.content.userInfo["experiment_id"] as? String,
             let notifID = notification.request.content.userInfo["notification_id"] as? String,
-            let userDefaults = userDefaults
+            let userDefaults = analytics.userDefaults
         else {
             return
         }
@@ -134,10 +115,6 @@ extension WEXRichPushNotificationViewController: UNNotificationContentExtension 
         isRendering = true
         self.notification = notification
         
-        if let appGroup = getAppGroup() {
-            userDefaults = UserDefaults(suiteName: appGroup)
-        }
-        
         updateActivity(object: false, key: "collapsed")
         updateActivity(object: true, key: "expanded")
         
@@ -153,3 +130,68 @@ extension WEXRichPushNotificationViewController: UNNotificationContentExtension 
         controller?.didReceive?(response, completionHandler: completion)
     }
 }
+
+
+/*
+ 
+ - (void)addSystemEventWithName:(NSString *)eventName
+                     systemData:(NSDictionary *)systemData
+                applicationData:(NSDictionary *)applicationData {
+     
+     [self addEventWithName:eventName
+                 systemData:systemData
+            applicationData:applicationData
+                   category:@"system"];
+ }
+
+ - (void)addEventWithName:(NSString *)eventName
+               systemData:(NSDictionary *)systemData
+          applicationData:(NSDictionary *)applicationData
+                 category:(NSString *)category {
+     
+     id customData = self.notification.request.content.userInfo[@"customData"];
+     
+     NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc] init];
+     
+     if (customData && [customData isKindOfClass:[NSArray class]]) {
+         NSArray *customDataArray = customData;
+         for (NSDictionary *customDataItem in customDataArray) {
+             customDataDictionary[customDataItem[@"key"]] = customDataItem[@"value"];
+         }
+     }
+     
+     if (applicationData) {
+         [customDataDictionary addEntriesFromDictionary:applicationData];
+     }
+     
+     if ([category isEqualToString:@"system"]) {
+         [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
+                                 andValue:@{
+                                             @"system_data_overrides": systemData ? systemData : @{},
+                                             @"event_data_overrides": customDataDictionary
+                                         }];
+     } else {
+         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
+     }
+ }
+
+ - (void)setCTAWithId:(NSString *)ctaId andLink:(NSString *)actionLink {
+     
+     NSDictionary *cta = @{@"id": ctaId, @"actionLink": actionLink};
+     
+     [self updateActivityWithObject:cta forKey:@"cta"];
+ }
+
+ - (NSTextAlignment)naturalTextAligmentForText:(NSString*) text{
+     NSArray *tagschemes = [NSArray arrayWithObjects:NSLinguisticTagSchemeLanguage, nil];
+     NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:tagschemes options:0];
+     [tagger setString:text];
+     NSString *language = [tagger tagAtIndex:0 scheme:NSLinguisticTagSchemeLanguage tokenRange:NULL sentenceRange:NULL];
+     if ([language rangeOfString:@"he"].location != NSNotFound || [language rangeOfString:@"ar"].location != NSNotFound) {
+         return NSTextAlignmentRight;
+     } else {
+         return NSTextAlignmentLeft;
+     }
+ }
+ 
+ */

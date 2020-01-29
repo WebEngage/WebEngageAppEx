@@ -22,10 +22,11 @@
 		EC7FA0E222423D1B00910E1B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC7FA0E022423D1B00910E1B /* MainInterface.storyboard */; };
 		EC7FA0E622423D1B00910E1B /* ContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EC7FA0DA22423D1B00910E1B /* ContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EC7FA0EC22423D6100910E1B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7FA0EB22423D6100910E1B /* NotificationService.swift */; };
-		EC8D9E4F23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8D9E4E23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift */; };
 		EC96D28323A7B72300E29F7E /* WEXPushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC96D28223A7B72300E29F7E /* WEXPushNotificationService.swift */; };
-		ECB5EA9023ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA8F23ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift */; };
-		ECB5EA9223ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA9123ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift */; };
+		F931CBA523E1B8BB00094B11 /* WEXAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931CBA423E1B8BB00094B11 /* WEXAnalytics.swift */; };
+		F942C0DA23E1BE7D002CB21B /* WEXRichPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8D9E4E23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift */; };
+		F942C0DB23E1BE9B002CB21B /* WEXRatingPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA9123ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift */; };
+		F942C0DC23E1BEA0002CB21B /* WEXCarouselPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA8F23ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		ECBC238223268B0C000CE01B /* ServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceExtension.entitlements; sourceTree = "<group>"; };
 		ECBC238323268B1F000CE01B /* ContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContentExtension.entitlements; sourceTree = "<group>"; };
 		F0475B5723990666CF117C65 /* Pods-ServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		F931CBA423E1B8BB00094B11 /* WEXAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEXAnalytics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +279,7 @@
 				EC9A3DB721B6B15300C63B7D /* WEXRichPushNotificationViewController.m */,
 				EC8D9E4E23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift */,
 				EC9A3DB521B6B15300C63B7D /* WEXRichPushNotificationViewController+Private.h */,
+				F931CBA423E1B8BB00094B11 /* WEXAnalytics.swift */,
 			);
 			path = ContentExtension;
 			sourceTree = "<group>";
@@ -568,7 +571,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F942C0DC23E1BEA0002CB21B /* WEXCarouselPushNotificationViewController.swift in Sources */,
 				EC427EF421B6987C001EC77F /* ViewController.swift in Sources */,
+				F931CBA523E1B8BB00094B11 /* WEXAnalytics.swift in Sources */,
+				F942C0DB23E1BE9B002CB21B /* WEXRatingPushNotificationViewController.swift in Sources */,
+				F942C0DA23E1BE7D002CB21B /* WEXRichPushNotificationViewController.swift in Sources */,
 				EC427EF221B6987C001EC77F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,10 +593,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC8D9E4F23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift in Sources */,
 				EC7FA0DF22423D1B00910E1B /* NotificationViewController.swift in Sources */,
-				ECB5EA9223ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift in Sources */,
-				ECB5EA9023ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotificationsUI
 
 class WEXCarouselPushNotificationViewController: UIViewController {
     
