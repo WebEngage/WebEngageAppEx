@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WEXCarouselPushNotificationViewController: WEXRichPushLayout {
+class WEXCarouselPushNotificationViewController: UIViewController {
     
     var current = 0
     var isRendering = false
@@ -19,21 +19,20 @@ class WEXCarouselPushNotificationViewController: WEXRichPushLayout {
     var notification: UNNotification?
 //    var userDefaults: UserDefaults?
 //    var currentLayout: WEXRichPushLayout?
+
     
-    // MARK: - Content Extension Delegates
-    
-    override func didReceive(_ notification: UNNotification) {
-        
-        current = 0
-        isRendering = true
-        self.notification = notification
-        
-        if setupCarouselItems(from: notification) {
-        
-            let downloadedCount = notification.request.content.attachments.count
-            
-        }
-    }
+//    override func didReceive(_ notification: UNNotification) {
+//
+//        current = 0
+//        isRendering = true
+//        self.notification = notification
+//
+//        if setupCarouselItems(from: notification) {
+//
+//            let downloadedCount = notification.request.content.attachments.count
+//
+//        }
+//    }
     
     
     // MARK: - View Helpers
@@ -52,5 +51,20 @@ class WEXCarouselPushNotificationViewController: WEXRichPushLayout {
         }
         
         return false
+    }
+}
+
+
+// MARK: - Content Extension Delegates
+
+extension WEXCarouselPushNotificationViewController: UNNotificationContentExtension {
+    
+    func didReceive(_ notification: UNNotification) {
+        
+    }
+    
+    func didReceive(_ response: UNNotificationResponse,
+                    completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
     }
 }

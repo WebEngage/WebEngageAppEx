@@ -7,47 +7,15 @@
 //
 
 import UIKit
+import os.log
 
-class WEXRichPushNotificationViewController: UIViewController, UNNotificationContentExtension {
+
+class WEXRichPushNotificationViewController: UIViewController {
     
     var isRendering = false
     var notification: UNNotification?
     var userDefaults: UserDefaults?
-    var currentLayout: WEXRichPushLayout?
-    
-    
-    // MARK: - Content Extension Delegates
-    
-    func didReceive(_ notification: UNNotification) {
-        
-        isRendering = true
-        self.notification = notification
-        
-        if let appGroup = getAppGroup() {
-            userDefaults = UserDefaults(suiteName: appGroup)
-        }
-        
-        updateActivity(object: false, key: "collapsed")
-        updateActivity(object: true, key: "expanded")
-        
-        if let expandableDetails = notification.request.content.userInfo["expandableDetails"] as? [AnyHashable: Any] {
-            
-            if let style = expandableDetails["style"] as? String {
-                
-                if let currentLayout = getLayout(for: style) {
-                    
-                    self.currentLayout = currentLayout
-                    currentLayout.didReceive(notification)
-                }
-            }
-        }
-    }
-    
-    func didReceive(_ response: UNNotificationResponse,
-                    completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
-        
-        currentLayout?.didReceive(response, completionHandler: completion)
-    }
+    var controller: UNNotificationContentExtension?
     
     
     // MARK: - View Helpers
@@ -72,15 +40,25 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
         return nil
     }
     
-    
-    func getLayout(for style: String) -> WEXRichPushLayout? {
+    func getController(for notification: UNNotification) -> UNNotificationContentExtension? {
+        
+        guard
+            let expandableDetails = notification.request.content.userInfo["expandableDetails"] as? [AnyHashable: Any],
+            let style = expandableDetails["style"] as? String
+        else {
+            os_log("Could not parse notification correctly: %{public}@", log: .default, type: .error, notification.request.content.userInfo)
+            return nil
+        }
         
         switch style {
         case "CAROUSEL_V1":
-            return WEXCarouselPushNotificationViewController(with: self)
+            return WEXCarouselPushNotificationViewController()
+            
         case "RATING_V1":
-            return WEXRatingPushNotificationViewController(with: self)
+            return WEXRatingPushNotificationViewController()
+            
         default:
+            os_log("Incorrect style parameter encountered: %{public}@", log: .default, type: .error, style)
             return nil
         }
     }
@@ -143,5 +121,35 @@ class WEXRichPushNotificationViewController: UIViewController, UNNotificationCon
             
             setActivity(for: activity)
         }
+    }
+}
+
+
+// MARK: - Content Extension Delegates
+
+extension WEXRichPushNotificationViewController: UNNotificationContentExtension {
+    
+    func didReceive(_ notification: UNNotification) {
+        
+        isRendering = true
+        self.notification = notification
+        
+        if let appGroup = getAppGroup() {
+            userDefaults = UserDefaults(suiteName: appGroup)
+        }
+        
+        updateActivity(object: false, key: "collapsed")
+        updateActivity(object: true, key: "expanded")
+        
+        if let controller = getController(for: notification) {
+            self.controller = controller
+            controller.didReceive(notification)
+        }
+    }
+    
+    func didReceive(_ response: UNNotificationResponse,
+                    completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
+        controller?.didReceive?(response, completionHandler: completion)
     }
 }

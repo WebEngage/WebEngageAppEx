@@ -8,6 +8,24 @@
 
 import UIKit
 
-class WEXRatingPushNotificationViewController: WEXRichPushLayout {
+class WEXRatingPushNotificationViewController: UIViewController {
 
+    
+    // MARK: - View Helpers
+    
+}
+
+
+// MARK: - Content Extension Delegates
+
+extension WEXRatingPushNotificationViewController: UNNotificationContentExtension {
+    
+    func didReceive(_ notification: UNNotification) {
+        
+    }
+    
+    func didReceive(_ response: UNNotificationResponse,
+                    completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
+    }
 }

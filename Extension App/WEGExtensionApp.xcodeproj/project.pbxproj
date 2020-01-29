@@ -24,7 +24,6 @@
 		EC7FA0EC22423D6100910E1B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7FA0EB22423D6100910E1B /* NotificationService.swift */; };
 		EC8D9E4F23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8D9E4E23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift */; };
 		EC96D28323A7B72300E29F7E /* WEXPushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC96D28223A7B72300E29F7E /* WEXPushNotificationService.swift */; };
-		ECB5EA8E23ACF53A00DECF58 /* WEXRichPushLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA8D23ACF53A00DECF58 /* WEXRichPushLayout.swift */; };
 		ECB5EA9023ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA8F23ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift */; };
 		ECB5EA9223ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB5EA9123ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift */; };
 /* End PBXBuildFile section */
@@ -109,7 +108,6 @@
 		EC9A3DC421B6B15300C63B7D /* WEXUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEXUser.m; sourceTree = "<group>"; };
 		EC9A3DC521B6B15300C63B7D /* WEXCoreUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEXCoreUtils.m; sourceTree = "<group>"; };
 		EC9A3DC721B6B15300C63B7D /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		ECB5EA8D23ACF53A00DECF58 /* WEXRichPushLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEXRichPushLayout.swift; sourceTree = "<group>"; };
 		ECB5EA8F23ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEXCarouselPushNotificationViewController.swift; sourceTree = "<group>"; };
 		ECB5EA9123ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEXRatingPushNotificationViewController.swift; sourceTree = "<group>"; };
 		ECBC238123268AD9000CE01B /* WEGExtensionApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WEGExtensionApp.entitlements; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				ECB5EA9123ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift */,
 				EC9A3DB621B6B15300C63B7D /* WEXRichPushLayout.h */,
 				EC9A3DBB21B6B15300C63B7D /* WEXRichPushLayout.m */,
-				ECB5EA8D23ACF53A00DECF58 /* WEXRichPushLayout.swift */,
 				EC9A3DBA21B6B15300C63B7D /* WEXRichPushNotificationViewController.h */,
 				EC9A3DB721B6B15300C63B7D /* WEXRichPushNotificationViewController.m */,
 				EC8D9E4E23ABBC4600A37CE3 /* WEXRichPushNotificationViewController.swift */,
@@ -593,7 +590,6 @@
 				EC7FA0DF22423D1B00910E1B /* NotificationViewController.swift in Sources */,
 				ECB5EA9223ACF70500DECF58 /* WEXRatingPushNotificationViewController.swift in Sources */,
 				ECB5EA9023ACF6DD00DECF58 /* WEXCarouselPushNotificationViewController.swift in Sources */,
-				ECB5EA8E23ACF53A00DECF58 /* WEXRichPushLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
