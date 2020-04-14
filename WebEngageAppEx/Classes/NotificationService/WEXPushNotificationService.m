@@ -239,7 +239,7 @@
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)property];
     [d enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         id sanitizedObj = [self sanitizeForTransit:obj];
-        if ([sanitizedObj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]) {
+        if ([sanitizedObj isKindOfClass:[NSDictionary class]]) {
             sanitizedObj = [self dictionaryOfProperties:obj];
         }
         [d setValue:sanitizedObj forKey:key];
@@ -250,12 +250,8 @@
 - (id)sanitizeForTransit:(id)obj {
     
     if ([obj isKindOfClass:[NSString class]]) {
-        if ([obj hasPrefix:@"~"] && ![obj hasPrefix:@"~t"]) {
+        if (([obj hasPrefix:@"~"] || [obj hasPrefix:@"^"] || [obj hasPrefix:@"`"]) && ![obj hasPrefix:@"~t"]) {
             obj = [@"~" stringByAppendingString:obj];
-        } else if ([obj hasPrefix:@"^"]) {
-            obj = [@"^" stringByAppendingString:obj];
-        } else if ([obj hasPrefix:@"`"]) {
-            obj = [@"`" stringByAppendingString:obj];
         }
         
         if ([obj isEqualToString:@"null"]) {
