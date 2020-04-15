@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   DESC
 
   spec.license            = 'MIT'
-  spec.author             = 'Saumitra Bhave', 'Yogesh Singh'
+  spec.author             = 'Saumitra Bhave', 'Uzma Sayyed'
   spec.homepage           = 'https://webengage.com'
   spec.social_media_url   = 'http://twitter.com/webengage'
   spec.documentation_url  = 'https://docs.webengage.com/docs/ios-getting-started'
