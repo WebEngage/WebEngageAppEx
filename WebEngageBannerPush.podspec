@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name             = 'WebEngageBannerPush'
-  spec.version          = '0.6.0'
+  spec.version          = '0.7.0'
   spec.summary          = 'Extension Target SDK for adding WebEngage Rich Push Notifications support'
 
   spec.description      = <<-DESC
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
   DESC
 
   spec.license            = 'MIT'
-  spec.author             = 'Saumitra Bhave', 'Yogesh Singh'
+  spec.author             = 'Saumitra Bhave', 'Uzma Sayyed'
   spec.homepage           = 'https://webengage.com'
   spec.social_media_url   = 'http://twitter.com/webengage'
   spec.documentation_url  = 'https://docs.webengage.com/docs/ios-getting-started'
