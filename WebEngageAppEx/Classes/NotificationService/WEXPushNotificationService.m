@@ -225,6 +225,8 @@
     
     body = [self dictionaryOfProperties:body];
     
+    NSLog(@"Data reporting to tracker: %@",body);
+    
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:body options:NSJSONWritingPrettyPrinted error:&error];
     
