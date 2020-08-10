@@ -194,6 +194,12 @@
     if ([self.enviroment.uppercaseString isEqualToString:@"IN"]) {
         baseURL = @"https://c.in.webengage.com/tracker";
     }
+    else if ([self.enviroment.uppercaseString isEqualToString:@"IR0"]) {
+        baseURL = @"https://c.ir0.webengage.com/tracker";
+    }
+    else if ([self.enviroment.uppercaseString isEqualToString:@"UNL"]) {
+        baseURL = @"https://c.unl.webengage.com/tracker";
+    }
     
     return baseURL;
 }
