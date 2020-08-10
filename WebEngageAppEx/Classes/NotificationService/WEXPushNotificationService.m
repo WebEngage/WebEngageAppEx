@@ -14,6 +14,8 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 @property (nonatomic) void (^contentHandler)(UNNotificationContent *contentToDeliver);
 @property (nonatomic) UNMutableNotificationContent *bestAttemptContent;
+@property (nonatomic) NSString *enviroment;
+@property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 #endif
 
 @end
@@ -182,9 +184,25 @@
     }] resume];
 }
 
+- (NSString *) getBaseURL{
+    NSString *baseURL = @"https://c.webengage.com/tracker";
+    
+    [self setDataFromSharedUserDefaults];
+    
+    NSLog(@"Setting Enviroment to : %@",self.enviroment);
+    
+    if ([self.enviroment.uppercaseString isEqualToString:@"IN"]) {
+        baseURL = @"https://c.in.webengage.com/tracker";
+    }
+    
+    return baseURL;
+}
+
 - (NSURLRequest *)getRequestForTracker {
     
-    NSURL *url = [NSURL URLWithString:@"https://c.webengage.com/tracker"];
+    NSURL *url = [NSURL URLWithString:[self getBaseURL]];
+    
+    NSLog(@"Base url: %@", url);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
@@ -200,7 +218,7 @@
 
 - (NSData *)getTrackerRequestBody {
     
-    NSDictionary *userDefaultsData = [self getDataFromSharedUserDefaults];
+    NSDictionary *userDefaultsData = self.sharedUserDefaults;
     
     NSMutableDictionary *body = [NSMutableDictionary dictionary];
     
@@ -272,7 +290,7 @@
     return [formatter stringFromDate:[NSDate date]];
 }
 
-- (NSDictionary<NSString *, NSString *> *)getDataFromSharedUserDefaults {
+- (void)setDataFromSharedUserDefaults {
     
     NSUserDefaults *defaults = [self getSharedUserDefaults];
     
@@ -283,7 +301,11 @@
     data[@"sdk_version"] = [defaults objectForKey:@"sdk_version"];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
     
-    return data;
+    self.sharedUserDefaults = data;
+    
+    NSLog(@"Environment: %@",[defaults objectForKey:@"environment"]);
+    self.enviroment = [defaults objectForKey:@"environment"];
+    
 }
 
 - (NSUserDefaults *)getSharedUserDefaults {
