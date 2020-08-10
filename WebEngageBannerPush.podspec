@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name             = 'WebEngageBannerPush'
-  spec.version          = '0.8.0'
+  spec.version          = '0.9.0'
   spec.summary          = 'Extension Target SDK for adding WebEngage Rich Push Notifications support'
 
   spec.description      = <<-DESC
