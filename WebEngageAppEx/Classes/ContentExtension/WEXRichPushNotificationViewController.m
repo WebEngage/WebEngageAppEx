@@ -235,7 +235,7 @@ API_AVAILABLE(ios(10.0))
     NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:tagschemes options:0];
     [tagger setString:text];
     NSString *language = [tagger tagAtIndex:0 scheme:NSLinguisticTagSchemeLanguage tokenRange:NULL sentenceRange:NULL];
-    if ([language rangeOfString:@"he"].location != NSNotFound || [language rangeOfString:@"ar"].location != NSNotFound) {
+    if (language && ([language rangeOfString:@"he"].location != NSNotFound || [language rangeOfString:@"ar"].location != NSNotFound)) {
         return NSTextAlignmentRight;
     } else {
         return NSTextAlignmentLeft;
