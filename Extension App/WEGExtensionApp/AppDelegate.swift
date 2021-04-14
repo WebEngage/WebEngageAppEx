@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WebEngage.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions, autoRegister: true)
         
         NSLog("Extension Demo app launched " + #function)
+        
         return true
     }
 }

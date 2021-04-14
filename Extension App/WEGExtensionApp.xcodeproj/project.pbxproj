@@ -725,16 +725,18 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WEGExtensionApp/WEGExtensionApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -748,16 +750,18 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WEGExtensionApp/WEGExtensionApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = WEGExtensionApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -771,7 +775,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -779,7 +783,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp.ServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ServiceExtension/ServiceExtension-Bridging-Header.h";
@@ -796,7 +800,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ServiceExtension/ServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -804,7 +808,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp.ServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ServiceExtension/ServiceExtension-Bridging-Header.h";
@@ -820,7 +824,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContentExtension/ContentExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = ContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -828,7 +832,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ContentExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp.ContentExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ContentExtension/ContentExtension-Bridging-Header.h";
@@ -845,7 +849,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContentExtension/ContentExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E59R2H2BZQ;
+				DEVELOPMENT_TEAM = S7X7V9YPX7;
 				INFOPLIST_FILE = ContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -853,7 +857,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.WEGExtensionApp.ContentExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webengage.ExtensionApp.ContentExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ContentExtension/ContentExtension-Bridging-Header.h";
