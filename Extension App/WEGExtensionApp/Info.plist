@@ -56,5 +56,10 @@
 	<string>311c5607</string>
 	<key>WEGLogLevel</key>
 	<string>VERBOSE</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

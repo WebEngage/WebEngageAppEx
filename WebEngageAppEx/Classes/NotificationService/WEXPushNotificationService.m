@@ -33,6 +33,8 @@
     
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
+
+    [self setExtensionDefaults];
     
     NSLog(@"Push Notification content: %@", request.content.userInfo);
     
@@ -53,6 +55,16 @@
         [self trackEventWithCompletion:^{
             self.contentHandler(self.bestAttemptContent);
         }];
+    }
+}
+
+- (void)setExtensionDefaults {
+    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
+    // Write operation only if key is not present in the UserDefaults
+    
+    if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
+        [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
+        [sharedDefaults synchronize];
     }
 }
 
@@ -236,7 +248,28 @@
     body[@"event_time"] = [self getCurrentFormattedTime];
     body[@"license_code"] = userDefaultsData[@"license_code"];
     body[@"interface_id"] = userDefaultsData[@"interface_id"];
-    body[@"event_data"] = @{};
+    
+    // Passing custom data into event tracking
+    id customData = self.bestAttemptContent.userInfo[@"customData"];
+
+    if (customData && [customData isKindOfClass:[NSArray class]]) {
+
+      NSArray *customDataArray = (NSArray *)customData;
+
+      NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc]
+          initWithCapacity:customDataArray.count];
+
+      for (NSDictionary *customDataItem in customDataArray) {
+          if (customDataItem[@"key"] && [customDataItem[@"key"] isKindOfClass:[NSString class]]) {
+              customDataDictionary[customDataItem[@"key"]] =
+              customDataItem[@"value"];
+          }
+      }
+
+        body[@"event_data"] = customDataDictionary;
+    } else {
+        body[@"event_data"] = @{};
+    }
     
     NSMutableDictionary *systemData = [NSMutableDictionary dictionary];
     systemData[@"sdk_id"] = @(3);
