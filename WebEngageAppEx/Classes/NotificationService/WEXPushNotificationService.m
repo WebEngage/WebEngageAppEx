@@ -137,40 +137,51 @@
     
     NSString *fileExt = [@"." stringByAppendingString:urlString.pathExtension];
     
-    [[[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:urlString]
-                                     completionHandler:^(NSURL *temporaryFileLocation,  NSURLResponse *response, NSError *error) {
-                                         
-         UNNotificationAttachment *attachment = nil;
-         
-         if (error != nil) {
-             NSLog(@"%@", error);
-         } else {
-             
-             NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
-             
-             NSError *moveError;
-             [[NSFileManager defaultManager] moveItemAtURL:temporaryFileLocation
-                                                     toURL:localURL
-                                                     error:&moveError];
-             
-             if (moveError) {
-                 NSLog(@"File Move Error: %@", moveError);
-             }
-             
-             NSError *attachmentError;
-             
-             attachment = [UNNotificationAttachment attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",(unsigned long)index] URL:localURL options:nil error:&attachmentError];
-             
-             if (attachmentError) {
-                 NSLog(@"%@", attachmentError);
-             }
-         }
-         
-         NSLog(@"Sending Callback");
-         
-         completionHandler(attachment, index);
-         
-     }] resume];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    NSDictionary *headers = @{
+        @"Accept": @"image/webp"
+    };
+    
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session downloadTaskWithRequest:request
+                    completionHandler:^(NSURL *temporaryFileLocation, NSURLResponse *response, NSError *error) {
+        
+        UNNotificationAttachment *attachment = nil;
+        if (error != nil) {
+            NSLog(@"%@", error);
+        } else {
+            
+            NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
+            NSLog(@"SIZE FOR THE FILE %lld",response.expectedContentLength);
+            
+            NSError *moveError;
+            [[NSFileManager defaultManager] moveItemAtURL:temporaryFileLocation
+                                                    toURL:localURL
+                                                    error:&moveError];
+            
+            if (moveError) {
+                NSLog(@"File Move Error: %@", moveError);
+            }
+            
+            NSError *attachmentError;
+            
+            attachment = [UNNotificationAttachment attachmentWithIdentifier:[NSString stringWithFormat:@"%ld",(unsigned long)index] URL:localURL options:nil error:&attachmentError];
+            
+            if (attachmentError) {
+                NSLog(@"%@", attachmentError);
+            }
+        }
+        
+        NSLog(@"Sending Callback");
+        
+        completionHandler(attachment, index);
+        
+    }] resume];
 }
 
 
