@@ -284,7 +284,7 @@
     
     NSMutableDictionary *systemData = [NSMutableDictionary dictionary];
     systemData[@"sdk_id"] = @(3);
-    systemData[@"sdk_version"] = userDefaultsData[@"sdk_version"];
+    systemData[@"sdk_version"] = [NSNumber numberWithInteger:[userDefaultsData[@"sdk_version"] integerValue]];
     systemData[@"app_id"] = userDefaultsData[@"app_id"];
     systemData[@"experiment_id"] = self.bestAttemptContent.userInfo[@"experiment_id"];
     systemData[@"id"] = self.bestAttemptContent.userInfo[@"notification_id"];
@@ -348,7 +348,7 @@
     
     data[@"license_code"] = [defaults objectForKey:@"license_code"];
     data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
-    data[@"sdk_version"] = [defaults objectForKey:@"sdk_version"];
+    data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
     
     self.sharedUserDefaults = data;
