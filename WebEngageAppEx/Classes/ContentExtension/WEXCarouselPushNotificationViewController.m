@@ -294,23 +294,49 @@ API_AVAILABLE(ios(10.0))
     
     if (defaultContentHidden) {
         
+        NSString *title = notification.request.content.userInfo[@"expandableDetails"][@"rt"];
+        NSString *subtitle = notification.request.content.userInfo[@"expandableDetails"][@"rst"];
+        NSString *message = notification.request.content.userInfo[@"expandableDetails"][@"rm"];
+        
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
         notificationContentView.backgroundColor = [UIColor whiteColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
-        titleLabel.text = notification.request.content.title;
-        titleLabel.textColor = [UIColor blackColor];
+        NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
+                                                                initWithData: [title dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                                documentAttributes: nil
+                                                                error: nil
+                                                                ];
+        titleLabel.attributedText = attributedTitle;
         titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
         titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
+        UILabel *subTitleLabel = [[UILabel alloc] init];
+        NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
+                                                                initWithData: [subtitle dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                                documentAttributes: nil
+                                                                error: nil
+                                                                ];
+        subTitleLabel.attributedText = attributedSubTitle;
+        subTitleLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
+        
         UILabel *bodyLabel = [[UILabel alloc] init];
-        bodyLabel.text = notification.request.content.body;
-        bodyLabel.textColor = [UIColor blackColor];
+        NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
+                                                                initWithData: [message dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                                documentAttributes: nil
+                                                                error: nil
+                                                                ];
+        bodyLabel.attributedText = attributedBody;
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
         
         [notificationContentView addSubview:titleLabel];
+        [notificationContentView addSubview:subTitleLabel];
         [notificationContentView addSubview:bodyLabel];
         
         [self.view addSubview:notificationContentView];
@@ -346,6 +372,20 @@ API_AVAILABLE(ios(10.0))
              constant:CONTENT_PADDING]
             .active = YES;
             
+            subTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [subTitleLabel.leadingAnchor
+             constraintEqualToAnchor:notificationContentView.leadingAnchor
+             constant:CONTENT_PADDING]
+            .active = YES;
+            [subTitleLabel.trailingAnchor
+             constraintEqualToAnchor:notificationContentView.trailingAnchor
+             constant:0 - CONTENT_PADDING]
+            .active = YES;
+            [subTitleLabel.topAnchor
+             constraintEqualToAnchor:titleLabel.bottomAnchor
+             constant:0]
+            .active = YES;
+            
             bodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [bodyLabel.leadingAnchor
              constraintEqualToAnchor:notificationContentView.leadingAnchor
@@ -355,7 +395,7 @@ API_AVAILABLE(ios(10.0))
              constraintEqualToAnchor:notificationContentView.trailingAnchor
              constant:0 - CONTENT_PADDING]
             .active = YES;
-            [bodyLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor
+            [bodyLabel.topAnchor constraintEqualToAnchor:subTitleLabel.bottomAnchor
                                                 constant:TITLE_BODY_SPACE]
             .active = YES;
             [bodyLabel.bottomAnchor
