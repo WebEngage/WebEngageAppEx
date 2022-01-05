@@ -38,6 +38,9 @@ API_AVAILABLE(ios(10.0))
 @property (atomic) NSInteger nextViewIndexToReturn;
 @property (atomic) BOOL isRendering;
 
+@property (nonatomic, readwrite) NSTimer *scrollTimer;
+@property (nonatomic, readwrite) BOOL shouldScroll;
+
 #endif
 
 @end
@@ -153,6 +156,8 @@ API_AVAILABLE(ios(10.0))
         
         [self initialiseCarouselForNotification:notification];
         
+        [self setupAutoScroll:notification];
+        
         if (downloadedCount < self.carouselItems.count) {
             
             [self downloadRemaining:downloadedCount];
@@ -179,6 +184,41 @@ API_AVAILABLE(ios(10.0))
                 self.wasLoaded[i] = [NSNumber numberWithBool:NO];
             }
         });
+    }
+}
+
+- (void)setupAutoScroll:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
+    NSString *scrollTime = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
+    
+    [self.scrollTimer invalidate];
+    self.scrollTimer = nil;
+    _shouldScroll = YES;
+    
+    NSInteger interval = [scrollTime intValue];
+    
+    // Scroll if interval is more than 0
+    if (interval > 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                               target:self
+                                                             selector:@selector(scrollContent:)
+                                                              userInfo:notification repeats:YES];
+        });
+    }
+}
+
+- (void)scrollContent:(NSTimer *)scrollTimer {
+    if (_shouldScroll) {
+        [self renderAnimated:(UNNotification *)[scrollTimer userInfo]];
+    } else {
+        [self stopScrollTimer];
+    }
+}
+
+- (void)stopScrollTimer {
+    if (self.scrollTimer) {
+        [self.scrollTimer invalidate];
+        self.scrollTimer = nil;
     }
 }
 
@@ -497,7 +537,7 @@ API_AVAILABLE(ios(10.0))
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion API_AVAILABLE(ios(10.0)) {
-    
+    NSLog(@"PUSHDEBUG: ResponseClicked: %@", response.actionIdentifier);
     BOOL dismissed = NO;
     
     if (self.isRendering) {
@@ -505,7 +545,7 @@ API_AVAILABLE(ios(10.0))
     }
     
     if ([response.actionIdentifier isEqualToString:@"WEG_NEXT"]) {
-        
+        _shouldScroll = NO;
         [self renderAnimated:response.notification];
         
     } else if ([response.actionIdentifier isEqualToString:@"WEG_PREV"]) {
