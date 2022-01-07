@@ -14,6 +14,8 @@
 #import "WEXRichPushLayout.h"
 #endif
 
+#define CONTENT_PADDING  10
+#define TITLE_BODY_SPACE 5
 
 @interface WEXRatingPushNotificationViewController
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000

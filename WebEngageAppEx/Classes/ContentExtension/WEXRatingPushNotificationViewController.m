@@ -232,6 +232,60 @@ API_AVAILABLE(ios(10.0))
     
     [mainContentView addSubview:textDisplayView];
     
+    //TODO: Add conditions for lack of rich texts
+    
+    UIView *contentSeparator = [[UIView alloc] init];
+    contentSeparator.backgroundColor = [UIColor lightGrayColor];
+    
+    [superViewWrapper addSubview:contentSeparator];
+    
+    NSString *richTitle = self.notification.request.content.userInfo[@"expandableDetails"][@"rt"];
+    NSString *richSub = self.notification.request.content.userInfo[@"expandableDetails"][@"rst"];
+    NSString *richMessage = self.notification.request.content.userInfo[@"expandableDetails"][@"rm"];
+    
+    // Add a notification content view for displaying title and body.
+    UIView *richContentView = [[UIView alloc] init];
+    richContentView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *richTitleLabel = [[UILabel alloc] init];
+    NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
+                                                            initWithData: [richTitle dataUsingEncoding:NSUnicodeStringEncoding]
+                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                            documentAttributes: nil
+                                                            error: nil
+                                                            ];
+    richTitleLabel.attributedText = attributedTitle;
+    richTitleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
+    
+    UILabel *richSubLabel = [[UILabel alloc] init];
+    NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
+                                                            initWithData: [richSub dataUsingEncoding:NSUnicodeStringEncoding]
+                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                            documentAttributes: nil
+                                                            error: nil
+                                                            ];
+    richSubLabel.attributedText = attributedSubTitle;
+    richSubLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
+    
+    UILabel *richBodyLabel = [[UILabel alloc] init];
+    NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
+                                                            initWithData: [richMessage dataUsingEncoding:NSUnicodeStringEncoding]
+                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                            documentAttributes: nil
+                                                            error: nil
+                                                            ];
+    richBodyLabel.attributedText = attributedBody;
+    richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
+    richBodyLabel.numberOfLines = 0;
+    
+    [richContentView addSubview:richTitleLabel];
+    [richContentView addSubview:richSubLabel];
+    [richContentView addSubview:richBodyLabel];
+    
+    [superViewWrapper addSubview:richContentView];
+    
     UIView *separator = [[UIView alloc] init];
     separator.backgroundColor = [UIColor lightGrayColor];
     
@@ -315,9 +369,11 @@ API_AVAILABLE(ios(10.0))
     
     UIView *superViewWrapper = self.view.subviews[0];
     UIView *mainContentView = superViewWrapper.subviews[0];
-    UIView *separator = superViewWrapper.subviews[1];
-    UIView *starRatingWrapper = superViewWrapper.subviews[2];
-    
+    UIView *contentSeparator = superViewWrapper.subviews[1];
+    UIView *richContentView = superViewWrapper.subviews[2];
+    UIView *separator = superViewWrapper.subviews[3];
+    UIView *starRatingWrapper = superViewWrapper.subviews[4];
+
     if (@available(iOS 10.0, *)) {
         
         superViewWrapper.translatesAutoresizingMaskIntoConstraints = NO;
@@ -332,10 +388,22 @@ API_AVAILABLE(ios(10.0))
         [mainContentView.trailingAnchor constraintEqualToAnchor:mainContentView.superview.trailingAnchor].active = YES;
         [mainContentView.topAnchor constraintEqualToAnchor:mainContentView.superview.topAnchor].active = YES;
         
+        contentSeparator.translatesAutoresizingMaskIntoConstraints = NO;
+        [contentSeparator.leadingAnchor constraintEqualToAnchor:contentSeparator.superview.leadingAnchor].active = YES;
+        [contentSeparator.trailingAnchor constraintEqualToAnchor:contentSeparator.superview.trailingAnchor].active = YES;
+        [contentSeparator.topAnchor constraintEqualToAnchor:mainContentView.bottomAnchor].active = YES;
+        [contentSeparator.heightAnchor constraintEqualToConstant:0.5].active = YES;
+        
+        richContentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [richContentView.leadingAnchor constraintEqualToAnchor:richContentView.superview.leadingAnchor].active = YES;
+        [richContentView.trailingAnchor constraintEqualToAnchor:richContentView.superview.trailingAnchor].active = YES;
+        [richContentView.topAnchor constraintEqualToAnchor:contentSeparator.bottomAnchor].active = YES;
+//        [richContentView.heightAnchor constraintEqualToConstant:100].active = YES;
+        
         separator.translatesAutoresizingMaskIntoConstraints = NO;
         [separator.leadingAnchor constraintEqualToAnchor:separator.superview.leadingAnchor].active = YES;
         [separator.trailingAnchor constraintEqualToAnchor:separator.superview.trailingAnchor].active = YES;
-        [separator.topAnchor constraintEqualToAnchor:mainContentView.bottomAnchor].active = YES;
+        [separator.topAnchor constraintEqualToAnchor:richContentView.bottomAnchor].active = YES;
         [separator.heightAnchor constraintEqualToConstant:0.5].active = YES;
         
         starRatingWrapper.translatesAutoresizingMaskIntoConstraints = NO;
@@ -404,6 +472,57 @@ API_AVAILABLE(ios(10.0))
             
             [messageLabel.bottomAnchor constraintEqualToAnchor:textDisplayView.bottomAnchor constant:0-TEXT_PADDING].active = YES;
         }
+        
+        // Rich View labels
+        
+        UIView *richTitleLabel = richContentView.subviews[0];
+        UIView *richSubTitleLabel = richContentView.subviews[1];
+        UIView *richBodyLabel = richContentView.subviews[2];
+        
+        richTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [richTitleLabel.leadingAnchor
+         constraintEqualToAnchor:richContentView.leadingAnchor
+         constant:CONTENT_PADDING]
+        .active = YES;
+        [richTitleLabel.trailingAnchor
+         constraintEqualToAnchor:richContentView.trailingAnchor
+         constant:0 - CONTENT_PADDING]
+        .active = YES;
+        [richTitleLabel.topAnchor
+         constraintEqualToAnchor:richContentView.topAnchor
+         constant:CONTENT_PADDING]
+        .active = YES;
+        
+        richSubTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [richSubTitleLabel.leadingAnchor
+         constraintEqualToAnchor:richContentView.leadingAnchor
+         constant:CONTENT_PADDING]
+        .active = YES;
+        [richSubTitleLabel.trailingAnchor
+         constraintEqualToAnchor:richContentView.trailingAnchor
+         constant:0 - CONTENT_PADDING]
+        .active = YES;
+        [richSubTitleLabel.topAnchor
+         constraintEqualToAnchor:richTitleLabel.bottomAnchor
+         constant:TITLE_BODY_SPACE]
+        .active = YES;
+        
+        richBodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [richBodyLabel.leadingAnchor
+         constraintEqualToAnchor:richContentView.leadingAnchor
+         constant:CONTENT_PADDING]
+        .active = YES;
+        [richBodyLabel.trailingAnchor
+         constraintEqualToAnchor:richContentView.trailingAnchor
+         constant:0 - CONTENT_PADDING]
+        .active = YES;
+        [richBodyLabel.topAnchor constraintEqualToAnchor:richSubTitleLabel.bottomAnchor
+                                            constant:TITLE_BODY_SPACE]
+        .active = YES;
+        [richBodyLabel.bottomAnchor
+         constraintEqualToAnchor:richContentView.bottomAnchor
+         constant:-CONTENT_PADDING]
+        .active = YES;
         
         //Star rating view internal constraints
         self.labelsWrapper.translatesAutoresizingMaskIntoConstraints = NO;
