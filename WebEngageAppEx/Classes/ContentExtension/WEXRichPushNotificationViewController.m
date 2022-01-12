@@ -231,6 +231,10 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (NSTextAlignment)naturalTextAligmentForText:(NSString*) text{
+    if (text == (id)[NSNull null] || text.length == 0 ) {
+        return NSTextAlignmentLeft;
+    }
+    
     NSArray *tagschemes = [NSArray arrayWithObjects:NSLinguisticTagSchemeLanguage, nil];
     NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:tagschemes options:0];
     [tagger setString:text];
