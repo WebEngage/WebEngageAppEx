@@ -176,10 +176,17 @@ API_AVAILABLE(ios(10.0))
         //Main Content View ImageView constraints
         UIImageView *imageView = mainContentView.subviews[0];
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        UIImage *bannerImage = imageView.image;
+        CGFloat imageAspect = LANDSCAPE_ASPECT;
+        if (bannerImage && bannerImage.size.height != 0) {
+            imageAspect = bannerImage.size.height/bannerImage.size.width;
+        }
+        
         [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
         [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
         [imageView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
-        [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:LANDSCAPE_ASPECT].active = YES;
+        [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:imageAspect].active = YES;
         [mainContentView.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
         
         //Rich View labels
