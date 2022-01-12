@@ -62,6 +62,8 @@
 		56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.debug.xcconfig"; sourceTree = "<group>"; };
 		8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WEGExtensionApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		A6F5D066278D6EA1005A96AA /* WEXBannerPushNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEXBannerPushNotificationViewController.h; sourceTree = "<group>"; };
+		A6F5D067278D6EAE005A96AA /* WEXBannerPushNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEXBannerPushNotificationViewController.m; sourceTree = "<group>"; };
 		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.release.xcconfig"; sourceTree = "<group>"; };
 		CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -265,6 +267,8 @@
 				EC9A3DBA21B6B15300C63B7D /* WEXRichPushNotificationViewController.h */,
 				EC9A3DB721B6B15300C63B7D /* WEXRichPushNotificationViewController.m */,
 				EC9A3DB521B6B15300C63B7D /* WEXRichPushNotificationViewController+Private.h */,
+				A6F5D066278D6EA1005A96AA /* WEXBannerPushNotificationViewController.h */,
+				A6F5D067278D6EAE005A96AA /* WEXBannerPushNotificationViewController.m */,
 			);
 			path = ContentExtension;
 			sourceTree = "<group>";

@@ -9,6 +9,7 @@
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRatingPushNotificationViewController.h"
+#import "WEXBannerPushNotificationViewController.h"
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
@@ -126,8 +127,9 @@ API_AVAILABLE(ios(10.0))
         return [[WEXCarouselPushNotificationViewController alloc] initWithNotificationViewController:self];
     } else if (style && [style isEqualToString:@"RATING_V1"]) {
         return [[WEXRatingPushNotificationViewController alloc] initWithNotificationViewController:self];
+    } else if (style && [style isEqualToString:@"BIG_PICTURE"]) {
+        return [[WEXBannerPushNotificationViewController alloc] initWithNotificationViewController:self];
     }
-    
     return nil;
 }
 

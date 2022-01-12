@@ -8,6 +8,7 @@
 
 import UIKit
 import WebEngage
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,11 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        addCustomPushCategory()
+        
         WebEngage.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions, autoRegister: true)
-        
-        NSLog("Extension Demo app launched " + #function)
-        
+        WebEngage.sharedInstance().user.login("ExtensionQWE1")
         return true
     }
+    
+    private func addCustomPushCategory() {
+        let category = UNNotificationCategory.init(identifier: "BIG_PICTURE", actions: [], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+    }
 }
-
