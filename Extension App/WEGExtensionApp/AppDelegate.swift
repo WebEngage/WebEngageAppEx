@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        addCustomPushCategory()
+//        addCustomPushCategory()
         
         WebEngage.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions, autoRegister: true)
         WebEngage.sharedInstance().user.login("ExtensionQWE1")

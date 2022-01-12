@@ -243,6 +243,20 @@ API_AVAILABLE(ios(10.0))
     NSString *richSub = self.notification.request.content.userInfo[@"expandableDetails"][@"rst"];
     NSString *richMessage = self.notification.request.content.userInfo[@"expandableDetails"][@"rm"];
     
+    BOOL isRichTitle = richTitle && ![richTitle isEqualToString:@""];
+    BOOL isRichSubtitle = richSub && ![richSub isEqualToString:@""];
+    BOOL isRichMessage = richMessage && ![richMessage isEqualToString:@""];
+    
+    if (!isRichTitle) {
+        richTitle = self.notification.request.content.title;
+    }
+    if (!isRichSubtitle) {
+        richSub = self.notification.request.content.subtitle;
+    }
+    if (!isRichMessage) {
+        richMessage = self.notification.request.content.body;
+    }
+    
     // Add a notification content view for displaying title and body.
     UIView *richContentView = [[UIView alloc] init];
     richContentView.backgroundColor = [UIColor whiteColor];
@@ -279,6 +293,7 @@ API_AVAILABLE(ios(10.0))
     richBodyLabel.attributedText = attributedBody;
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
+    richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];
@@ -398,7 +413,6 @@ API_AVAILABLE(ios(10.0))
         [richContentView.leadingAnchor constraintEqualToAnchor:richContentView.superview.leadingAnchor].active = YES;
         [richContentView.trailingAnchor constraintEqualToAnchor:richContentView.superview.trailingAnchor].active = YES;
         [richContentView.topAnchor constraintEqualToAnchor:contentSeparator.bottomAnchor].active = YES;
-//        [richContentView.heightAnchor constraintEqualToConstant:100].active = YES;
         
         separator.translatesAutoresizingMaskIntoConstraints = NO;
         [separator.leadingAnchor constraintEqualToAnchor:separator.superview.leadingAnchor].active = YES;
@@ -504,7 +518,7 @@ API_AVAILABLE(ios(10.0))
         .active = YES;
         [richSubTitleLabel.topAnchor
          constraintEqualToAnchor:richTitleLabel.bottomAnchor
-         constant:TITLE_BODY_SPACE]
+         constant:0]
         .active = YES;
         
         richBodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -517,7 +531,7 @@ API_AVAILABLE(ios(10.0))
          constant:0 - CONTENT_PADDING]
         .active = YES;
         [richBodyLabel.topAnchor constraintEqualToAnchor:richSubTitleLabel.bottomAnchor
-                                            constant:TITLE_BODY_SPACE]
+                                            constant:0]
         .active = YES;
         [richBodyLabel.bottomAnchor
          constraintEqualToAnchor:richContentView.bottomAnchor

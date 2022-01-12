@@ -7,6 +7,7 @@
 
 
 #import "WEXPushNotificationService.h"
+#import <UserNotifications/UserNotifications.h>
 
 
 @interface WEXPushNotificationService ()
@@ -30,6 +31,8 @@
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request
                    withContentHandler:(void (^)(UNNotificationContent *_Nonnull))contentHandler {
+    
+//    [self setCustomCategory];
     
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
@@ -56,6 +59,25 @@
             self.contentHandler(self.bestAttemptContent);
         }];
     }
+}
+
+- (void)setCustomCategory {
+    UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"NEW"
+                                                                              actions:@[]
+                                                                    intentIdentifiers:@[]
+                                                                              options:UNNotificationCategoryOptionNone];
+    NSMutableSet *categories = [NSMutableSet setWithCapacity:1];
+    [categories addObject:category];
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+        if (existingCategories && existingCategories.count > 0) {
+            [categories unionSet:existingCategories];
+        }
+        
+        [center setNotificationCategories:categories];
+    }];
 }
 
 - (void)setExtensionDefaults {

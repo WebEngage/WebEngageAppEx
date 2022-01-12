@@ -334,6 +334,7 @@ API_AVAILABLE(ios(10.0))
         bodyLabel.attributedText = attributedBody;
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
+        bodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
         
         [notificationContentView addSubview:titleLabel];
         [notificationContentView addSubview:subTitleLabel];
@@ -396,7 +397,7 @@ API_AVAILABLE(ios(10.0))
              constant:0 - CONTENT_PADDING]
             .active = YES;
             [bodyLabel.topAnchor constraintEqualToAnchor:subTitleLabel.bottomAnchor
-                                                constant:TITLE_BODY_SPACE]
+                                                constant:0]
             .active = YES;
             [bodyLabel.bottomAnchor
              constraintEqualToAnchor:notificationContentView.bottomAnchor

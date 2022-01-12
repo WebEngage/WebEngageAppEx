@@ -113,9 +113,9 @@ API_AVAILABLE(ios(10.0))
                                            documentAttributes: nil
                                            error: nil
     ];
+    richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     richTitleLabel.attributedText = attributedTitle;
     richTitleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
-    richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
     NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
@@ -124,9 +124,9 @@ API_AVAILABLE(ios(10.0))
                                               documentAttributes: nil
                                               error: nil
     ];
+    richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
     richSubLabel.attributedText = attributedSubTitle;
     richSubLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-    richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
     NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
@@ -135,9 +135,10 @@ API_AVAILABLE(ios(10.0))
                                           documentAttributes: nil
                                           error: nil
     ];
-    richBodyLabel.attributedText = attributedBody;
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
+    richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    richBodyLabel.attributedText = attributedBody;
     
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];
@@ -219,7 +220,7 @@ API_AVAILABLE(ios(10.0))
             .active = YES;
         [richSubTitleLabel.topAnchor
          constraintEqualToAnchor:richTitleLabel.bottomAnchor
-         constant:TITLE_BODY_SPACE]
+         constant:0]
             .active = YES;
         
         richBodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -232,7 +233,7 @@ API_AVAILABLE(ios(10.0))
          constant:0 - CONTENT_PADDING]
             .active = YES;
         [richBodyLabel.topAnchor constraintEqualToAnchor:richSubTitleLabel.bottomAnchor
-                                                constant:TITLE_BODY_SPACE]
+                                                constant:0]
             .active = YES;
         [richBodyLabel.bottomAnchor
          constraintEqualToAnchor:richContentView.bottomAnchor
