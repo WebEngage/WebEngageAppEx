@@ -316,39 +316,18 @@ API_AVAILABLE(ios(10.0))
         
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
-        notificationContentView.backgroundColor = [self.viewController colorFromHexString:colorHex];
+        notificationContentView.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
-                                                                initWithData: [title dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        titleLabel.attributedText = attributedTitle;
-        titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+        titleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES];
         titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *subTitleLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
-                                                                initWithData: [subtitle dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        subTitleLabel.attributedText = attributedSubTitle;
-        subTitleLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:NO];
         subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *bodyLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
-                                                                initWithData: [message dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        bodyLabel.attributedText = attributedBody;
-        bodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO];
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
         

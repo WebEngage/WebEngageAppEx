@@ -261,39 +261,18 @@ API_AVAILABLE(ios(10.0))
     
     // Add a notification content view for displaying title and body.
     UIView *richContentView = [[UIView alloc] init];
-    richContentView.backgroundColor = [self.viewController colorFromHexString:colorHex];
+    richContentView.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richTitle dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richTitleLabel.attributedText = attributedTitle;
-    richTitleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    richTitleLabel.attributedText = [self.viewController getHtmlParsedString:richTitle isTitle:YES];
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richSub dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richSubLabel.attributedText = attributedSubTitle;
-    richSubLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    richSubLabel.attributedText = [self.viewController getHtmlParsedString:richSub isTitle:NO];
     richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richMessage dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richBodyLabel.attributedText = attributedBody;
-    richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     
@@ -304,13 +283,12 @@ API_AVAILABLE(ios(10.0))
     [superViewWrapper addSubview:richContentView];
     
     UIView *separator = [[UIView alloc] init];
-    separator.backgroundColor = [UIColor lightGrayColor];
+    separator.backgroundColor =  [self.viewController colorFromHexString:colorHex defaultColor:UIColor.lightGrayColor];
     
     [superViewWrapper addSubview:separator];
     
     UIView *starRatingView = [[UIView alloc] init];
-    starRatingView.backgroundColor = [UIColor whiteColor];
-    
+    starRatingView.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
     
     self.labelsWrapper = [[UIView alloc] init];
     self.unselectedLabel = [[UILabel alloc] init];

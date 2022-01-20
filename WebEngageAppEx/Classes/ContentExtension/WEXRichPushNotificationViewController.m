@@ -246,9 +246,9 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (UIColor *)colorFromHexString:(NSString *)hexString {
+- (UIColor *)colorFromHexString:(NSString *)hexString defaultColor:(UIColor *)defaultColor {
     if (hexString == (id)[NSNull null] || hexString.length == 0) {
-        return UIColor.whiteColor;
+        return defaultColor;
     }
     
     unsigned rgbValue = 0;
@@ -262,6 +262,49 @@ API_AVAILABLE(ios(10.0))
     
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
+- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
+                                                   initWithData: [textString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                   options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                   documentAttributes: nil
+                                                   error: nil
+    ];
+    
+    BOOL containsHTML = [self containsHTML:textString];
+    BOOL containsFontSize = [textString rangeOfString:@"font-size"].location != NSNotFound;
+    BOOL containsStrong = [textString rangeOfString:@"<strong>"].location != NSNotFound;
+    
+    UIFont *defaultFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+
+    /*
+     If html string doesn't contain font-size,
+     then setting default based on Strong tag or title position
+     */
+    
+    if (containsHTML && containsFontSize == NO) {
+        if (containsStrong) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attributedString.length)];
+        } else {
+            [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
+        }
+        
+    } else if (containsHTML == NO) {
+        if (isTitle) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attributedString.length)];
+        } else {
+            [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
+        }
+    }
+    return attributedString;
+}
+
+- (BOOL)containsHTML:(NSString *)value {
+    NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
+    NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
+    return [htmlText evaluateWithObject:value];
 }
 
 #endif
