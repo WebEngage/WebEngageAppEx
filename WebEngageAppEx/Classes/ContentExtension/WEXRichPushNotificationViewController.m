@@ -215,9 +215,9 @@ API_AVAILABLE(ios(10.0))
     if ([category isEqualToString:@"system"]) {
         [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
                                 andValue:@{
-                                            @"system_data_overrides": systemData ? systemData : @{},
-                                            @"event_data_overrides": customDataDictionary
-                                        }];
+            @"system_data_overrides": systemData ? systemData : @{},
+            @"event_data_overrides": customDataDictionary
+        }];
     } else {
         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
@@ -230,7 +230,7 @@ API_AVAILABLE(ios(10.0))
     [self updateActivityWithObject:cta forKey:@"cta"];
 }
 
-- (NSTextAlignment)naturalTextAligmentForText:(NSString*) text{
+- (NSTextAlignment)naturalTextAligmentForText:(NSString*)text {
     if (text == (id)[NSNull null] || text.length == 0 ) {
         return NSTextAlignmentLeft;
     }
@@ -244,6 +244,24 @@ API_AVAILABLE(ios(10.0))
     } else {
         return NSTextAlignmentLeft;
     }
+}
+
+- (UIColor *)colorFromHexString:(NSString *)hexString {
+    if (hexString == (id)[NSNull null] || hexString.length == 0) {
+        return UIColor.whiteColor;
+    }
+    
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    
+    if ([hexString hasPrefix:@"#"]) {
+        [scanner setScanLocation:1]; // bypass '#' character
+    } else {
+        [scanner setScanLocation:0];
+    }
+    
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
 #endif

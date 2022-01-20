@@ -26,6 +26,8 @@
 
 - (NSTextAlignment)naturalTextAligmentForText:(NSString*) text;
 
+- (UIColor *)colorFromHexString:(NSString *)hexString;
+
 #endif
 
 @end

@@ -257,9 +257,11 @@ API_AVAILABLE(ios(10.0))
         richMessage = self.notification.request.content.body;
     }
     
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    
     // Add a notification content view for displaying title and body.
     UIView *richContentView = [[UIView alloc] init];
-    richContentView.backgroundColor = [UIColor whiteColor];
+    richContentView.backgroundColor = [self.viewController colorFromHexString:colorHex];
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
     NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]

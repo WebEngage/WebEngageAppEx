@@ -298,9 +298,25 @@ API_AVAILABLE(ios(10.0))
         NSString *subtitle = notification.request.content.userInfo[@"expandableDetails"][@"rst"];
         NSString *message = notification.request.content.userInfo[@"expandableDetails"][@"rm"];
         
+        BOOL isRichTitle = title && ![title isEqualToString:@""];
+        BOOL isRichSubtitle = subtitle && ![subtitle isEqualToString:@""];
+        BOOL isRichMessage = message && ![message isEqualToString:@""];
+        
+        if (!isRichTitle) {
+            title = self.notification.request.content.title;
+        }
+        if (!isRichSubtitle) {
+            subtitle = self.notification.request.content.subtitle;
+        }
+        if (!isRichMessage) {
+            message = self.notification.request.content.body;
+        }
+        
+        NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+        
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
-        notificationContentView.backgroundColor = [UIColor whiteColor];
+        notificationContentView.backgroundColor = [self.viewController colorFromHexString:colorHex];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
