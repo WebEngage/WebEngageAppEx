@@ -348,6 +348,7 @@ API_AVAILABLE(ios(10.0))
                                                                 error: nil
                                                                 ];
         bodyLabel.attributedText = attributedBody;
+        bodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
         
@@ -412,7 +413,7 @@ API_AVAILABLE(ios(10.0))
              constant:0 - CONTENT_PADDING]
             .active = YES;
             [bodyLabel.topAnchor constraintEqualToAnchor:subTitleLabel.bottomAnchor
-                                                constant:TITLE_BODY_SPACE]
+                                                constant:0]
             .active = YES;
             [bodyLabel.bottomAnchor
              constraintEqualToAnchor:notificationContentView.bottomAnchor

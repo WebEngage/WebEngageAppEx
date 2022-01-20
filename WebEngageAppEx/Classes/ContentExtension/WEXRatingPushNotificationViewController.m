@@ -293,6 +293,7 @@ API_AVAILABLE(ios(10.0))
                                                             error: nil
                                                             ];
     richBodyLabel.attributedText = attributedBody;
+    richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     
@@ -519,7 +520,7 @@ API_AVAILABLE(ios(10.0))
         .active = YES;
         [richSubTitleLabel.topAnchor
          constraintEqualToAnchor:richTitleLabel.bottomAnchor
-         constant:TITLE_BODY_SPACE]
+         constant:0]
         .active = YES;
         
         richBodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -532,7 +533,7 @@ API_AVAILABLE(ios(10.0))
          constant:0 - CONTENT_PADDING]
         .active = YES;
         [richBodyLabel.topAnchor constraintEqualToAnchor:richSubTitleLabel.bottomAnchor
-                                            constant:TITLE_BODY_SPACE]
+                                            constant:0]
         .active = YES;
         [richBodyLabel.bottomAnchor
          constraintEqualToAnchor:richContentView.bottomAnchor
