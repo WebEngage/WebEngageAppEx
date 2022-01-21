@@ -12,7 +12,7 @@
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
-
+#import "NSMutableAttributedString+Additions.h"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
@@ -286,9 +286,9 @@ API_AVAILABLE(ios(10.0))
     
     if (containsHTML && containsFontSize == NO) {
         if (containsStrong) {
-            [attributedString addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attributedString.length)];
+            [attributedString setFontFaceWithFont:boldFont];
         } else {
-            [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
+            [attributedString setFontFaceWithFont:defaultFont];
         }
         
     } else if (containsHTML == NO) {

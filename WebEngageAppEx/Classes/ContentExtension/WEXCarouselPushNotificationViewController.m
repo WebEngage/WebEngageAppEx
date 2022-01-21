@@ -237,6 +237,10 @@ API_AVAILABLE(ios(10.0))
     // for portrait
     float superViewHeight = viewHeight + 2 * verticalMargins;
     
+    NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    self.view.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
+    self.viewController.view.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
+    
     NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
@@ -283,7 +287,7 @@ API_AVAILABLE(ios(10.0))
     topSeparator.backgroundColor = [UIColor lightGrayColor];
     
     UIView *bottomSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5, superViewWidth, 0.5)];
-    bottomSeparator.backgroundColor = [UIColor lightGrayColor];
+    bottomSeparator.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.lightGrayColor];
     
     NSDictionary *extensionAttributes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
     
@@ -311,8 +315,6 @@ API_AVAILABLE(ios(10.0))
         if (!isRichMessage) {
             message = self.notification.request.content.body;
         }
-        
-        NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
         
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
@@ -640,6 +642,8 @@ API_AVAILABLE(ios(10.0))
     self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    
     if (!isPortrait) {
         viewWidth = superViewWidth;
         viewHeight = viewWidth * LANDSCAPE_ASPECT;
@@ -650,7 +654,7 @@ API_AVAILABLE(ios(10.0))
     UIView *viewContainer = viewToReturn;
     UIImage *image = self.images[index];
     
-    viewContainer.backgroundColor = [UIColor lightGrayColor];
+    viewContainer.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.lightGrayColor];
     
     UIImageView *imageView = self.imageViews[cachedViewIndex];
     imageView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
