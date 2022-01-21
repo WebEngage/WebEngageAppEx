@@ -190,16 +190,21 @@ API_AVAILABLE(ios(10.0))
 - (void)setupAutoScroll:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     NSString *scrollTime = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
     
+    if (scrollTime == (id)[NSNull null] || scrollTime.length == 0) {
+        return;
+    }
+    
     [self.scrollTimer invalidate];
     self.scrollTimer = nil;
-    _shouldScroll = YES;
     
-    NSInteger interval = [scrollTime intValue];
+    float intervalInMili = [scrollTime floatValue];
+    float intervalSeconds = intervalInMili/1000.0;
     
     // Scroll if interval is more than 0
-    if (interval > 0) {
+    if (intervalSeconds > 0) {
+        _shouldScroll = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:intervalSeconds
                                                                target:self
                                                              selector:@selector(scrollContent:)
                                                               userInfo:notification repeats:YES];
