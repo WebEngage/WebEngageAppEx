@@ -278,7 +278,7 @@ API_AVAILABLE(ios(10.0))
     
     UIFont *defaultFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
-
+    
     /*
      If html string doesn't contain font-size,
      then setting default based on Strong tag or title position
@@ -290,6 +290,7 @@ API_AVAILABLE(ios(10.0))
         } else {
             [attributedString setFontFaceWithFont:defaultFont];
         }
+        [attributedString trimWhiteSpace];
         
     } else if (containsHTML == NO) {
         if (isTitle) {
@@ -297,31 +298,18 @@ API_AVAILABLE(ios(10.0))
         } else {
             [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
         }
+        
+    } else {
+        [attributedString trimWhiteSpace];
     }
-    return [self cleanStringForExtraLine:attributedString];
+    
+    return attributedString;
 }
 
 - (BOOL)containsHTML:(NSString *)value {
     NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
     NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
     return [htmlText evaluateWithObject:value];
-}
-
-/*
- Cleaning required as HTML parser sometimes add extra newLine at the end of parsed string,
- Title, Subtitle has single line restriction from apple
- Desc can have mulitple lines
- So even if remove newLine from title and subtitle, It won't affect UI
- */
-
-- (NSAttributedString *)cleanStringForExtraLine:(NSMutableAttributedString *)attributedString {
-    NSMutableAttributedString *mutableAttributedString = attributedString;
-    NSString *currentString = attributedString.string;
-    if ([currentString hasSuffix:@"\n"]) {
-        currentString = [currentString substringToIndex:[currentString length]-1];
-    }
-    [mutableAttributedString.mutableString setString:currentString];
-    return mutableAttributedString;;
 }
 
 #endif

@@ -12,4 +12,6 @@
 
 - (void)setFontFaceWithFont:(UIFont *)font;
 
+- (void)trimWhiteSpace;
+
 @end

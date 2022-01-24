@@ -29,4 +29,19 @@
     [self endEditing];
 }
 
+- (void)trimWhiteSpace {
+    NSCharacterSet *legalChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
+    NSRange startRange = [self.string rangeOfCharacterFromSet: legalChars];
+    NSRange endRange = [self.string rangeOfCharacterFromSet: legalChars options:NSBackwardsSearch];
+    if (startRange.location == NSNotFound || endRange.location == NSNotFound) {
+        // there are no legal characters in self --- it is ALL whitespace, and so we 'trim' everything leaving an empty string
+        [self setAttributedString:[NSAttributedString new]];
+    }
+    else {
+        NSUInteger startLocation = NSMaxRange(startRange), endLocation = endRange.location;
+        NSRange range = NSMakeRange(startLocation - 1, endLocation - startLocation + 2);
+        [self setAttributedString:[self attributedSubstringFromRange:range]];
+    }
+}
+
 @end
