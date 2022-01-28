@@ -8,6 +8,7 @@
 
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
+#import "UIColor+DarkMode.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -243,8 +244,8 @@ API_AVAILABLE(ios(10.0))
     float superViewHeight = viewHeight + 2 * verticalMargins;
     
     NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
-    self.view.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
-    self.viewController.view.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
+    self.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
+    self.viewController.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     
@@ -289,10 +290,10 @@ API_AVAILABLE(ios(10.0))
     }
     
     UIView *topSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewWidth, 0.5)];
-    topSeparator.backgroundColor = [UIColor lightGrayColor];
+    topSeparator.backgroundColor = [UIColor WEXGreyColor];
     
     UIView *bottomSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5, superViewWidth, 0.5)];
-    bottomSeparator.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.lightGrayColor];
+    bottomSeparator.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     NSDictionary *extensionAttributes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
     
@@ -323,7 +324,7 @@ API_AVAILABLE(ios(10.0))
         
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
-        notificationContentView.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.whiteColor];
+        notificationContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES];
@@ -659,7 +660,7 @@ API_AVAILABLE(ios(10.0))
     UIView *viewContainer = viewToReturn;
     UIImage *image = self.images[index];
     
-    viewContainer.backgroundColor = [self.viewController colorFromHexString:colorHex defaultColor:UIColor.lightGrayColor];
+    viewContainer.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     UIImageView *imageView = self.imageViews[cachedViewIndex];
     imageView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
@@ -677,7 +678,7 @@ API_AVAILABLE(ios(10.0))
                                        viewWidth, descriptionViewHeight);
     
     descriptionView.alpha = DESCRIPTION_VIEW_ALPHA;
-    descriptionView.backgroundColor = [UIColor whiteColor];
+    descriptionView.backgroundColor = [UIColor WEXWhiteColor];
     
     UILabel *descriptionLabel = self.descriptionLabels[cachedViewIndex];
     descriptionLabel.frame =
@@ -686,7 +687,7 @@ API_AVAILABLE(ios(10.0))
     
     descriptionLabel.text = carouselItem[@"actionText"];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.textColor = [UIColor blackColor];
+    descriptionLabel.textColor = [UIColor WEXLabelColor];
     
     [descriptionView addSubview:descriptionLabel];
     
@@ -701,7 +702,7 @@ API_AVAILABLE(ios(10.0))
         UIView *alphaView = self.alphaViews[cachedViewIndex];
         alphaView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
         alphaView.alpha = 0.0;
-        alphaView.backgroundColor = [UIColor whiteColor];
+        alphaView.backgroundColor = [UIColor WEXWhiteColor];
         
         [viewContainer addSubview:alphaView];
     }

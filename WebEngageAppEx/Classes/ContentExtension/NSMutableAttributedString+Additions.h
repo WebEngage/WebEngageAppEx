@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface NSMutableAttributedString (Additions)
 
 - (void)setFontFaceWithFont:(UIFont *)font;

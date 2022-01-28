@@ -62,6 +62,8 @@
 		56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.debug.xcconfig"; sourceTree = "<group>"; };
 		8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WEGExtensionApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		A67089DF27A019E200DF27AC /* UIColor+DarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DarkMode.h"; sourceTree = "<group>"; };
+		A67089E027A019EF00DF27AC /* UIColor+DarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DarkMode.m"; sourceTree = "<group>"; };
 		A6DDEE99279A7A8D007FADE1 /* NSMutableAttributedString+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Additions.h"; sourceTree = "<group>"; };
 		A6DDEE9A279A7B22007FADE1 /* NSMutableAttributedString+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Additions.m"; sourceTree = "<group>"; };
 		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -269,6 +271,8 @@
 				EC9A3DB521B6B15300C63B7D /* WEXRichPushNotificationViewController+Private.h */,
 				A6DDEE99279A7A8D007FADE1 /* NSMutableAttributedString+Additions.h */,
 				A6DDEE9A279A7B22007FADE1 /* NSMutableAttributedString+Additions.m */,
+				A67089DF27A019E200DF27AC /* UIColor+DarkMode.h */,
+				A67089E027A019EF00DF27AC /* UIColor+DarkMode.m */,
 			);
 			path = ContentExtension;
 			sourceTree = "<group>";

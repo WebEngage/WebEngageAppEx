@@ -26,8 +26,6 @@
 
 - (NSTextAlignment)naturalTextAligmentForText:(NSString*) text;
 
-- (UIColor *)colorFromHexString:(NSString *)hexString defaultColor:(UIColor *)defaultColor;
-
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle;
 
 #endif

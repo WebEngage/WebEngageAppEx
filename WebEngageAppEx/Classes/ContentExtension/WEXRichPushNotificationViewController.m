@@ -246,24 +246,6 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (UIColor *)colorFromHexString:(NSString *)hexString defaultColor:(UIColor *)defaultColor {
-    if (hexString == (id)[NSNull null] || hexString.length == 0) {
-        return defaultColor;
-    }
-    
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    
-    if ([hexString hasPrefix:@"#"]) {
-        [scanner setScanLocation:1]; // bypass '#' character
-    } else {
-        [scanner setScanLocation:0];
-    }
-    
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
-
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
                                                    initWithData: [textString dataUsingEncoding:NSUnicodeStringEncoding]
