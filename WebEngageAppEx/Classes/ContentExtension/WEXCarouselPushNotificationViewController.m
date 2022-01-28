@@ -338,7 +338,6 @@ API_AVAILABLE(ios(10.0))
         bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO];
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
-        bodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
         
         [notificationContentView addSubview:titleLabel];
         [notificationContentView addSubview:subTitleLabel];

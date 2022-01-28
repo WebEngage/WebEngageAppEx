@@ -274,7 +274,7 @@ API_AVAILABLE(ios(10.0))
     richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
-    richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+
     
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];

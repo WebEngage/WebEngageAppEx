@@ -7,6 +7,7 @@
 
 #import "WEXBannerPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
+#import "UIColor+DarkMode.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -29,65 +30,13 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
-- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion{
-    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
-}
-
 - (void)didReceiveNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
-    
     self.notification = notification;
-    
-//    NSDictionary *userInfo = notification.request.content.userInfo;
-//    NSString *catName = [userInfo valueForKeyPath:@"expandableDetails.category"];
-//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-//    NSString *bannerCatName = @"WEG_BANNER_V1";
-//    [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
-//        UNNotificationCategory * defaultCategory ;
-//        NSMutableSet * existingMutablecat = [[NSMutableSet alloc] init];
-//        for(UNNotificationCategory *dic in existingCategories){
-//            if([dic.identifier  isEqual: catName]){
-//               defaultCategory = dic;
-//           }
-//            if(![dic.identifier  isEqual: bannerCatName]){
-//                [existingMutablecat addObject:dic];
-//            }
-//        }
-//
-//
-//        NSMutableArray *actions = [NSMutableArray arrayWithCapacity:defaultCategory.actions.count];
-//
-//        for (UNNotificationAction *action in defaultCategory.actions) {
-//            UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
-//                                                                                      title:action.title
-//                                                                                    options:action.options];
-//            [actions addObject:actionObject];
-//        }
-//
-//        UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:bannerCatName
-//                                                                                  actions:actions
-//                                                                        intentIdentifiers:@[]
-//                                                                                  options:UNNotificationCategoryOptionCustomDismissAction];
-//
-//
-//        [existingMutablecat addObject:category];
-//        [center setNotificationCategories:existingMutablecat];
-////        use
-//
-//
-//
-////        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//////                    NSLog(@"parameter1: %d parameter2: %f", parameter1, parameter2);
-////            [self drawBannerViewWith:expandableDetails[@"image"]];
-////        });
-//
-//    }];
     [self initialiseViewHierarchy];
-    
-
 }
 
 - (void)initialiseViewHierarchy {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor WEXWhiteColor];
     
     UIView *superViewWrapper = [[UIView alloc] init];
     [self.view addSubview:superViewWrapper];
@@ -134,9 +83,10 @@ API_AVAILABLE(ios(10.0))
 
 - (void)setupLabelsContainer {
     UIView *superViewWrapper = self.view.subviews[0];
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
     
     UIView *richContentView = [[UIView alloc] init];
-    richContentView.backgroundColor = [UIColor whiteColor];
+    richContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     NSDictionary *expandedDetails = self.notification.request.content.userInfo[@"expandableDetails"];
     NSString *title = expandedDetails[@"rt"];
@@ -158,38 +108,18 @@ API_AVAILABLE(ios(10.0))
     }
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
-                                           initWithData: [title dataUsingEncoding:NSUnicodeStringEncoding]
-                                           options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                           documentAttributes: nil
-                                           error: nil
-    ];
+    richTitleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES];
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
-    richTitleLabel.attributedText = attributedTitle;
-    richTitleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
-                                              initWithData: [subtitle dataUsingEncoding:NSUnicodeStringEncoding]
-                                              options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                              documentAttributes: nil
-                                              error: nil
-    ];
+    richSubLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:NO];
     richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
-    richSubLabel.attributedText = attributedSubTitle;
-    richSubLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
-                                          initWithData: [message dataUsingEncoding:NSUnicodeStringEncoding]
-                                          options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                          documentAttributes: nil
-                                          error: nil
-    ];
+    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-    richBodyLabel.attributedText = attributedBody;
     
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];

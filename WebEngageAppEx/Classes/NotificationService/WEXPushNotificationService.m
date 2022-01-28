@@ -32,11 +32,9 @@
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request
                    withContentHandler:(void (^)(UNNotificationContent *_Nonnull))contentHandler {
     
-//    [self setCustomCategory];
-    
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-
+    
     [self setExtensionDefaults];
     
     NSLog(@"Push Notification content: %@", request.content.userInfo);
@@ -46,57 +44,13 @@
     NSString *style = expandableDetails[@"style"];
     
     if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {
-        
         [self drawCarouselViewWith:expandableDetails[@"items"]];
-    }
-    else if (expandableDetails && style &&
-             ([style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"BIG_PICTURE"])) {
-        if ([style isEqualToString:@"BIG_PICTURE"]){
-            NSString *bannerCatName = @"WEG_BANNER_V1";
-            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-            [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
-                UNNotificationCategory * defaultCategory ;
-                NSMutableSet * existingMutablecat = [[NSMutableSet alloc] init];
-                for(UNNotificationCategory *dic in existingCategories){
-                    if([dic.identifier  isEqual: self.bestAttemptContent.categoryIdentifier]){
-                       defaultCategory = dic;
-                   }
-                    if(![dic.identifier  isEqual: bannerCatName]){
-                        [existingMutablecat addObject:dic];
-                    }
-                }
-                
-                
-                NSMutableArray *actions = [NSMutableArray arrayWithCapacity:defaultCategory.actions.count];
-                
-                for (UNNotificationAction *action in defaultCategory.actions) {
-                    UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
-                                                                                              title:action.title
-                                                                                            options:action.options];
-                    [actions addObject:actionObject];
-                }
-                
-                UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:bannerCatName
-                                                                                          actions:actions
-                                                                                intentIdentifiers:@[]
-                                                                                          options:UNNotificationCategoryOptionCustomDismissAction];
-                
-                
-                [existingMutablecat addObject:category];
-                [center setNotificationCategories:existingMutablecat];
-                [self.bestAttemptContent setCategoryIdentifier:bannerCatName];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//                    NSLog(@"parameter1: %d parameter2: %f", parameter1, parameter2);
-                    [self drawBannerViewWith:expandableDetails[@"image"]];
-                });
-
-            }];
-        }else{
-            [self drawBannerViewWith:expandableDetails[@"image"]];
-        }
-//        [self drawBannerViewWith:expandableDetails[@"image"]];
-    }
-    else {
+        
+    } else if (expandableDetails && style &&
+               ([style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"BIG_PICTURE"])) {
+        [self drawBannerViewWith:expandableDetails[@"image"]];
+        
+    } else {
         [self trackEventWithCompletion:^{
             self.contentHandler(self.bestAttemptContent);
         }];
@@ -156,23 +110,23 @@
             [self fetchAttachmentFor:imageURL
                                   at:itemCounter
                    completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-                       
-                       imageDownloadAttemptCounter++;
-                       
-                       if (attachment) {
-                           NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
-                           [attachmentsArray addObject:attachment];
-                           self.bestAttemptContent.attachments = attachmentsArray;
-                       }
-                       
-                       if (imageDownloadAttemptCounter == items.count) {
-                           
-                           [self trackEventWithCompletion:^{
-                               NSLog(@"Ending WebEngage Rich Push Service");
-                               self.contentHandler(self.bestAttemptContent);
-                           }];
-                       }
-                   }];
+                
+                imageDownloadAttemptCounter++;
+                
+                if (attachment) {
+                    NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
+                    [attachmentsArray addObject:attachment];
+                    self.bestAttemptContent.attachments = attachmentsArray;
+                }
+                
+                if (imageDownloadAttemptCounter == items.count) {
+                    
+                    [self trackEventWithCompletion:^{
+                        NSLog(@"Ending WebEngage Rich Push Service");
+                        self.contentHandler(self.bestAttemptContent);
+                    }];
+                }
+            }];
             itemCounter++;
         }
     }
@@ -183,16 +137,16 @@
     [self fetchAttachmentFor:urlStr
                           at:0
            completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-               
-               if (attachment) {
-                   NSLog(@"WebEngage Downloaded Image for Rating Layout");
-                   self.bestAttemptContent.attachments = @[ attachment ];
-               }
-               
-               [self trackEventWithCompletion:^{
-                   self.contentHandler(self.bestAttemptContent);
-               }];
-           }];
+        
+        if (attachment) {
+            NSLog(@"WebEngage Downloaded Image for Rating Layout");
+            self.bestAttemptContent.attachments = @[ attachment ];
+        }
+        
+        [self trackEventWithCompletion:^{
+            self.contentHandler(self.bestAttemptContent);
+        }];
+    }];
 }
 
 - (void)fetchAttachmentFor:(NSString *)urlString
@@ -264,7 +218,7 @@
         else {
             NSLog(@"Push Tracker URLResponse: %@", response);
         }
-
+        
         if (completion) {
             completion();
         }
@@ -326,21 +280,20 @@
     
     // Passing custom data into event tracking
     id customData = self.bestAttemptContent.userInfo[@"customData"];
-
+    
     if (customData && [customData isKindOfClass:[NSArray class]]) {
-
-      NSArray *customDataArray = (NSArray *)customData;
-
-      NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc]
-          initWithCapacity:customDataArray.count];
-
-      for (NSDictionary *customDataItem in customDataArray) {
-          if (customDataItem[@"key"] && [customDataItem[@"key"] isKindOfClass:[NSString class]]) {
-              customDataDictionary[customDataItem[@"key"]] =
-              customDataItem[@"value"];
-          }
-      }
-
+        NSArray *customDataArray = (NSArray *)customData;
+        
+        NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc]
+                                                     initWithCapacity:customDataArray.count];
+        
+        for (NSDictionary *customDataItem in customDataArray) {
+            if (customDataItem[@"key"] && [customDataItem[@"key"] isKindOfClass:[NSString class]]) {
+                customDataDictionary[customDataItem[@"key"]] =
+                customDataItem[@"value"];
+            }
+        }
+        
         body[@"event_data"] = customDataDictionary;
     } else {
         body[@"event_data"] = @{};
