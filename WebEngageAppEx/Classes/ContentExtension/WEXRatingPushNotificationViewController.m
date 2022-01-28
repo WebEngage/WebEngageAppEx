@@ -7,6 +7,7 @@
 
 
 #import "WEXRatingPushNotificationViewController.h"
+#import "UIColor+DarkMode.h"
 
 //#define NO_OF_STARS 5
 #define STAR_BAR_HEIGHT 50
@@ -120,7 +121,7 @@ API_AVAILABLE(ios(10.0))
 
 - (void)initialiseViewHierarchy {
     
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor WEXWhiteColor];
     
     UIView *superViewWrapper = [[UIView alloc] init];
     
@@ -179,13 +180,11 @@ API_AVAILABLE(ios(10.0))
         textDisplayView.opaque = NO;
         textDisplayView.backgroundColor = [UIColor clearColor];
     } else {
-        
         if (bckColor) {
-            textDisplayView.backgroundColor = [self colorWithHexString:bckColor];
+            textDisplayView.backgroundColor = [UIColor colorFromHexString:bckColor defaultColor:UIColor.WEXLightTextColor];
         } else {
-            textDisplayView.backgroundColor = [UIColor lightTextColor];
+            textDisplayView.backgroundColor = UIColor.WEXLightTextColor;
         }
-        
     }
     
     UILabel *titleLabel;
@@ -206,9 +205,9 @@ API_AVAILABLE(ios(10.0))
         titleLabel.text = title;
         titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
         if (textColor) {
-            titleLabel.textColor = [self colorWithHexString:textColor];
+            titleLabel.textColor = [UIColor colorFromHexString:bckColor defaultColor:UIColor.WEXLabelColor];
         } else {
-            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textColor = UIColor.WEXLabelColor;
         }
         
         [textDisplayView addSubview:titleLabel];
@@ -220,9 +219,9 @@ API_AVAILABLE(ios(10.0))
         messageLabel.text = message;
         
         if (textColor) {
-            messageLabel.textColor = [self colorWithHexString:textColor];
+            messageLabel.textColor = [UIColor colorFromHexString:bckColor defaultColor:UIColor.WEXLabelColor];
         } else {
-            messageLabel.textColor = [UIColor blackColor];
+            messageLabel.textColor = UIColor.WEXLabelColor;
         }
         
         messageLabel.numberOfLines = 3;
@@ -235,7 +234,7 @@ API_AVAILABLE(ios(10.0))
     //TODO: Add conditions for lack of rich texts
     
     UIView *contentSeparator = [[UIView alloc] init];
-    contentSeparator.backgroundColor = [UIColor lightGrayColor];
+    contentSeparator.backgroundColor = UIColor.WEXGreyColor;
     
     [superViewWrapper addSubview:contentSeparator];
     
@@ -257,40 +256,22 @@ API_AVAILABLE(ios(10.0))
         richMessage = self.notification.request.content.body;
     }
     
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    
     // Add a notification content view for displaying title and body.
     UIView *richContentView = [[UIView alloc] init];
-    richContentView.backgroundColor = [UIColor whiteColor];
+    richContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richTitle dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richTitleLabel.attributedText = attributedTitle;
-    richTitleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    richTitleLabel.attributedText = [self.viewController getHtmlParsedString:richTitle isTitle:YES];
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richSub dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richSubLabel.attributedText = attributedSubTitle;
-    richSubLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    richSubLabel.attributedText = [self.viewController getHtmlParsedString:richSub isTitle:NO];
     richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
-                                                            initWithData: [richMessage dataUsingEncoding:NSUnicodeStringEncoding]
-                                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                            documentAttributes: nil
-                                                            error: nil
-                                                            ];
-    richBodyLabel.attributedText = attributedBody;
+    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     richBodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
@@ -302,13 +283,12 @@ API_AVAILABLE(ios(10.0))
     [superViewWrapper addSubview:richContentView];
     
     UIView *separator = [[UIView alloc] init];
-    separator.backgroundColor = [UIColor lightGrayColor];
+    separator.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     [superViewWrapper addSubview:separator];
     
     UIView *starRatingView = [[UIView alloc] init];
-    starRatingView.backgroundColor = [UIColor whiteColor];
-    
+    starRatingView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     self.labelsWrapper = [[UIView alloc] init];
     self.unselectedLabel = [[UILabel alloc] init];
@@ -374,7 +354,7 @@ API_AVAILABLE(ios(10.0))
     
     self.unselectedLabel.text = starStringUnselected;
     
-    self.unselectedLabel.textColor = [UIColor lightGrayColor];
+    self.unselectedLabel.textColor = UIColor.WEXGreyColor;
     self.unselectedLabel.font = [self.unselectedLabel.font fontWithSize:STAR_FONT_SIZE];
 }
 
@@ -571,7 +551,7 @@ API_AVAILABLE(ios(10.0))
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
     
     UIView *inputAccessoryView = [[UIView alloc] initWithFrame:frame];
-    inputAccessoryView.backgroundColor = [UIColor lightTextColor];
+    inputAccessoryView.backgroundColor = UIColor.WEXLightTextColor;
     
     UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
     NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:@"Done"
@@ -579,7 +559,7 @@ API_AVAILABLE(ios(10.0))
                                                                                  NSUnderlineStyleAttributeName:
                                                                                      [NSNumber numberWithInt:NSUnderlineStyleNone],
                                                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
-                                                                                 NSForegroundColorAttributeName: [self colorWithHexString:@"0077cc"]
+                                                                                 NSForegroundColorAttributeName: [UIColor colorFromHexString:@"0077cc" defaultColor:UIColor.blueColor]
                                                                                  }];
     
     [doneButton setAttributedTitle:attrTitle forState:UIControlStateNormal];
@@ -695,19 +675,6 @@ API_AVAILABLE(ios(10.0))
         NSLog(@"Expected to be running iOS version 10 or above");
     }
 }
-
-- (UIColor *)colorWithHexString:(NSString *)hexString {
-    
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0
-                           green:((rgbValue & 0xFF00) >> 8)/255.0
-                            blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
-
 
 #endif
 

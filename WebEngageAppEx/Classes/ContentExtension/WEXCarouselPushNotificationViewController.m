@@ -8,6 +8,7 @@
 
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
+#import "UIColor+DarkMode.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -190,16 +191,21 @@ API_AVAILABLE(ios(10.0))
 - (void)setupAutoScroll:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     NSString *scrollTime = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
     
+    if (scrollTime == (id)[NSNull null] || scrollTime.length == 0) {
+        return;
+    }
+    
     [self.scrollTimer invalidate];
     self.scrollTimer = nil;
-    _shouldScroll = YES;
     
-    NSInteger interval = [scrollTime intValue];
+    float intervalInMili = [scrollTime floatValue];
+    float intervalSeconds = intervalInMili/1000.0;
     
     // Scroll if interval is more than 0
-    if (interval > 0) {
+    if (intervalSeconds > 0) {
+        _shouldScroll = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:intervalSeconds
                                                                target:self
                                                              selector:@selector(scrollContent:)
                                                               userInfo:notification repeats:YES];
@@ -236,6 +242,10 @@ API_AVAILABLE(ios(10.0))
     
     // for portrait
     float superViewHeight = viewHeight + 2 * verticalMargins;
+    
+    NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    self.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
+    self.viewController.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     
@@ -280,10 +290,10 @@ API_AVAILABLE(ios(10.0))
     }
     
     UIView *topSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewWidth, 0.5)];
-    topSeparator.backgroundColor = [UIColor lightGrayColor];
+    topSeparator.backgroundColor = [UIColor WEXGreyColor];
     
     UIView *bottomSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5, superViewWidth, 0.5)];
-    bottomSeparator.backgroundColor = [UIColor lightGrayColor];
+    bottomSeparator.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     NSDictionary *extensionAttributes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
     
@@ -298,40 +308,34 @@ API_AVAILABLE(ios(10.0))
         NSString *subtitle = notification.request.content.userInfo[@"expandableDetails"][@"rst"];
         NSString *message = notification.request.content.userInfo[@"expandableDetails"][@"rm"];
         
+        BOOL isRichTitle = title && ![title isEqualToString:@""];
+        BOOL isRichSubtitle = subtitle && ![subtitle isEqualToString:@""];
+        BOOL isRichMessage = message && ![message isEqualToString:@""];
+        
+        if (!isRichTitle) {
+            title = self.notification.request.content.title;
+        }
+        if (!isRichSubtitle) {
+            subtitle = self.notification.request.content.subtitle;
+        }
+        if (!isRichMessage) {
+            message = self.notification.request.content.body;
+        }
+        
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
-        notificationContentView.backgroundColor = [UIColor whiteColor];
+        notificationContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedTitle = [[NSMutableAttributedString alloc]
-                                                                initWithData: [title dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        titleLabel.attributedText = attributedTitle;
-        titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+        titleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES];
         titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *subTitleLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedSubTitle = [[NSMutableAttributedString alloc]
-                                                                initWithData: [subtitle dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        subTitleLabel.attributedText = attributedSubTitle;
-        subTitleLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:NO];
         subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *bodyLabel = [[UILabel alloc] init];
-        NSAttributedString *attributedBody = [[NSMutableAttributedString alloc]
-                                                                initWithData: [message dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                                documentAttributes: nil
-                                                                error: nil
-                                                                ];
-        bodyLabel.attributedText = attributedBody;
+        bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO];
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
         bodyLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
@@ -645,6 +649,8 @@ API_AVAILABLE(ios(10.0))
     self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    
     if (!isPortrait) {
         viewWidth = superViewWidth;
         viewHeight = viewWidth * LANDSCAPE_ASPECT;
@@ -655,7 +661,7 @@ API_AVAILABLE(ios(10.0))
     UIView *viewContainer = viewToReturn;
     UIImage *image = self.images[index];
     
-    viewContainer.backgroundColor = [UIColor lightGrayColor];
+    viewContainer.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     UIImageView *imageView = self.imageViews[cachedViewIndex];
     imageView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
@@ -673,7 +679,7 @@ API_AVAILABLE(ios(10.0))
                                        viewWidth, descriptionViewHeight);
     
     descriptionView.alpha = DESCRIPTION_VIEW_ALPHA;
-    descriptionView.backgroundColor = [UIColor whiteColor];
+    descriptionView.backgroundColor = [UIColor WEXWhiteColor];
     
     UILabel *descriptionLabel = self.descriptionLabels[cachedViewIndex];
     descriptionLabel.frame =
@@ -682,7 +688,7 @@ API_AVAILABLE(ios(10.0))
     
     descriptionLabel.text = carouselItem[@"actionText"];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.textColor = [UIColor blackColor];
+    descriptionLabel.textColor = [UIColor WEXLabelColor];
     
     [descriptionView addSubview:descriptionLabel];
     
@@ -697,7 +703,7 @@ API_AVAILABLE(ios(10.0))
         UIView *alphaView = self.alphaViews[cachedViewIndex];
         alphaView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
         alphaView.alpha = 0.0;
-        alphaView.backgroundColor = [UIColor whiteColor];
+        alphaView.backgroundColor = [UIColor WEXWhiteColor];
         
         [viewContainer addSubview:alphaView];
     }

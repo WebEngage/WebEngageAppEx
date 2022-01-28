@@ -64,6 +64,10 @@
 		8288374F4CC9F6A69DC1929F /* Pods-ContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		A6F5D066278D6EA1005A96AA /* WEXBannerPushNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEXBannerPushNotificationViewController.h; sourceTree = "<group>"; };
 		A6F5D067278D6EAE005A96AA /* WEXBannerPushNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEXBannerPushNotificationViewController.m; sourceTree = "<group>"; };
+		A67089DF27A019E200DF27AC /* UIColor+DarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DarkMode.h"; sourceTree = "<group>"; };
+		A67089E027A019EF00DF27AC /* UIColor+DarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DarkMode.m"; sourceTree = "<group>"; };
+		A6DDEE99279A7A8D007FADE1 /* NSMutableAttributedString+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Additions.h"; sourceTree = "<group>"; };
+		A6DDEE9A279A7B22007FADE1 /* NSMutableAttributedString+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Additions.m"; sourceTree = "<group>"; };
 		B554331A99838E3647290F86 /* Pods-ServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceExtension/Pods-ServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5C12043F19FA4C36D82355 /* Pods-WEGExtensionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.release.xcconfig"; sourceTree = "<group>"; };
 		CF34E9CCD03C284D4C70479B /* Pods-ContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContentExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ContentExtension/Pods-ContentExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -269,6 +273,10 @@
 				EC9A3DB521B6B15300C63B7D /* WEXRichPushNotificationViewController+Private.h */,
 				A6F5D066278D6EA1005A96AA /* WEXBannerPushNotificationViewController.h */,
 				A6F5D067278D6EAE005A96AA /* WEXBannerPushNotificationViewController.m */,
+				A6DDEE99279A7A8D007FADE1 /* NSMutableAttributedString+Additions.h */,
+				A6DDEE9A279A7B22007FADE1 /* NSMutableAttributedString+Additions.m */,
+				A67089DF27A019E200DF27AC /* UIColor+DarkMode.h */,
+				A67089E027A019EF00DF27AC /* UIColor+DarkMode.m */,
 			);
 			path = ContentExtension;
 			sourceTree = "<group>";

@@ -13,7 +13,7 @@
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
-
+#import "NSMutableAttributedString+Additions.h"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
@@ -217,9 +217,9 @@ API_AVAILABLE(ios(10.0))
     if ([category isEqualToString:@"system"]) {
         [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
                                 andValue:@{
-                                            @"system_data_overrides": systemData ? systemData : @{},
-                                            @"event_data_overrides": customDataDictionary
-                                        }];
+            @"system_data_overrides": systemData ? systemData : @{},
+            @"event_data_overrides": customDataDictionary
+        }];
     } else {
         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
@@ -232,7 +232,7 @@ API_AVAILABLE(ios(10.0))
     [self updateActivityWithObject:cta forKey:@"cta"];
 }
 
-- (NSTextAlignment)naturalTextAligmentForText:(NSString*) text{
+- (NSTextAlignment)naturalTextAligmentForText:(NSString*)text {
     if (text == (id)[NSNull null] || text.length == 0 ) {
         return NSTextAlignmentLeft;
     }
@@ -246,6 +246,54 @@ API_AVAILABLE(ios(10.0))
     } else {
         return NSTextAlignmentLeft;
     }
+}
+
+- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
+                                                   initWithData: [textString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                   options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                   documentAttributes: nil
+                                                   error: nil
+    ];
+    
+    BOOL containsHTML = [self containsHTML:textString];
+    BOOL containsFontSize = [textString rangeOfString:@"font-size"].location != NSNotFound;
+    BOOL containsStrong = [textString rangeOfString:@"<strong>"].location != NSNotFound;
+    
+    UIFont *defaultFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    
+    /*
+     If html string doesn't contain font-size,
+     then setting default based on Strong tag or title position
+     */
+    
+    if (containsHTML && containsFontSize == NO) {
+        if (containsStrong) {
+            [attributedString setFontFaceWithFont:boldFont];
+        } else {
+            [attributedString setFontFaceWithFont:defaultFont];
+        }
+        [attributedString trimWhiteSpace];
+        
+    } else if (containsHTML == NO) {
+        if (isTitle) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attributedString.length)];
+        } else {
+            [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
+        }
+        
+    } else {
+        [attributedString trimWhiteSpace];
+    }
+    
+    return attributedString;
+}
+
+- (BOOL)containsHTML:(NSString *)value {
+    NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
+    NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
+    return [htmlText evaluateWithObject:value];
 }
 
 #endif
