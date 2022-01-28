@@ -29,10 +29,61 @@ API_AVAILABLE(ios(10.0))
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion{
+    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
+}
+
 - (void)didReceiveNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
+    
     self.notification = notification;
     
+//    NSDictionary *userInfo = notification.request.content.userInfo;
+//    NSString *catName = [userInfo valueForKeyPath:@"expandableDetails.category"];
+//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//    NSString *bannerCatName = @"WEG_BANNER_V1";
+//    [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+//        UNNotificationCategory * defaultCategory ;
+//        NSMutableSet * existingMutablecat = [[NSMutableSet alloc] init];
+//        for(UNNotificationCategory *dic in existingCategories){
+//            if([dic.identifier  isEqual: catName]){
+//               defaultCategory = dic;
+//           }
+//            if(![dic.identifier  isEqual: bannerCatName]){
+//                [existingMutablecat addObject:dic];
+//            }
+//        }
+//
+//
+//        NSMutableArray *actions = [NSMutableArray arrayWithCapacity:defaultCategory.actions.count];
+//
+//        for (UNNotificationAction *action in defaultCategory.actions) {
+//            UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
+//                                                                                      title:action.title
+//                                                                                    options:action.options];
+//            [actions addObject:actionObject];
+//        }
+//
+//        UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:bannerCatName
+//                                                                                  actions:actions
+//                                                                        intentIdentifiers:@[]
+//                                                                                  options:UNNotificationCategoryOptionCustomDismissAction];
+//
+//
+//        [existingMutablecat addObject:category];
+//        [center setNotificationCategories:existingMutablecat];
+////        use
+//
+//
+//
+////        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//////                    NSLog(@"parameter1: %d parameter2: %f", parameter1, parameter2);
+////            [self drawBannerViewWith:expandableDetails[@"image"]];
+////        });
+//
+//    }];
     [self initialiseViewHierarchy];
+    
+
 }
 
 - (void)initialiseViewHierarchy {

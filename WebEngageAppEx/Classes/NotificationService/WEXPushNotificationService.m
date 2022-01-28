@@ -51,8 +51,50 @@
     }
     else if (expandableDetails && style &&
              ([style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"BIG_PICTURE"])) {
-        
-        [self drawBannerViewWith:expandableDetails[@"image"]];
+        if ([style isEqualToString:@"BIG_PICTURE"]){
+            NSString *bannerCatName = @"WEG_BANNER_V1";
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+                UNNotificationCategory * defaultCategory ;
+                NSMutableSet * existingMutablecat = [[NSMutableSet alloc] init];
+                for(UNNotificationCategory *dic in existingCategories){
+                    if([dic.identifier  isEqual: self.bestAttemptContent.categoryIdentifier]){
+                       defaultCategory = dic;
+                   }
+                    if(![dic.identifier  isEqual: bannerCatName]){
+                        [existingMutablecat addObject:dic];
+                    }
+                }
+                
+                
+                NSMutableArray *actions = [NSMutableArray arrayWithCapacity:defaultCategory.actions.count];
+                
+                for (UNNotificationAction *action in defaultCategory.actions) {
+                    UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
+                                                                                              title:action.title
+                                                                                            options:action.options];
+                    [actions addObject:actionObject];
+                }
+                
+                UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:bannerCatName
+                                                                                          actions:actions
+                                                                                intentIdentifiers:@[]
+                                                                                          options:UNNotificationCategoryOptionCustomDismissAction];
+                
+                
+                [existingMutablecat addObject:category];
+                [center setNotificationCategories:existingMutablecat];
+                [self.bestAttemptContent setCategoryIdentifier:bannerCatName];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//                    NSLog(@"parameter1: %d parameter2: %f", parameter1, parameter2);
+                    [self drawBannerViewWith:expandableDetails[@"image"]];
+                });
+
+            }];
+        }else{
+            [self drawBannerViewWith:expandableDetails[@"image"]];
+        }
+//        [self drawBannerViewWith:expandableDetails[@"image"]];
     }
     else {
         [self trackEventWithCompletion:^{
