@@ -35,6 +35,10 @@ API_AVAILABLE(ios(10.0))
     [self initialiseViewHierarchy];
 }
 
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion{
+    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
+}
+
 - (void)initialiseViewHierarchy {
     self.view.backgroundColor = [UIColor WEXWhiteColor];
     
@@ -53,6 +57,7 @@ API_AVAILABLE(ios(10.0))
     
     NSDictionary *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
     
+    UIImageView *imageView = [[UIImageView alloc] init];
     if (expandableDetails[@"image"]) {
         if (self.notification.request.content.attachments
             && self.notification.request.content.attachments.count > 0) {
@@ -67,17 +72,23 @@ API_AVAILABLE(ios(10.0))
                     [attachment.URL stopAccessingSecurityScopedResource];
                     
                     if (image) {
-                        UIImageView *imageView = [[UIImageView alloc] init];
                         imageView.image = image;
-                        imageView.contentMode = UIViewContentModeScaleAspectFill;
-                        [mainContentView addSubview:imageView];
+                    } else {
+                        NSLog(@"Image not present in cache!");
                     }
                 }
             } else {
                 NSLog(@"Expected to be running iOS version 10 or above");
             }
+        } else {
+            NSLog(@"Attachment not present for: %@", expandableDetails[@"image"]);
         }
+    } else {
+        NSLog(@"Image not present in payload: %@", expandableDetails[@"image"]);
     }
+    
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [mainContentView addSubview:imageView];
     [self setupLabelsContainer];
 }
 
@@ -163,6 +174,8 @@ API_AVAILABLE(ios(10.0))
         CGFloat imageAspect = LANDSCAPE_ASPECT;
         if (bannerImage && bannerImage.size.height != 0) {
             imageAspect = bannerImage.size.height/bannerImage.size.width;
+        } else {
+            imageAspect = 0;
         }
         
         [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
