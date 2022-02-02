@@ -119,6 +119,7 @@
 - (NSString *)getBannerCategoryFor:(NSString *)currentCategory {
     NSDictionary *bannerMapping = @{
         @"default" : self.bannerCategories[0],
+        @"19db52de" : self.bannerCategories[0],
         @"18dfbbcc" : self.bannerCategories[1],
         @"16589g0g" : self.bannerCategories[2],
         @"15ead296" : self.bannerCategories[3],
