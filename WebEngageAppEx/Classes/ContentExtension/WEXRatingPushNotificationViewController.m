@@ -205,7 +205,7 @@ API_AVAILABLE(ios(10.0))
         titleLabel.text = title;
         titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
         if (textColor) {
-            titleLabel.textColor = [UIColor colorFromHexString:bckColor defaultColor:UIColor.WEXLabelColor];
+            titleLabel.textColor = [UIColor colorFromHexString:textColor defaultColor:UIColor.WEXLabelColor];
         } else {
             titleLabel.textColor = UIColor.WEXLabelColor;
         }
@@ -219,7 +219,7 @@ API_AVAILABLE(ios(10.0))
         messageLabel.text = message;
         
         if (textColor) {
-            messageLabel.textColor = [UIColor colorFromHexString:bckColor defaultColor:UIColor.WEXLabelColor];
+            messageLabel.textColor = [UIColor colorFromHexString:textColor defaultColor:UIColor.WEXLabelColor];
         } else {
             messageLabel.textColor = UIColor.WEXLabelColor;
         }
