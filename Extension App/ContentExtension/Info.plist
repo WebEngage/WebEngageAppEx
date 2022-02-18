@@ -38,9 +38,17 @@
 				<string>WEG_BANNER_V6</string>
 				<string>WEG_BANNER_V7</string>
 				<string>WEG_BANNER_V8</string>
+				<string>WEG_TEXT_V1</string>
+				<string>WEG_TEXT_V2</string>
+				<string>WEG_TEXT_V3</string>
+				<string>WEG_TEXT_V4</string>
+				<string>WEG_TEXT_V5</string>
+				<string>WEG_TEXT_V6</string>
+				<string>WEG_TEXT_V7</string>
+				<string>WEG_TEXT_V8</string>
 			</array>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<integer>1</integer>
+			<real>0.5</real>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

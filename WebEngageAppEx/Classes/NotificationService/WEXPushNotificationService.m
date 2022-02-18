@@ -18,6 +18,7 @@
 @property (nonatomic) NSString *enviroment;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 @property NSArray *bannerCategories;
+@property NSArray *textCategories;
 #endif
 
 @end
@@ -35,11 +36,10 @@
     
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    
-    self.bannerCategories = @[@"WEG_BANNER_V1", @"WEG_BANNER_V2", @"WEG_BANNER_V3", @"WEG_BANNER_V4", @"WEG_BANNER_V5", @"WEG_BANNER_V6", @"WEG_BANNER_V7", @"WEG_BANNER_V8"];
     [self setExtensionDefaults];
     
     NSLog(@"Push Notification content: %@", request.content.userInfo);
+    NSLog(@"CategoryId: %@", self.bestAttemptContent.categoryIdentifier);
     
     NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
     
@@ -52,7 +52,9 @@
         [self drawBannerViewWith:expandableDetails[@"image"]];
     
     } else if (expandableDetails && style && [style isEqualToString:@"BIG_PICTURE"]) {
-        NSString *bannerCatName = [self getBannerCategoryFor:self.bestAttemptContent.categoryIdentifier];
+        self.bannerCategories = @[@"WEG_BANNER_V1", @"WEG_BANNER_V2", @"WEG_BANNER_V3", @"WEG_BANNER_V4", @"WEG_BANNER_V5", @"WEG_BANNER_V6", @"WEG_BANNER_V7", @"WEG_BANNER_V8"];
+        
+        NSString *bannerCatName = [self getCategoryFor:self.bannerCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         
         [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
@@ -107,6 +109,67 @@
             });
         }];
         
+    } else if (expandableDetails && style && [style isEqualToString:@"BIG_TEXT"]) {
+        self.textCategories = @[@"WEG_TEXT_V1", @"WEG_TEXT_V2", @"WEG_TEXT_V3", @"WEG_TEXT_V4", @"WEG_TEXT_V5", @"WEG_TEXT_V6", @"WEG_TEXT_V7", @"WEG_TEXT_V8"];
+        NSString *textCatName = [self getCategoryFor:self.textCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        
+        [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+            UNNotificationCategory *currentCategory;
+            BOOL isLayoutRegistered = NO;
+            BOOL isCurrentCatBanner = NO;
+            NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
+            
+            for(UNNotificationCategory *dict in existingCategories) {
+                if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
+                    currentCategory = dict;
+                    isLayoutRegistered = [dict.identifier isEqualToString:textCatName];
+                    isCurrentCatBanner = [self.bannerCategories containsObject:dict.identifier];
+                } else {
+                    [existingMutablecat addObject:dict];
+                }
+            }
+            
+            if (isLayoutRegistered) {
+                if (!isCurrentCatBanner) {
+                    [self.bestAttemptContent setCategoryIdentifier:textCatName];
+                }
+                [self trackEventWithCompletion:^{
+                    self.contentHandler(self.bestAttemptContent);
+                }];
+                return;
+            }
+            
+            // Register text layout here.
+            NSMutableArray *actions = [NSMutableArray arrayWithCapacity:currentCategory.actions.count];
+            
+            for (UNNotificationAction *action in currentCategory.actions) {
+                UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
+                                                                                          title:action.title
+                                                                                        options:action.options];
+                [actions addObject:actionObject];
+            }
+            
+            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:textCatName
+                                                                                      actions:actions
+                                                                            intentIdentifiers:@[]
+                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
+            [existingMutablecat addObject:category];
+            [center setNotificationCategories:existingMutablecat];
+            [self.bestAttemptContent setCategoryIdentifier:textCatName];
+            /*
+             Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
+             Registering will make sure, contentHandler will invoke ContentExtension with this custom category
+             
+             NOTE: Use this workaround till we receive banner category in network response.
+             */
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self trackEventWithCompletion:^{
+                    self.contentHandler(self.bestAttemptContent);
+                }];
+            });
+        }];
+    
     } else {
         [self trackEventWithCompletion:^{
             self.contentHandler(self.bestAttemptContent);
@@ -114,19 +177,29 @@
     }
 }
 
+- (void)serviceExtensionTimeWillExpire {
+    NSLog(@"%@", @(__FUNCTION__));
+    self.contentHandler(self.bestAttemptContent);
+}
+
+
+#pragma mark - Text Layout
+
+#pragma mark - Banner Layout
+
 // NOTE: This mapping is a temporary workaround, Will be removed in future releases
 
-- (NSString *)getBannerCategoryFor:(NSString *)currentCategory {
+- (NSString *)getCategoryFor:(NSArray *)categories currentCategory:(NSString *)currentCategory {
     NSDictionary *bannerMapping = @{
-        @"default" : self.bannerCategories[0],
-        @"19db52de" : self.bannerCategories[0],
-        @"18dfbbcc" : self.bannerCategories[1],
-        @"16589g0g" : self.bannerCategories[2],
-        @"15ead296" : self.bannerCategories[3],
-        @"17543720" : self.bannerCategories[4],
-        @"16e66ba8" : self.bannerCategories[5],
-        @"1c406g7a" : self.bannerCategories[6],
-        @"1bd2a2g0" : self.bannerCategories[7]
+        @"default" : categories[0], // Default, No buttons
+        @"19db52de": categories[0], // Default, No buttons
+        @"18dfbbcc": categories[1], // Yes/No - Open App/Dismiss
+        @"16589g0g": categories[2], // Yes/No - Dismiss both
+        @"15ead296": categories[3], // Accept/Decline - Open/Dismiss
+        @"17543720": categories[4], // Accept/Decline - Dismiss both
+        @"16e66ba8": categories[5], // Shop Now
+        @"1c406g7a": categories[6], // Buy Now
+        @"1bd2a2g0": categories[7]  // Download Now
     };
     
     NSString *category = bannerMapping[currentCategory];
@@ -136,22 +209,6 @@
         return currentCategory;
     }
 }
-
-- (void)setExtensionDefaults {
-    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
-    // Write operation only if key is not present in the UserDefaults
-    
-    if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
-        [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
-        [sharedDefaults synchronize];
-    }
-}
-
-- (void)serviceExtensionTimeWillExpire {
-    NSLog(@"%@", @(__FUNCTION__));
-    self.contentHandler(self.bestAttemptContent);
-}
-
 
 #pragma mark - Rich Push View Helpers
 
@@ -285,12 +342,22 @@
     }] resume];
 }
 
+- (void)setExtensionDefaults {
+    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
+    // Write operation only if key is not present in the UserDefaults
+    
+    if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
+        [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
+        [sharedDefaults synchronize];
+    }
+}
+
 - (NSString *) getBaseURL{
     NSString *baseURL = @"https://c.webengage.com/tracker";
     
     [self setDataFromSharedUserDefaults];
     
-    NSLog(@"Setting Enviroment to : %@",self.enviroment);
+    NSLog(@"Setting Enviroment to: %@",self.enviroment);
     
     if ([self.enviroment.uppercaseString isEqualToString:@"IN"]) {
         baseURL = @"https://c.in.webengage.com/tracker";
