@@ -159,36 +159,37 @@
     
     NSMutableArray *attachmentsArray = [[NSMutableArray alloc] initWithCapacity:items.count];
     
-    if (items.count >= 3) {
-        NSUInteger itemCounter = 0;
-        NSUInteger __block imageDownloadAttemptCounter = 0;
+    if (items.count <= 0) {
+        return;
+    }
+    
+    NSUInteger itemCounter = 0;
+    NSUInteger __block imageDownloadAttemptCounter = 0;
+    
+    for (NSDictionary *carouselItem in items) {
         
-        for (NSDictionary *carouselItem in items) {
+        NSString *imageURL = carouselItem[@"image"];
+        
+        [self fetchAttachmentFor:imageURL
+                              at:itemCounter
+               completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
             
-            NSString *imageURL = carouselItem[@"image"];
+            imageDownloadAttemptCounter++;
             
-            [self fetchAttachmentFor:imageURL
-                                  at:itemCounter
-                   completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-                
-                imageDownloadAttemptCounter++;
-                
-                if (attachment) {
-                    NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
-                    [attachmentsArray addObject:attachment];
-                    self.bestAttemptContent.attachments = attachmentsArray;
-                }
-                
-                if (imageDownloadAttemptCounter == items.count) {
-                    
-                    [self trackEventWithCompletion:^{
-                        NSLog(@"Ending WebEngage Rich Push Service");
-                        self.contentHandler(self.bestAttemptContent);
-                    }];
-                }
-            }];
-            itemCounter++;
-        }
+            if (attachment) {
+                NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
+                [attachmentsArray addObject:attachment];
+                self.bestAttemptContent.attachments = attachmentsArray;
+            }
+            
+            if (imageDownloadAttemptCounter == items.count) {
+                [self trackEventWithCompletion:^{
+                    NSLog(@"Ending WebEngage Rich Push Service");
+                    self.contentHandler(self.bestAttemptContent);
+                }];
+            }
+        }];
+        itemCounter++;
     }
 }
 
