@@ -263,17 +263,17 @@ API_AVAILABLE(ios(10.0))
     richContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
-    richTitleLabel.attributedText = [self.viewController getHtmlParsedString:richTitle isTitle:YES];
+    richTitleLabel.attributedText = [self.viewController getHtmlParsedString:richTitle isTitle:YES bckColor:colorHex];
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     richTitleLabel.numberOfLines = 0;
     
     UILabel *richSubLabel = [[UILabel alloc] init];
-    richSubLabel.attributedText = [self.viewController getHtmlParsedString:richSub isTitle:NO];
+    richSubLabel.attributedText = [self.viewController getHtmlParsedString:richSub isTitle:NO bckColor:colorHex];
     richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
     richSubLabel.numberOfLines = 0;
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO];
+    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO bckColor:colorHex];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     

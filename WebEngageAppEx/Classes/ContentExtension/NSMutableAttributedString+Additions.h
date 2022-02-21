@@ -9,6 +9,8 @@
 
 @interface NSMutableAttributedString (Additions)
 
+- (void)updateDefaultTextColor;
+
 - (void)setFontFaceWithFont:(UIFont *)font;
 
 - (void)trimWhiteSpace;

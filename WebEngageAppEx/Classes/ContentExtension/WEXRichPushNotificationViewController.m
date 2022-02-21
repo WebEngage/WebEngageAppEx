@@ -251,13 +251,18 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
-- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle {
+- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
                                                    initWithData: [textString dataUsingEncoding:NSUnicodeStringEncoding]
                                                    options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
                                                    documentAttributes: nil
                                                    error: nil
     ];
+    
+    BOOL hasBckColor = bckColor && ![bckColor isEqualToString:@""];
+    if (!hasBckColor) {
+        [attributedString updateDefaultTextColor];
+    }
     
     BOOL containsHTML = [self containsHTML:textString];
     BOOL containsFontSize = [textString rangeOfString:@"font-size"].location != NSNotFound;
