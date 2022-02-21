@@ -17,8 +17,7 @@
 @property (nonatomic) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic) NSString *enviroment;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
-@property NSArray *bannerCategories;
-@property NSArray *textCategories;
+@property NSArray *customCategories;
 #endif
 
 @end
@@ -39,45 +38,43 @@
     [self setExtensionDefaults];
     
     NSLog(@"Push Notification content: %@", request.content.userInfo);
-    NSLog(@"CategoryId: %@", self.bestAttemptContent.categoryIdentifier);
     
     NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
-    
     NSString *style = expandableDetails[@"style"];
     
     if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {
         [self drawCarouselViewWith:expandableDetails[@"items"]];
         
     } else if (expandableDetails && style && [style isEqualToString:@"RATING_V1"]) {
-        [self drawBannerViewWith:expandableDetails[@"image"]];
+        [self handleContentFor:style image:expandableDetails[@"image"]];
     
-    } else if (expandableDetails && style && [style isEqualToString:@"BIG_PICTURE"]) {
-        self.bannerCategories = @[@"WEG_BANNER_V1", @"WEG_BANNER_V2", @"WEG_BANNER_V3", @"WEG_BANNER_V4", @"WEG_BANNER_V5", @"WEG_BANNER_V6", @"WEG_BANNER_V7", @"WEG_BANNER_V8"];
+    } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"])) {
+        self.customCategories = @[@"WEG_RICH_V1", @"WEG_RICH_V2", @"WEG_RICH_V3", @"WEG_RICH_V4", @"WEG_RICH_V5", @"WEG_RICH_V6", @"WEG_RICH_V7", @"WEG_RICH_V8"];
         
-        NSString *bannerCatName = [self getCategoryFor:self.bannerCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
+        NSString *customCategory = [self getCategoryFor:self.customCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         
         [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
             UNNotificationCategory *currentCategory;
-            BOOL isBannerRegistered = NO;
-            BOOL isCurrentCatBanner = NO;
+            BOOL isCategoryRegistered = NO;
+            BOOL isCurrentCatCustom = NO;
             NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
             
             for(UNNotificationCategory *dict in existingCategories) {
                 if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
                     currentCategory = dict;
-                    isBannerRegistered = [dict.identifier isEqualToString:bannerCatName];
-                    isCurrentCatBanner = [self.bannerCategories containsObject:dict.identifier];
+                    isCategoryRegistered = [dict.identifier isEqualToString:customCategory];
+                    isCurrentCatCustom = [self.customCategories containsObject:dict.identifier];
                 } else {
                     [existingMutablecat addObject:dict];
                 }
             }
             
-            if (isBannerRegistered) {
-                if (!isCurrentCatBanner) {
-                    [self.bestAttemptContent setCategoryIdentifier:bannerCatName];
+            if (isCategoryRegistered) {
+                if (!isCurrentCatCustom) {
+                    [self.bestAttemptContent setCategoryIdentifier:customCategory];
                 }
-                [self drawBannerViewWith:expandableDetails[@"image"]];
+                [self handleContentFor:style image:expandableDetails[@"image"]];
                 return;
             }
             
@@ -91,13 +88,13 @@
                 [actions addObject:actionObject];
             }
             
-            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:bannerCatName
+            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:customCategory
                                                                                       actions:actions
                                                                             intentIdentifiers:@[]
                                                                                       options:UNNotificationCategoryOptionCustomDismissAction];
             [existingMutablecat addObject:category];
             [center setNotificationCategories:existingMutablecat];
-            [self.bestAttemptContent setCategoryIdentifier:bannerCatName];
+            [self.bestAttemptContent setCategoryIdentifier:customCategory];
             /*
              Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
              Registering will make sure, contentHandler will invoke ContentExtension with this custom category
@@ -105,71 +102,18 @@
              NOTE: Use this workaround till we receive banner category in network response.
              */
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self drawBannerViewWith:expandableDetails[@"image"]];
+                [self handleContentFor:style image:expandableDetails[@"image"]];
             });
         }];
         
-    } else if (expandableDetails && style && [style isEqualToString:@"BIG_TEXT"]) {
-        self.textCategories = @[@"WEG_TEXT_V1", @"WEG_TEXT_V2", @"WEG_TEXT_V3", @"WEG_TEXT_V4", @"WEG_TEXT_V5", @"WEG_TEXT_V6", @"WEG_TEXT_V7", @"WEG_TEXT_V8"];
-        NSString *textCatName = [self getCategoryFor:self.textCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        
-        [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
-            UNNotificationCategory *currentCategory;
-            BOOL isLayoutRegistered = NO;
-            BOOL isCurrentCatBanner = NO;
-            NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
-            
-            for(UNNotificationCategory *dict in existingCategories) {
-                if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
-                    currentCategory = dict;
-                    isLayoutRegistered = [dict.identifier isEqualToString:textCatName];
-                    isCurrentCatBanner = [self.bannerCategories containsObject:dict.identifier];
-                } else {
-                    [existingMutablecat addObject:dict];
-                }
-            }
-            
-            if (isLayoutRegistered) {
-                if (!isCurrentCatBanner) {
-                    [self.bestAttemptContent setCategoryIdentifier:textCatName];
-                }
-                [self trackEventWithCompletion:^{
-                    self.contentHandler(self.bestAttemptContent);
-                }];
-                return;
-            }
-            
-            // Register text layout here.
-            NSMutableArray *actions = [NSMutableArray arrayWithCapacity:currentCategory.actions.count];
-            
-            for (UNNotificationAction *action in currentCategory.actions) {
-                UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
-                                                                                          title:action.title
-                                                                                        options:action.options];
-                [actions addObject:actionObject];
-            }
-            
-            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:textCatName
-                                                                                      actions:actions
-                                                                            intentIdentifiers:@[]
-                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
-            [existingMutablecat addObject:category];
-            [center setNotificationCategories:existingMutablecat];
-            [self.bestAttemptContent setCategoryIdentifier:textCatName];
-            /*
-             Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
-             Registering will make sure, contentHandler will invoke ContentExtension with this custom category
-             
-             NOTE: Use this workaround till we receive banner category in network response.
-             */
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self trackEventWithCompletion:^{
-                    self.contentHandler(self.bestAttemptContent);
-                }];
-            });
-        }];
-    
+    } else {
+        [self handleContentFor:style image:@""];
+    }
+}
+
+- (void)handleContentFor:(NSString *)style image:(NSString *)image {
+    if ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"RATING_V1"]) {
+        [self drawBannerViewWith:image];
     } else {
         [self trackEventWithCompletion:^{
             self.contentHandler(self.bestAttemptContent);
@@ -182,15 +126,10 @@
     self.contentHandler(self.bestAttemptContent);
 }
 
-
-#pragma mark - Text Layout
-
-#pragma mark - Banner Layout
-
 // NOTE: This mapping is a temporary workaround, Will be removed in future releases
 
 - (NSString *)getCategoryFor:(NSArray *)categories currentCategory:(NSString *)currentCategory {
-    NSDictionary *bannerMapping = @{
+    NSDictionary *categoryMapping = @{
         @"default" : categories[0], // Default, No buttons
         @"19db52de": categories[0], // Default, No buttons
         @"18dfbbcc": categories[1], // Yes/No - Open App/Dismiss
@@ -202,7 +141,7 @@
         @"1bd2a2g0": categories[7]  // Download Now
     };
     
-    NSString *category = bannerMapping[currentCategory];
+    NSString *category = categoryMapping[currentCategory];
     if (category) {
         return category;
     } else {
