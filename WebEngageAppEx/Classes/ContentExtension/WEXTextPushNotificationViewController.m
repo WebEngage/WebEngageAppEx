@@ -1,11 +1,11 @@
 //
-//  WEXBannerPushNotificationViewController.m
+//  WEXTextPushNotificationViewController.m
 //  WebEngage
 //
 //  Copyright (c) 2022 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
-#import "WEXBannerPushNotificationViewController.h"
+#import "WEXTextPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "UIColor+DarkMode.h"
 
@@ -14,7 +14,7 @@
 #define LANDSCAPE_ASPECT 0.5
 
 API_AVAILABLE(ios(10.0))
-@interface WEXBannerPushNotificationViewController ()
+@interface WEXTextPushNotificationViewController ()
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
@@ -24,7 +24,7 @@ API_AVAILABLE(ios(10.0))
 
 @end
 
-@implementation WEXBannerPushNotificationViewController
+@implementation WEXTextPushNotificationViewController
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
@@ -43,50 +43,6 @@ API_AVAILABLE(ios(10.0))
     UIView *superViewWrapper = [[UIView alloc] init];
     [self.view addSubview:superViewWrapper];
     
-    UIView *mainContentView = [[UIView alloc] init];
-    [superViewWrapper addSubview:mainContentView];
-    
-    [self setupBannerImageView];
-}
-
-- (void)setupBannerImageView {
-    UIView *superViewWrapper = self.view.subviews[0];
-    UIView *mainContentView = superViewWrapper.subviews[0];
-    
-    NSDictionary *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
-    
-    UIImageView *imageView = [[UIImageView alloc] init];
-    if (expandableDetails[@"image"]) {
-        if (self.notification.request.content.attachments
-            && self.notification.request.content.attachments.count > 0) {
-            
-            if (@available(iOS 10.0, *)) {
-                UNNotificationAttachment *attachment = self.notification.request.content.attachments.firstObject;
-                
-                if ([attachment.URL startAccessingSecurityScopedResource]) {
-                    NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
-                    UIImage *image = [UIImage imageWithData:imageData];
-                    
-                    [attachment.URL stopAccessingSecurityScopedResource];
-                    
-                    if (image) {
-                        imageView.image = image;
-                    } else {
-                        NSLog(@"Image not present in cache!");
-                    }
-                }
-            } else {
-                NSLog(@"Expected to be running iOS version 10 or above");
-            }
-        } else {
-            NSLog(@"Attachment not present for: %@", expandableDetails[@"image"]);
-        }
-    } else {
-        NSLog(@"Image not present in payload: %@", expandableDetails[@"image"]);
-    }
-    
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [mainContentView addSubview:imageView];
     [self setupLabelsContainer];
 }
 
@@ -142,8 +98,7 @@ API_AVAILABLE(ios(10.0))
 
 - (void)setupConstraints {
     UIView *superViewWrapper = self.view.subviews[0];
-    UIView *mainContentView = superViewWrapper.subviews[0];
-    UIView *richContentView = superViewWrapper.subviews[1];
+    UIView *richContentView = superViewWrapper.subviews[0];
     
     if (@available(iOS 10.0, *)) {
         superViewWrapper.translatesAutoresizingMaskIntoConstraints = NO;
@@ -152,36 +107,12 @@ API_AVAILABLE(ios(10.0))
         [superViewWrapper.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
         [superViewWrapper.bottomAnchor constraintEqualToAnchor:richContentView.bottomAnchor].active = YES;
         
-        //Top level view constraints
-        mainContentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [mainContentView.leadingAnchor constraintEqualToAnchor:mainContentView.superview.leadingAnchor].active = YES;
-        [mainContentView.trailingAnchor constraintEqualToAnchor:mainContentView.superview.trailingAnchor].active = YES;
-        [mainContentView.topAnchor constraintEqualToAnchor:mainContentView.superview.topAnchor].active = YES;
-        
         richContentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [richContentView.leadingAnchor constraintEqualToAnchor:richContentView.superview.leadingAnchor].active = YES;
-        [richContentView.trailingAnchor constraintEqualToAnchor:richContentView.superview.trailingAnchor].active = YES;
-        [richContentView.topAnchor constraintEqualToAnchor:mainContentView.bottomAnchor].active = YES;
+        [richContentView.leadingAnchor constraintEqualToAnchor:superViewWrapper.leadingAnchor].active = YES;
+        [richContentView.trailingAnchor constraintEqualToAnchor:superViewWrapper.trailingAnchor].active = YES;
+        [richContentView.topAnchor constraintEqualToAnchor:superViewWrapper.topAnchor].active = YES;
         
         [self.viewController.bottomLayoutGuide.topAnchor constraintEqualToAnchor:superViewWrapper.bottomAnchor].active = YES;
-        
-        //Main Content View ImageView constraints
-        UIImageView *imageView = mainContentView.subviews[0];
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        UIImage *bannerImage = imageView.image;
-        CGFloat imageAspect = LANDSCAPE_ASPECT;
-        if (bannerImage && bannerImage.size.height != 0) {
-            imageAspect = bannerImage.size.height/bannerImage.size.width;
-        } else {
-            imageAspect = 0;
-        }
-        
-        [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
-        [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
-        [imageView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
-        [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:imageAspect].active = YES;
-        [mainContentView.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
         
         //Rich View labels
         UIView *richTitleLabel = richContentView.subviews[0];
