@@ -75,12 +75,10 @@ API_AVAILABLE(ios(10.0))
     UILabel *richTitleLabel = [[UILabel alloc] init];
     richTitleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES bckColor:colorHex];
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
-    richTitleLabel.numberOfLines = 0;
     
     UILabel *richSubLabel = [[UILabel alloc] init];
     richSubLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:NO bckColor:colorHex];
     richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
-    richSubLabel.numberOfLines = 0;
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
     richBodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];

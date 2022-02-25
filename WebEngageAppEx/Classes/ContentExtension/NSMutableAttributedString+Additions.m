@@ -12,25 +12,26 @@
 @implementation NSMutableAttributedString (Additions)
 
 - (void)updateDefaultTextColor {
-    [self beginEditing];
-    [self enumerateAttribute:NSForegroundColorAttributeName
-                     inRange:NSMakeRange(0, self.length)
-                     options:0
-                  usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
-        UIColor *color = (UIColor *)value;
-        UIColor *labelColor = [UIColor WEXLabelColor];
-        NSString *colorHex = [self hexStringFromColor:color];
-
-        if (@available(iOS 12.0, *)) {
+    if (@available(iOS 13.0, *)) {
+        [self beginEditing];
+        [self enumerateAttribute:NSForegroundColorAttributeName
+                         inRange:NSMakeRange(0, self.length)
+                         options:0
+                      usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+            
+            UIColor *color = (UIColor *)value;
+            UIColor *labelColor = [UIColor WEXLabelColor];
+            NSString *colorHex = [self hexStringFromColor:color];
+            
             if (UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
                 if ([colorHex isEqualToString:@"#000000"]) {
                     [self removeAttribute:NSForegroundColorAttributeName range:range];
                     [self addAttribute:NSForegroundColorAttributeName value:labelColor range:range];
                 }
             }
-        }
-    }];
-    [self endEditing];
+        }];
+        [self endEditing];
+    }
 }
 
 - (NSString *)hexStringFromColor:(UIColor *)color {
