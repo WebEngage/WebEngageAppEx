@@ -252,8 +252,17 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor {
+    BOOL containsHTML = [self containsHTML:textString];
+    NSString *inputString = textString;
+    
+    // Updating font attributes overrides Italic characteristic
+    // Adding extra tags makes more sense
+    if (containsHTML && isTitle) {
+        inputString = [NSString stringWithFormat: @"<strong>%@</strong>", textString];
+    }
+    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
-                                                   initWithData: [textString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                   initWithData: [inputString dataUsingEncoding:NSUnicodeStringEncoding]
                                                    options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
                                                    documentAttributes: nil
                                                    error: nil
@@ -264,20 +273,18 @@ API_AVAILABLE(ios(10.0))
         [attributedString updateDefaultTextColor];
     }
     
-    BOOL containsHTML = [self containsHTML:textString];
-    BOOL containsFontSize = [textString rangeOfString:@"font-size"].location != NSNotFound;
-    BOOL containsStrong = [textString rangeOfString:@"<strong>"].location != NSNotFound;
-    
+    BOOL containsFontSize = [inputString rangeOfString:@"font-size"].location != NSNotFound;
+
     UIFont *defaultFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     
     /*
      If html string doesn't contain font-size,
-     then setting default based on Strong tag or title position
+     then setting default based on title position
      */
     
     if (containsHTML && containsFontSize == NO) {
-        if (containsStrong) {
+        if (isTitle) {
             [attributedString setFontFaceWithFont:boldFont];
         } else {
             [attributedString setFontFaceWithFont:defaultFont];

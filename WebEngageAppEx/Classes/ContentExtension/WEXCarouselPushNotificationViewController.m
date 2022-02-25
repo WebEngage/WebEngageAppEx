@@ -331,7 +331,7 @@ API_AVAILABLE(ios(10.0))
         titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *subTitleLabel = [[UILabel alloc] init];
-        subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:NO bckColor:colorHex];
+        subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:YES bckColor:colorHex];
         subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
         UILabel *bodyLabel = [[UILabel alloc] init];
