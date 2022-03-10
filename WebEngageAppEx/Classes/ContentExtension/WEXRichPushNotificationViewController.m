@@ -27,6 +27,7 @@ API_AVAILABLE(ios(10.0))
 @property (nonatomic) NSUserDefaults *richPushDefaults;
 
 @property (atomic) BOOL isRendering;
+@property (atomic) BOOL isDarkMode;
 
 #endif
 
@@ -87,6 +88,7 @@ API_AVAILABLE(ios(10.0))
     
     self.notification = notification;
     self.isRendering = YES;
+    [self updateDarkModeStatus];
     
     NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
     
@@ -141,6 +143,10 @@ API_AVAILABLE(ios(10.0))
     [self.currentLayout didReceiveNotificationResponse:response completionHandler:completion];
 }
 
+- (void)traitCollectionDidChange: (UITraitCollection *) previousTraitCollection {
+    [super traitCollectionDidChange: previousTraitCollection];
+    [self updateDarkModeStatus];
+}
 
 - (NSMutableDictionary *) getActivityDictionaryForCurrentNotification {
     
@@ -269,7 +275,7 @@ API_AVAILABLE(ios(10.0))
     ];
     
     BOOL hasBckColor = bckColor && ![bckColor isEqualToString:@""];
-    if (!hasBckColor) {
+    if (!hasBckColor && _isDarkMode) {
         [attributedString updateDefaultTextColor];
     }
     
@@ -309,6 +315,16 @@ API_AVAILABLE(ios(10.0))
     NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
     NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
     return [htmlText evaluateWithObject:value];
+}
+
+- (void)updateDarkModeStatus {
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.isDarkMode = YES;
+            return;
+        }
+    }
+    self.isDarkMode = NO;
 }
 
 #endif

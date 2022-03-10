@@ -23,11 +23,9 @@
             UIColor *labelColor = [UIColor WEXLabelColor];
             NSString *colorHex = [self hexStringFromColor:color];
             
-            if (UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-                if ([colorHex isEqualToString:@"#000000"]) {
-                    [self removeAttribute:NSForegroundColorAttributeName range:range];
-                    [self addAttribute:NSForegroundColorAttributeName value:labelColor range:range];
-                }
+            if ([colorHex isEqualToString:@"000000"]) {
+                [self removeAttribute:NSForegroundColorAttributeName range:range];
+                [self addAttribute:NSForegroundColorAttributeName value:labelColor range:range];
             }
         }];
         [self endEditing];
@@ -41,7 +39,7 @@
     CGFloat g = components[1];
     CGFloat b = components[2];
     
-    return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
+    return [NSString stringWithFormat:@"%02lX%02lX%02lX",
             lroundf(r * 255),
             lroundf(g * 255),
             lroundf(b * 255)];
