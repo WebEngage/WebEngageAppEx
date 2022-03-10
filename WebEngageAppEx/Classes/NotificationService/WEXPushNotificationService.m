@@ -7,6 +7,7 @@
 
 
 #import "WEXPushNotificationService.h"
+#import <UserNotifications/UserNotifications.h>
 
 
 @interface WEXPushNotificationService ()
@@ -16,6 +17,7 @@
 @property (nonatomic) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic) NSString *enviroment;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
+@property NSArray *customCategories;
 #endif
 
 @end
@@ -33,38 +35,89 @@
     
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-
     [self setExtensionDefaults];
     
     NSLog(@"Push Notification content: %@", request.content.userInfo);
     
     NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
-    
     NSString *style = expandableDetails[@"style"];
     
     if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {
-        
         [self drawCarouselViewWith:expandableDetails[@"items"]];
-    }
-    else if (expandableDetails && style &&
-             ([style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"BIG_PICTURE"])) {
         
-        [self drawBannerViewWith:expandableDetails[@"image"]];
-    }
-    else {
-        [self trackEventWithCompletion:^{
-            self.contentHandler(self.bestAttemptContent);
+    } else if (expandableDetails && style && [style isEqualToString:@"RATING_V1"]) {
+        [self handleContentFor:style image:expandableDetails[@"image"]];
+    
+    } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"])) {
+        self.customCategories = @[@"WEG_RICH_V1", @"WEG_RICH_V2", @"WEG_RICH_V3", @"WEG_RICH_V4", @"WEG_RICH_V5", @"WEG_RICH_V6", @"WEG_RICH_V7", @"WEG_RICH_V8"];
+        
+        NSString *customCategory = [self getCategoryFor:self.customCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        
+        [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+            UNNotificationCategory *currentCategory;
+            BOOL isCategoryRegistered = NO;
+            BOOL isCurrentCatCustom = NO;
+            NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
+            
+            for(UNNotificationCategory *dict in existingCategories) {
+                if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
+                    currentCategory = dict;
+                    isCategoryRegistered = [dict.identifier isEqualToString:customCategory];
+                    isCurrentCatCustom = [self.customCategories containsObject:dict.identifier];
+                } else {
+                    [existingMutablecat addObject:dict];
+                }
+            }
+            
+            if (isCategoryRegistered) {
+                if (!isCurrentCatCustom) {
+                    [self.bestAttemptContent setCategoryIdentifier:customCategory];
+                }
+                [self handleContentFor:style image:expandableDetails[@"image"]];
+                return;
+            }
+            
+            // Register banner layout here.
+            NSMutableArray *actions = [NSMutableArray arrayWithCapacity:currentCategory.actions.count];
+            
+            for (UNNotificationAction *action in currentCategory.actions) {
+                UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
+                                                                                          title:action.title
+                                                                                        options:action.options];
+                [actions addObject:actionObject];
+            }
+            
+            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:customCategory
+                                                                                      actions:actions
+                                                                            intentIdentifiers:@[]
+                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
+            [existingMutablecat addObject:category];
+            [center setNotificationCategories:existingMutablecat];
+            [self.bestAttemptContent setCategoryIdentifier:customCategory];
+            /*
+             Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
+             Registering will make sure, contentHandler will invoke ContentExtension with this custom category
+             
+             NOTE: Use this workaround till we receive banner category in network response.
+             */
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self handleContentFor:style image:expandableDetails[@"image"]];
+            });
         }];
+        
+    } else {
+        [self handleContentFor:style image:@""];
     }
 }
 
-- (void)setExtensionDefaults {
-    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
-    // Write operation only if key is not present in the UserDefaults
-    
-    if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
-        [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
-        [sharedDefaults synchronize];
+- (void)handleContentFor:(NSString *)style image:(NSString *)image {
+    if ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"RATING_V1"]) {
+        [self drawBannerViewWith:image];
+    } else {
+        [self trackEventWithCompletion:^{
+            self.contentHandler(self.bestAttemptContent);
+        }];
     }
 }
 
@@ -73,6 +126,28 @@
     self.contentHandler(self.bestAttemptContent);
 }
 
+// NOTE: This mapping is a temporary workaround, Will be removed in future releases
+
+- (NSString *)getCategoryFor:(NSArray *)categories currentCategory:(NSString *)currentCategory {
+    NSDictionary *categoryMapping = @{
+        @"default" : categories[0], // Default, No buttons
+        @"19db52de": categories[0], // Default, No buttons
+        @"18dfbbcc": categories[1], // Yes/No - Open App/Dismiss
+        @"16589g0g": categories[2], // Yes/No - Dismiss both
+        @"15ead296": categories[3], // Accept/Decline - Open/Dismiss
+        @"17543720": categories[4], // Accept/Decline - Dismiss both
+        @"16e66ba8": categories[5], // Shop Now
+        @"1c406g7a": categories[6], // Buy Now
+        @"1bd2a2g0": categories[7]  // Download Now
+    };
+    
+    NSString *category = categoryMapping[currentCategory];
+    if (category) {
+        return category;
+    } else {
+        return currentCategory;
+    }
+}
 
 #pragma mark - Rich Push View Helpers
 
@@ -80,37 +155,37 @@
     
     NSMutableArray *attachmentsArray = [[NSMutableArray alloc] initWithCapacity:items.count];
     
-    if (items.count >= 3) {
+    if (items.count <= 0) {
+        return;
+    }
+    
+    NSUInteger itemCounter = 0;
+    NSUInteger __block imageDownloadAttemptCounter = 0;
+    
+    for (NSDictionary *carouselItem in items) {
         
-        NSUInteger itemCounter = 0;
-        NSUInteger __block imageDownloadAttemptCounter = 0;
+        NSString *imageURL = carouselItem[@"image"];
         
-        for (NSDictionary *carouselItem in items) {
+        [self fetchAttachmentFor:imageURL
+                              at:itemCounter
+               completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
             
-            NSString *imageURL = carouselItem[@"image"];
+            imageDownloadAttemptCounter++;
             
-            [self fetchAttachmentFor:imageURL
-                                  at:itemCounter
-                   completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-                       
-                       imageDownloadAttemptCounter++;
-                       
-                       if (attachment) {
-                           NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
-                           [attachmentsArray addObject:attachment];
-                           self.bestAttemptContent.attachments = attachmentsArray;
-                       }
-                       
-                       if (imageDownloadAttemptCounter == items.count) {
-                           
-                           [self trackEventWithCompletion:^{
-                               NSLog(@"Ending WebEngage Rich Push Service");
-                               self.contentHandler(self.bestAttemptContent);
-                           }];
-                       }
-                   }];
-            itemCounter++;
-        }
+            if (attachment) {
+                NSLog(@"Downloaded Attachment No. %ld", (unsigned long)index);
+                [attachmentsArray addObject:attachment];
+                self.bestAttemptContent.attachments = attachmentsArray;
+            }
+            
+            if (imageDownloadAttemptCounter == items.count) {
+                [self trackEventWithCompletion:^{
+                    NSLog(@"Ending WebEngage Rich Push Service");
+                    self.contentHandler(self.bestAttemptContent);
+                }];
+            }
+        }];
+        itemCounter++;
     }
 }
 
@@ -119,16 +194,16 @@
     [self fetchAttachmentFor:urlStr
                           at:0
            completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
-               
-               if (attachment) {
-                   NSLog(@"WebEngage Downloaded Image for Rating Layout");
-                   self.bestAttemptContent.attachments = @[ attachment ];
-               }
-               
-               [self trackEventWithCompletion:^{
-                   self.contentHandler(self.bestAttemptContent);
-               }];
-           }];
+        
+        if (attachment) {
+            NSLog(@"WebEngage Downloaded Image for Rating Layout");
+            self.bestAttemptContent.attachments = @[ attachment ];
+        }
+        
+        [self trackEventWithCompletion:^{
+            self.contentHandler(self.bestAttemptContent);
+        }];
+    }];
 }
 
 - (void)fetchAttachmentFor:(NSString *)urlString
@@ -200,11 +275,21 @@
         else {
             NSLog(@"Push Tracker URLResponse: %@", response);
         }
-
+        
         if (completion) {
             completion();
         }
     }] resume];
+}
+
+- (void)setExtensionDefaults {
+    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
+    // Write operation only if key is not present in the UserDefaults
+    
+    if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
+        [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
+        [sharedDefaults synchronize];
+    }
 }
 
 - (NSString *) getBaseURL{
@@ -212,7 +297,7 @@
     
     [self setDataFromSharedUserDefaults];
     
-    NSLog(@"Setting Enviroment to : %@",self.enviroment);
+    NSLog(@"Setting Enviroment to: %@",self.enviroment);
     
     if ([self.enviroment.uppercaseString isEqualToString:@"IN"]) {
         baseURL = @"https://c.in.webengage.com/tracker";
@@ -262,21 +347,20 @@
     
     // Passing custom data into event tracking
     id customData = self.bestAttemptContent.userInfo[@"customData"];
-
+    
     if (customData && [customData isKindOfClass:[NSArray class]]) {
-
-      NSArray *customDataArray = (NSArray *)customData;
-
-      NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc]
-          initWithCapacity:customDataArray.count];
-
-      for (NSDictionary *customDataItem in customDataArray) {
-          if (customDataItem[@"key"] && [customDataItem[@"key"] isKindOfClass:[NSString class]]) {
-              customDataDictionary[customDataItem[@"key"]] =
-              customDataItem[@"value"];
-          }
-      }
-
+        NSArray *customDataArray = (NSArray *)customData;
+        
+        NSMutableDictionary *customDataDictionary = [[NSMutableDictionary alloc]
+                                                     initWithCapacity:customDataArray.count];
+        
+        for (NSDictionary *customDataItem in customDataArray) {
+            if (customDataItem[@"key"] && [customDataItem[@"key"] isKindOfClass:[NSString class]]) {
+                customDataDictionary[customDataItem[@"key"]] =
+                customDataItem[@"value"];
+            }
+        }
+        
         body[@"event_data"] = customDataDictionary;
     } else {
         body[@"event_data"] = @{};

@@ -8,6 +8,7 @@
 
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
+#import "UIColor+DarkMode.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -37,6 +38,9 @@ API_AVAILABLE(ios(10.0))
 
 @property (atomic) NSInteger nextViewIndexToReturn;
 @property (atomic) BOOL isRendering;
+
+@property (nonatomic, readwrite) NSTimer *scrollTimer;
+@property (nonatomic, readwrite) BOOL shouldScroll;
 
 #endif
 
@@ -153,6 +157,8 @@ API_AVAILABLE(ios(10.0))
         
         [self initialiseCarouselForNotification:notification];
         
+        [self setupAutoScroll:notification];
+        
         if (downloadedCount < self.carouselItems.count) {
             
             [self downloadRemaining:downloadedCount];
@@ -182,6 +188,46 @@ API_AVAILABLE(ios(10.0))
     }
 }
 
+- (void)setupAutoScroll:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
+    NSString *scrollTime = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
+    
+    if (scrollTime == (id)[NSNull null] || scrollTime.length == 0) {
+        return;
+    }
+    
+    [self.scrollTimer invalidate];
+    self.scrollTimer = nil;
+    
+    float intervalInMili = [scrollTime floatValue];
+    float intervalSeconds = intervalInMili/1000.0;
+    
+    // Scroll if interval is more than 0
+    if (intervalSeconds > 0) {
+        _shouldScroll = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:intervalSeconds
+                                                               target:self
+                                                             selector:@selector(scrollContent:)
+                                                              userInfo:notification repeats:YES];
+        });
+    }
+}
+
+- (void)scrollContent:(NSTimer *)scrollTimer {
+    if (_shouldScroll) {
+        [self renderAnimated:(UNNotification *)[scrollTimer userInfo]];
+    } else {
+        [self stopScrollTimer];
+    }
+}
+
+- (void)stopScrollTimer {
+    if (self.scrollTimer) {
+        [self.scrollTimer invalidate];
+        self.scrollTimer = nil;
+    }
+}
+
 - (void)initialiseCarouselForNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
     
     [self initialiseViewContainers];
@@ -196,6 +242,10 @@ API_AVAILABLE(ios(10.0))
     
     // for portrait
     float superViewHeight = viewHeight + 2 * verticalMargins;
+    
+    NSString *colorHex = notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    self.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
+    self.viewController.view.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
     
     NSString *mode = notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     
@@ -240,10 +290,10 @@ API_AVAILABLE(ios(10.0))
     }
     
     UIView *topSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, superViewWidth, 0.5)];
-    topSeparator.backgroundColor = [UIColor lightGrayColor];
+    topSeparator.backgroundColor = [UIColor WEXGreyColor];
     
     UIView *bottomSeparator = [[UIView alloc] initWithFrame:CGRectMake(0.0, superViewHeight - 0.5, superViewWidth, 0.5)];
-    bottomSeparator.backgroundColor = [UIColor lightGrayColor];
+    bottomSeparator.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     NSDictionary *extensionAttributes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"][@"NSExtensionAttributes"];
     
@@ -254,23 +304,43 @@ API_AVAILABLE(ios(10.0))
     
     if (defaultContentHidden) {
         
+        NSString *title = notification.request.content.userInfo[@"expandableDetails"][@"rt"];
+        NSString *subtitle = notification.request.content.userInfo[@"expandableDetails"][@"rst"];
+        NSString *message = notification.request.content.userInfo[@"expandableDetails"][@"rm"];
+        
+        BOOL isRichTitle = title && ![title isEqualToString:@""];
+        BOOL isRichSubtitle = subtitle && ![subtitle isEqualToString:@""];
+        BOOL isRichMessage = message && ![message isEqualToString:@""];
+        
+        if (!isRichTitle) {
+            title = self.notification.request.content.title;
+        }
+        if (!isRichSubtitle) {
+            subtitle = self.notification.request.content.subtitle;
+        }
+        if (!isRichMessage) {
+            message = self.notification.request.content.body;
+        }
+        
         // Add a notification content view for displaying title and body.
         UIView *notificationContentView = [[UIView alloc] init];
-        notificationContentView.backgroundColor = [UIColor whiteColor];
+        notificationContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
-        titleLabel.text = notification.request.content.title;
-        titleLabel.textColor = [UIColor blackColor];
-        titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+        titleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES bckColor:colorHex];
         titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
         
+        UILabel *subTitleLabel = [[UILabel alloc] init];
+        subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:YES bckColor:colorHex];
+        subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
+        
         UILabel *bodyLabel = [[UILabel alloc] init];
-        bodyLabel.text = notification.request.content.body;
-        bodyLabel.textColor = [UIColor blackColor];
+        bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];
         bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
         bodyLabel.numberOfLines = 0;
         
         [notificationContentView addSubview:titleLabel];
+        [notificationContentView addSubview:subTitleLabel];
         [notificationContentView addSubview:bodyLabel];
         
         [self.view addSubview:notificationContentView];
@@ -306,6 +376,20 @@ API_AVAILABLE(ios(10.0))
              constant:CONTENT_PADDING]
             .active = YES;
             
+            subTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [subTitleLabel.leadingAnchor
+             constraintEqualToAnchor:notificationContentView.leadingAnchor
+             constant:CONTENT_PADDING]
+            .active = YES;
+            [subTitleLabel.trailingAnchor
+             constraintEqualToAnchor:notificationContentView.trailingAnchor
+             constant:0 - CONTENT_PADDING]
+            .active = YES;
+            [subTitleLabel.topAnchor
+             constraintEqualToAnchor:titleLabel.bottomAnchor
+             constant:0]
+            .active = YES;
+            
             bodyLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [bodyLabel.leadingAnchor
              constraintEqualToAnchor:notificationContentView.leadingAnchor
@@ -315,8 +399,8 @@ API_AVAILABLE(ios(10.0))
              constraintEqualToAnchor:notificationContentView.trailingAnchor
              constant:0 - CONTENT_PADDING]
             .active = YES;
-            [bodyLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor
-                                                constant:TITLE_BODY_SPACE]
+            [bodyLabel.topAnchor constraintEqualToAnchor:subTitleLabel.bottomAnchor
+                                                constant:0]
             .active = YES;
             [bodyLabel.bottomAnchor
              constraintEqualToAnchor:notificationContentView.bottomAnchor
@@ -497,7 +581,7 @@ API_AVAILABLE(ios(10.0))
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion API_AVAILABLE(ios(10.0)) {
-    
+    NSLog(@"PUSHDEBUG: ResponseClicked: %@", response.actionIdentifier);
     BOOL dismissed = NO;
     
     if (self.isRendering) {
@@ -505,7 +589,7 @@ API_AVAILABLE(ios(10.0))
     }
     
     if ([response.actionIdentifier isEqualToString:@"WEG_NEXT"]) {
-        
+        _shouldScroll = NO;
         [self renderAnimated:response.notification];
         
     } else if ([response.actionIdentifier isEqualToString:@"WEG_PREV"]) {
@@ -564,6 +648,8 @@ API_AVAILABLE(ios(10.0))
     self.notification.request.content.userInfo[@"expandableDetails"][@"mode"];
     BOOL isPortrait = mode && [mode isEqualToString:@"portrait"];
     
+    NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
+    
     if (!isPortrait) {
         viewWidth = superViewWidth;
         viewHeight = viewWidth * LANDSCAPE_ASPECT;
@@ -574,7 +660,7 @@ API_AVAILABLE(ios(10.0))
     UIView *viewContainer = viewToReturn;
     UIImage *image = self.images[index];
     
-    viewContainer.backgroundColor = [UIColor lightGrayColor];
+    viewContainer.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXGreyColor];
     
     UIImageView *imageView = self.imageViews[cachedViewIndex];
     imageView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
@@ -592,7 +678,7 @@ API_AVAILABLE(ios(10.0))
                                        viewWidth, descriptionViewHeight);
     
     descriptionView.alpha = DESCRIPTION_VIEW_ALPHA;
-    descriptionView.backgroundColor = [UIColor whiteColor];
+    descriptionView.backgroundColor = [UIColor WEXWhiteColor];
     
     UILabel *descriptionLabel = self.descriptionLabels[cachedViewIndex];
     descriptionLabel.frame =
@@ -601,7 +687,7 @@ API_AVAILABLE(ios(10.0))
     
     descriptionLabel.text = carouselItem[@"actionText"];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.textColor = [UIColor blackColor];
+    descriptionLabel.textColor = [UIColor WEXLabelColor];
     
     [descriptionView addSubview:descriptionLabel];
     
@@ -616,7 +702,7 @@ API_AVAILABLE(ios(10.0))
         UIView *alphaView = self.alphaViews[cachedViewIndex];
         alphaView.frame = CGRectMake(0.0, 0.0, viewWidth, viewHeight);
         alphaView.alpha = 0.0;
-        alphaView.backgroundColor = [UIColor whiteColor];
+        alphaView.backgroundColor = [UIColor WEXWhiteColor];
         
         [viewContainer addSubview:alphaView];
     }

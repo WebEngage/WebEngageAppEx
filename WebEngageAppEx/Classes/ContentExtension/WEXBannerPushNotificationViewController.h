@@ -1,8 +1,8 @@
 //
-//  WEXRatingPushNotificationViewController.h
+//  WEXBannerPushNotificationViewController.h
 //  WebEngage
 //
-//  Copyright (c) 2017 Webklipper Technologies Pvt Ltd. All rights reserved.
+//  Copyright (c) 2022 Webklipper Technologies Pvt Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,10 +14,7 @@
 #import "WEXRichPushLayout.h"
 #endif
 
-#define CONTENT_PADDING  10
-#define TITLE_BODY_SPACE 5
-
-@interface WEXRatingPushNotificationViewController
+@interface WEXBannerPushNotificationViewController
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 : WEXRichPushLayout
 #else

@@ -9,10 +9,12 @@
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRatingPushNotificationViewController.h"
+#import "WEXBannerPushNotificationViewController.h"
+#import "WEXTextPushNotificationViewController.h"
 #import "WEXRichPushLayout.h"
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
-
+#import "NSMutableAttributedString+Additions.h"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
@@ -25,6 +27,7 @@ API_AVAILABLE(ios(10.0))
 @property (nonatomic) NSUserDefaults *richPushDefaults;
 
 @property (atomic) BOOL isRendering;
+@property (atomic) BOOL isDarkMode;
 
 #endif
 
@@ -85,6 +88,7 @@ API_AVAILABLE(ios(10.0))
     
     self.notification = notification;
     self.isRendering = YES;
+    [self updateDarkModeStatus];
     
     NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
     
@@ -126,8 +130,11 @@ API_AVAILABLE(ios(10.0))
         return [[WEXCarouselPushNotificationViewController alloc] initWithNotificationViewController:self];
     } else if (style && [style isEqualToString:@"RATING_V1"]) {
         return [[WEXRatingPushNotificationViewController alloc] initWithNotificationViewController:self];
+    } else if (style && [style isEqualToString:@"BIG_PICTURE"]) {
+        return [[WEXBannerPushNotificationViewController alloc] initWithNotificationViewController:self];
+    } else if (style && [style isEqualToString:@"BIG_TEXT"]) {
+        return [[WEXTextPushNotificationViewController alloc] initWithNotificationViewController:self];
     }
-    
     return nil;
 }
 
@@ -136,6 +143,10 @@ API_AVAILABLE(ios(10.0))
     [self.currentLayout didReceiveNotificationResponse:response completionHandler:completion];
 }
 
+- (void)traitCollectionDidChange: (UITraitCollection *) previousTraitCollection {
+    [super traitCollectionDidChange: previousTraitCollection];
+    [self updateDarkModeStatus];
+}
 
 - (NSMutableDictionary *) getActivityDictionaryForCurrentNotification {
     
@@ -215,9 +226,9 @@ API_AVAILABLE(ios(10.0))
     if ([category isEqualToString:@"system"]) {
         [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
                                 andValue:@{
-                                            @"system_data_overrides": systemData ? systemData : @{},
-                                            @"event_data_overrides": customDataDictionary
-                                        }];
+            @"system_data_overrides": systemData ? systemData : @{},
+            @"event_data_overrides": customDataDictionary
+        }];
     } else {
         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
@@ -230,7 +241,11 @@ API_AVAILABLE(ios(10.0))
     [self updateActivityWithObject:cta forKey:@"cta"];
 }
 
-- (NSTextAlignment)naturalTextAligmentForText:(NSString*) text{
+- (NSTextAlignment)naturalTextAligmentForText:(NSString*)text {
+    if (text == (id)[NSNull null] || text.length == 0 ) {
+        return NSTextAlignmentLeft;
+    }
+    
     NSArray *tagschemes = [NSArray arrayWithObjects:NSLinguisticTagSchemeLanguage, nil];
     NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:tagschemes options:0];
     [tagger setString:text];
@@ -240,6 +255,76 @@ API_AVAILABLE(ios(10.0))
     } else {
         return NSTextAlignmentLeft;
     }
+}
+
+- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor {
+    BOOL containsHTML = [self containsHTML:textString];
+    NSString *inputString = textString;
+    
+    // Updating font attributes overrides Italic characteristic
+    // Adding extra tags makes more sense
+    if (containsHTML && isTitle) {
+        inputString = [NSString stringWithFormat: @"<strong>%@</strong>", textString];
+    }
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
+                                                   initWithData: [inputString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                   options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                   documentAttributes: nil
+                                                   error: nil
+    ];
+    
+    BOOL hasBckColor = bckColor && ![bckColor isEqualToString:@""];
+    if (!hasBckColor && _isDarkMode) {
+        [attributedString updateDefaultTextColor];
+    }
+    
+    BOOL containsFontSize = [inputString rangeOfString:@"font-size"].location != NSNotFound;
+
+    UIFont *defaultFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    
+    /*
+     If html string doesn't contain font-size,
+     then setting default based on title position
+     */
+    
+    if (containsHTML && containsFontSize == NO) {
+        if (isTitle) {
+            [attributedString setFontFaceWithFont:boldFont];
+        } else {
+            [attributedString setFontFaceWithFont:defaultFont];
+        }
+        [attributedString trimWhiteSpace];
+        
+    } else if (containsHTML == NO) {
+        if (isTitle) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attributedString.length)];
+        } else {
+            [attributedString addAttribute:NSFontAttributeName value:defaultFont range:NSMakeRange(0, attributedString.length)];
+        }
+        
+    } else {
+        [attributedString trimWhiteSpace];
+    }
+    
+    return attributedString;
+}
+
+- (BOOL)containsHTML:(NSString *)value {
+    NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
+    NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
+    return [htmlText evaluateWithObject:value];
+}
+
+- (void)updateDarkModeStatus {
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.isDarkMode = YES;
+            return;
+        }
+    }
+    self.isDarkMode = NO;
 }
 
 #endif

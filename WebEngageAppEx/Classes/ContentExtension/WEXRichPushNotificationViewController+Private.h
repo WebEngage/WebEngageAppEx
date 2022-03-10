@@ -26,6 +26,8 @@
 
 - (NSTextAlignment)naturalTextAligmentForText:(NSString*) text;
 
+- (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor;
+
 #endif
 
 @end
