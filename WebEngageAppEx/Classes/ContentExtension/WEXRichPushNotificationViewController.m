@@ -274,6 +274,8 @@ API_AVAILABLE(ios(10.0))
                                                    error: nil
     ];
     
+    if (!textString){ return  nil; }
+    
     BOOL hasBckColor = bckColor && ![bckColor isEqualToString:@""];
     if (!hasBckColor && _isDarkMode) {
         [attributedString updateDefaultTextColor];
@@ -295,7 +297,7 @@ API_AVAILABLE(ios(10.0))
         } else {
             [attributedString setFontFaceWithFont:defaultFont];
         }
-        [attributedString trimWhiteSpace];
+//        [attributedString trimWhiteSpace];
         
     } else if (containsHTML == NO) {
         if (isTitle) {
@@ -312,9 +314,10 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (BOOL)containsHTML:(NSString *)value {
-    NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
-    NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
-    return [htmlText evaluateWithObject:value];
+//    NSString *htmlRegex = @"<[a-z][\\s\\S]*>";
+//    NSPredicate *htmlText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", htmlRegex];
+//    return [htmlText evaluateWithObject:value];
+    return [value rangeOfString: @"<(\"[^\"]*\"|'[^']*'|[^'\">])*>" options:NSRegularExpressionSearch].location != NSNotFound;
 }
 
 - (void)updateDarkModeStatus {
