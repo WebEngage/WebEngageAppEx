@@ -29,12 +29,16 @@ API_AVAILABLE(ios(10.0))
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
 - (void)didReceiveNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
-    self.notification = notification;
-    [self initialiseViewHierarchy];
+    if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        self.notification = notification;
+        [self initialiseViewHierarchy];
+    }
 }
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion{
-    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
+    if([response.notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
+    }
 }
 
 - (void)initialiseViewHierarchy {

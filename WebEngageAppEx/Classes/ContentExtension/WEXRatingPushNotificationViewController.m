@@ -34,40 +34,40 @@ API_AVAILABLE(ios(10.0))
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 
 - (instancetype)initWithNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
-    
-    if (self = [super init]) {
-        
-        self.notification = notification;
-        
-        NSInteger noOfStars = [notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
-        
-        char starCharSelected[] = "\u2B50";
-        NSData *data = [NSData dataWithBytes:starCharSelected length:strlen(starCharSelected)];
-        NSString *selectedStarString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        char starCharUnselected[] = "\u2605";
-        data = [NSData dataWithBytes:starCharUnselected length:strlen(starCharUnselected)];
-        NSString *unselectedStarString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        NSMutableArray *pickerData = [[NSMutableArray alloc] initWithCapacity:noOfStars];
-        
-        for (NSUInteger i=1; i <= noOfStars; i++) {
+    if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        if (self = [super init]) {
             
-            NSMutableString *starRowString = [[NSMutableString alloc] initWithCapacity:noOfStars];
-            for (NSUInteger j=1; j<=i; j++) {
-                [starRowString appendString:selectedStarString];
+            self.notification = notification;
+            
+            NSInteger noOfStars = [notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
+            
+            char starCharSelected[] = "\u2B50";
+            NSData *data = [NSData dataWithBytes:starCharSelected length:strlen(starCharSelected)];
+            NSString *selectedStarString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            
+            char starCharUnselected[] = "\u2605";
+            data = [NSData dataWithBytes:starCharUnselected length:strlen(starCharUnselected)];
+            NSString *unselectedStarString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            
+            NSMutableArray *pickerData = [[NSMutableArray alloc] initWithCapacity:noOfStars];
+            
+            for (NSUInteger i=1; i <= noOfStars; i++) {
+                
+                NSMutableString *starRowString = [[NSMutableString alloc] initWithCapacity:noOfStars];
+                for (NSUInteger j=1; j<=i; j++) {
+                    [starRowString appendString:selectedStarString];
+                }
+                
+                for (NSUInteger j=i+1; j <= noOfStars; j++) {
+                    [starRowString appendString:unselectedStarString];
+                }
+                
+                [pickerData addObject:starRowString];
             }
             
-            for (NSUInteger j=i+1; j <= noOfStars; j++) {
-                [starRowString appendString:unselectedStarString];
-            }
-            
-            [pickerData addObject:starRowString];
+            self.starRatingRows = pickerData;
         }
-        
-        self.starRatingRows = pickerData;
     }
-    
     return self;
 }
 
@@ -597,81 +597,84 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
-    
-    self.notification = notification;
-    [self initialiseViewHierarchy];
-    
-    self.pickerManager = [[StarPickerManager alloc] initWithNotification:notification];
-    
-    self.pickerView = [[UIPickerView alloc] init];
-    self.pickerView.backgroundColor = [UIColor blackColor];
-    
-    self.pickerView.dataSource = self.pickerManager;
-    self.pickerView.delegate = self.pickerManager;
-    
-    NSInteger noOfStars = [notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
-    [self.pickerView selectRow:noOfStars/2 inComponent:0 animated:NO];
+    if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        self.notification = notification;
+        [self initialiseViewHierarchy];
+        
+        self.pickerManager = [[StarPickerManager alloc] initWithNotification:notification];
+        
+        self.pickerView = [[UIPickerView alloc] init];
+        self.pickerView.backgroundColor = [UIColor blackColor];
+        
+        self.pickerView.dataSource = self.pickerManager;
+        self.pickerView.delegate = self.pickerManager;
+        
+        NSInteger noOfStars = [notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
+        [self.pickerView selectRow:noOfStars/2 inComponent:0 animated:NO];
+    }
 }
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)) {
-    
-    if (@available(iOS 10.0, *)) {
+    if([response.notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
         
-        UNNotificationContentExtensionResponseOption completionOption = UNNotificationContentExtensionResponseOptionDoNotDismiss;
-        
-        if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
+        if (@available(iOS 10.0, *)) {
             
-            [self.viewController becomeFirstResponder];
+            UNNotificationContentExtensionResponseOption completionOption = UNNotificationContentExtensionResponseOptionDoNotDismiss;
             
-        } else if ([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
-            
-            if (self.selectedCount > 0) {
+            if ([response.actionIdentifier isEqualToString:@"WEG_CHOOSE_RATING"]) {
                 
-                NSDictionary *userInfo = self.notification.request.content.userInfo;
-                NSDictionary *expandableDetails = userInfo[@"expandableDetails"];
+                [self.viewController becomeFirstResponder];
                 
-                NSString *expId = userInfo[@"experiment_id"];
-                NSString *notifId = userInfo[@"notification_id"];
+            } else if ([response.actionIdentifier isEqualToString:@"WEG_SUBMIT_RATING"]) {
                 
-                if (expandableDetails) {
+                if (self.selectedCount > 0) {
                     
-                    NSMutableDictionary *systemData = [[NSMutableDictionary alloc] init];
+                    NSDictionary *userInfo = self.notification.request.content.userInfo;
+                    NSDictionary *expandableDetails = userInfo[@"expandableDetails"];
                     
-                    [systemData addEntriesFromDictionary:@{
-                                                           @"id": notifId,
-                                                           @"experiment_id": expId
-                                                           }];
+                    NSString *expId = userInfo[@"experiment_id"];
+                    NSString *notifId = userInfo[@"notification_id"];
                     
-                    NSString *submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
-                    
-                    if (submitCTA) {
+                    if (expandableDetails) {
                         
-                        NSString *submitCTAId = expandableDetails[@"submitCTA"][@"id"];
-                        [systemData setObject:submitCTAId forKey:@"call_to_action"];
+                        NSMutableDictionary *systemData = [[NSMutableDictionary alloc] init];
                         
-                        [self.viewController setCTAWithId:submitCTAId andLink:submitCTA];
+                        [systemData addEntriesFromDictionary:@{
+                            @"id": notifId,
+                            @"experiment_id": expId
+                        }];
+                        
+                        NSString *submitCTA = expandableDetails[@"submitCTA"][@"actionLink"];
+                        
+                        if (submitCTA) {
+                            
+                            NSString *submitCTAId = expandableDetails[@"submitCTA"][@"id"];
+                            [systemData setObject:submitCTAId forKey:@"call_to_action"];
+                            
+                            [self.viewController setCTAWithId:submitCTAId andLink:submitCTA];
+                        }
+                        
+                        completionOption = UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
+                        
+                        [self.viewController addSystemEventWithName:WEX_RATING_SUBMITTED_EVENT_NAME
+                                                         systemData: systemData
+                                                    applicationData:@{
+                            @"we_wk_rating":
+                                [NSNumber numberWithInteger:
+                                 self.selectedCount]
+                        }];
                     }
+                } else {
                     
-                    completionOption = UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
-                    
-                    [self.viewController addSystemEventWithName:WEX_RATING_SUBMITTED_EVENT_NAME
-                                                     systemData: systemData
-                                                applicationData:@{
-                                                                  @"we_wk_rating":
-                                                                      [NSNumber numberWithInteger:
-                                                                       self.selectedCount]
-                                                                  }];
+                    //Here UI may be updated to prompt choosing a rating value.
                 }
-            } else {
-                
-                //Here UI may be updated to prompt choosing a rating value.
             }
+            
+            completion(completionOption);
+            
+        } else {
+            NSLog(@"Expected to be running iOS version 10 or above");
         }
-        
-        completion(completionOption);
-        
-    } else {
-        NSLog(@"Expected to be running iOS version 10 or above");
     }
 }
 

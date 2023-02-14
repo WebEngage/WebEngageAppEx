@@ -86,41 +86,43 @@ API_AVAILABLE(ios(10.0))
 
 - (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
     
-    self.notification = notification;
-    self.isRendering = YES;
-    [self updateDarkModeStatus];
-    
-    NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
-    
-    if (!appGroup) {
+    if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        self.notification = notification;
+        self.isRendering = YES;
+        [self updateDarkModeStatus];
         
-        /*
-         Retrieving the app bundle identifier using the method described here:
-         https://stackoverflow.com/a/27849695/1357328
-         */
+        NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
         
-        NSBundle *bundle = [NSBundle mainBundle];
-        
-        if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
-            // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
-            bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+        if (!appGroup) {
+            
+            /*
+             Retrieving the app bundle identifier using the method described here:
+             https://stackoverflow.com/a/27849695/1357328
+             */
+            
+            NSBundle *bundle = [NSBundle mainBundle];
+            
+            if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
+                // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
+                bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+            }
+            
+            NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+            
+            appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
         }
         
-        NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+        self.richPushDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
         
-        appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
-    }
-    
-    self.richPushDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
-    
-    [self updateActivityWithObject:[NSNumber numberWithBool:NO] forKey:@"collapsed"];
-    [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"expanded"];
-    
-    NSString *style = self.notification.request.content.userInfo[@"expandableDetails"][@"style"];
-    self.currentLayout = [self layoutForStyle:style];
-    
-    if (self.currentLayout) {
-        [self.currentLayout didReceiveNotification:notification];
+        [self updateActivityWithObject:[NSNumber numberWithBool:NO] forKey:@"collapsed"];
+        [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"expanded"];
+        
+        NSString *style = self.notification.request.content.userInfo[@"expandableDetails"][@"style"];
+        self.currentLayout = [self layoutForStyle:style];
+        
+        if (self.currentLayout) {
+            [self.currentLayout didReceiveNotification:notification];
+        }
     }
 }
 
@@ -139,8 +141,9 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion  API_AVAILABLE(ios(10.0)) {
-    
-    [self.currentLayout didReceiveNotificationResponse:response completionHandler:completion];
+    if([response.notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        [self.currentLayout didReceiveNotificationResponse:response completionHandler:completion];
+    }
 }
 
 - (void)traitCollectionDidChange: (UITraitCollection *) previousTraitCollection {

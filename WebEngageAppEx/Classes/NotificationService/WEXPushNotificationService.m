@@ -32,82 +32,83 @@
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request
                    withContentHandler:(void (^)(UNNotificationContent *_Nonnull))contentHandler {
-    
-    self.contentHandler = contentHandler;
-    self.bestAttemptContent = [request.content mutableCopy];
-    [self setExtensionDefaults];
-    
-    NSLog(@"Push Notification content: %@", request.content.userInfo);
-    
-    NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
-    NSString *style = expandableDetails[@"style"];
-    
-    if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {
-        [self drawCarouselViewWith:expandableDetails[@"items"]];
+    if([request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        self.contentHandler = contentHandler;
+        self.bestAttemptContent = [request.content mutableCopy];
+        [self setExtensionDefaults];
         
-    } else if (expandableDetails && style && [style isEqualToString:@"RATING_V1"]) {
-        [self handleContentFor:style image:expandableDetails[@"image"]];
-    
-    } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"])) {
-        self.customCategories = @[@"WEG_RICH_V1", @"WEG_RICH_V2", @"WEG_RICH_V3", @"WEG_RICH_V4", @"WEG_RICH_V5", @"WEG_RICH_V6", @"WEG_RICH_V7", @"WEG_RICH_V8"];
+        NSLog(@"Push Notification content: %@", request.content.userInfo);
         
-        NSString *customCategory = [self getCategoryFor:self.customCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
+        NSString *style = expandableDetails[@"style"];
         
-        [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
-            UNNotificationCategory *currentCategory;
-            BOOL isCategoryRegistered = NO;
-            BOOL isCurrentCatCustom = NO;
-            NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
+        if (expandableDetails && style && [style isEqualToString:@"CAROUSEL_V1"]) {
+            [self drawCarouselViewWith:expandableDetails[@"items"]];
             
-            for(UNNotificationCategory *dict in existingCategories) {
-                if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
-                    currentCategory = dict;
-                    isCategoryRegistered = [dict.identifier isEqualToString:customCategory];
-                    isCurrentCatCustom = [self.customCategories containsObject:dict.identifier];
-                } else {
-                    [existingMutablecat addObject:dict];
+        } else if (expandableDetails && style && [style isEqualToString:@"RATING_V1"]) {
+            [self handleContentFor:style image:expandableDetails[@"image"]];
+            
+        } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"])) {
+            self.customCategories = @[@"WEG_RICH_V1", @"WEG_RICH_V2", @"WEG_RICH_V3", @"WEG_RICH_V4", @"WEG_RICH_V5", @"WEG_RICH_V6", @"WEG_RICH_V7", @"WEG_RICH_V8"];
+            
+            NSString *customCategory = [self getCategoryFor:self.customCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            
+            [center getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> *existingCategories) {
+                UNNotificationCategory *currentCategory;
+                BOOL isCategoryRegistered = NO;
+                BOOL isCurrentCatCustom = NO;
+                NSMutableSet *existingMutablecat = [[NSMutableSet alloc] init];
+                
+                for(UNNotificationCategory *dict in existingCategories) {
+                    if([dict.identifier isEqual: self.bestAttemptContent.categoryIdentifier]) {
+                        currentCategory = dict;
+                        isCategoryRegistered = [dict.identifier isEqualToString:customCategory];
+                        isCurrentCatCustom = [self.customCategories containsObject:dict.identifier];
+                    } else {
+                        [existingMutablecat addObject:dict];
+                    }
                 }
-            }
-            
-            if (isCategoryRegistered) {
-                if (!isCurrentCatCustom) {
-                    [self.bestAttemptContent setCategoryIdentifier:customCategory];
+                
+                if (isCategoryRegistered) {
+                    if (!isCurrentCatCustom) {
+                        [self.bestAttemptContent setCategoryIdentifier:customCategory];
+                    }
+                    [self handleContentFor:style image:expandableDetails[@"image"]];
+                    return;
                 }
-                [self handleContentFor:style image:expandableDetails[@"image"]];
-                return;
-            }
+                
+                // Register banner layout here.
+                NSMutableArray *actions = [NSMutableArray arrayWithCapacity:currentCategory.actions.count];
+                
+                for (UNNotificationAction *action in currentCategory.actions) {
+                    UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
+                                                                                              title:action.title
+                                                                                            options:action.options];
+                    [actions addObject:actionObject];
+                }
+                
+                UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:customCategory
+                                                                                          actions:actions
+                                                                                intentIdentifiers:@[]
+                                                                                          options:UNNotificationCategoryOptionCustomDismissAction];
+                [existingMutablecat addObject:category];
+                [center setNotificationCategories:existingMutablecat];
+                [self.bestAttemptContent setCategoryIdentifier:customCategory];
+                /*
+                 Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
+                 Registering will make sure, contentHandler will invoke ContentExtension with this custom category
+                 
+                 NOTE: Use this workaround till we receive banner category in network response.
+                 */
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self handleContentFor:style image:expandableDetails[@"image"]];
+                });
+            }];
             
-            // Register banner layout here.
-            NSMutableArray *actions = [NSMutableArray arrayWithCapacity:currentCategory.actions.count];
-            
-            for (UNNotificationAction *action in currentCategory.actions) {
-                UNNotificationAction *actionObject = [UNNotificationAction actionWithIdentifier:action.identifier
-                                                                                          title:action.title
-                                                                                        options:action.options];
-                [actions addObject:actionObject];
-            }
-            
-            UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:customCategory
-                                                                                      actions:actions
-                                                                            intentIdentifiers:@[]
-                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
-            [existingMutablecat addObject:category];
-            [center setNotificationCategories:existingMutablecat];
-            [self.bestAttemptContent setCategoryIdentifier:customCategory];
-            /*
-             Dispatching on Main thread after 2 sec delay to make sure our category is registered with NotificationCenter
-             Registering will make sure, contentHandler will invoke ContentExtension with this custom category
-             
-             NOTE: Use this workaround till we receive banner category in network response.
-             */
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self handleContentFor:style image:expandableDetails[@"image"]];
-            });
-        }];
-        
-    } else {
-        [self handleContentFor:style image:@""];
+        } else {
+            [self handleContentFor:style image:@""];
+        }
     }
 }
 
