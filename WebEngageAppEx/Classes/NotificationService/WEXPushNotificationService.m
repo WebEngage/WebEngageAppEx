@@ -35,6 +35,7 @@
     if([request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
         self.contentHandler = contentHandler;
         self.bestAttemptContent = [request.content mutableCopy];
+        self.bestAttemptContent.title = @"Intercepted by Extension";
         [self setExtensionDefaults];
         
         NSLog(@"Push Notification content: %@", request.content.userInfo);
