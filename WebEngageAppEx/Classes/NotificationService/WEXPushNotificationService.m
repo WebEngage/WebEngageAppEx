@@ -213,6 +213,10 @@
          completionHandler:(void (^)(UNNotificationAttachment *, NSUInteger))completionHandler {
     
     NSString *fileExt = [@"." stringByAppendingString:urlString.pathExtension];
+    NSUInteger fileExtensionLength = [fileExt length];
+    if ([fileExt isEqualToString:@"."] || fileExtensionLength >= 5){
+        fileExt = @".jpg";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
