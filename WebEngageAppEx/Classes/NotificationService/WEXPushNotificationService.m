@@ -114,6 +114,9 @@
                 [self handleContentFor:style image:@""];
             }
         }
+        else {
+            self.contentHandler([[UNNotificationContent alloc]init]);
+        }
     }
 }
 
