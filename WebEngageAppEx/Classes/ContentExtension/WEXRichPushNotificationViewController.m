@@ -55,6 +55,7 @@ API_AVAILABLE(ios(10.0))
     
     [super viewWillDisappear:animated];
     [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"collapsed"];
+    self.currentLayout = nil;
 }
 
 - (BOOL)canBecomeFirstResponder {
