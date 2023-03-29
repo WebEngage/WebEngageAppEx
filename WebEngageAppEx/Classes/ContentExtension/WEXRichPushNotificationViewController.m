@@ -55,7 +55,11 @@ API_AVAILABLE(ios(10.0))
     
     [super viewWillDisappear:animated];
     [self updateActivityWithObject:[NSNumber numberWithBool:YES] forKey:@"collapsed"];
-    self.currentLayout = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.label removeFromSuperview];
+        self.currentLayout = nil;
+        self.notification = nil;
+    });
 }
 
 - (BOOL)canBecomeFirstResponder {
