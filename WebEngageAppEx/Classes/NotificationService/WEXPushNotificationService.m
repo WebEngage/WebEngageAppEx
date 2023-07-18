@@ -269,9 +269,26 @@
 
 - (void)trackEventWithCompletion:(void(^)(void))completion {
     
-    NSURLRequest *request = [self getRequestForTracker];
+    NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request
+    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
+                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"Could not log push_notification_received event with error: %@", error);
+        }
+        else {
+            NSLog(@"Push Tracker URLResponse: %@", response);
+        }
+        
+        if (completion) {
+            completion();
+        }
+    }] resume];
+    
+    NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error) {
@@ -317,7 +334,7 @@
     return baseURL;
 }
 
-- (NSURLRequest *)getRequestForTracker {
+- (NSURLRequest *)getRequestForTracker:(NSString *)eventName {
     
     NSURL *url = [NSURL URLWithString:[self getBaseURL]];
     
@@ -329,19 +346,18 @@
     
     [request setValue:@"application/transit+json" forHTTPHeaderField:@"Content-type"];
     [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
-    
-    request.HTTPBody = [self getTrackerRequestBody];
-    
+    request.HTTPBody = [self getTrackerRequestBody:eventName];
+  
     return request;
 }
 
-- (NSData *)getTrackerRequestBody {
+- (NSData *)getTrackerRequestBody:(NSString *)eventName {
     
     NSDictionary *userDefaultsData = self.sharedUserDefaults;
     
     NSMutableDictionary *body = [NSMutableDictionary dictionary];
     
-    body[@"event_name"] = @"push_notification_view";
+    body[@"event_name"] = eventName;
     body[@"category"] = @"system";
     body[@"suid"] = @"null";
     body[@"luid"] = @"null";
