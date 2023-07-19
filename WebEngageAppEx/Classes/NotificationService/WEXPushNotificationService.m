@@ -113,7 +113,7 @@
 }
 
 - (void)handleContentFor:(NSString *)style image:(NSString *)image {
-    if ([style isEqualToString:@"BIG_PICTURE"] || (([style isEqualToString:@"RATING_V1"]) && image)) {
+    if (([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"RATING_V1"]) && image) {
         [self drawBannerViewWith:image];
     } else {
         [self trackEventWithCompletion:^{
