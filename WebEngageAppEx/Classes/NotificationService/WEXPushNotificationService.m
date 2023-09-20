@@ -9,6 +9,7 @@
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
 
+#define WEX_SERVICE_EXTENSION_VERSION @"1.0.2"
 
 @interface WEXPushNotificationService ()
 
@@ -16,8 +17,10 @@
 @property (nonatomic) void (^contentHandler)(UNNotificationContent *contentToDeliver);
 @property (nonatomic) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic) NSString *enviroment;
+@property NSString *serviceExtensionVersion;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 @property NSArray *customCategories;
+
 #endif
 
 @end
@@ -310,6 +313,10 @@
     
     if ([sharedDefaults valueForKey:@"WEG_ServiceToApp"] == nil) {
         [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
+        [sharedDefaults synchronize];
+    }
+    if ([sharedDefaults valueForKey:@"WEG_Service_Extension_Version"] == nil) {
+        [sharedDefaults setValue:WEX_SERVICE_EXTENSION_VERSION forKey:@"WEG_Service_Extension_Version"];
         [sharedDefaults synchronize];
     }
 }
