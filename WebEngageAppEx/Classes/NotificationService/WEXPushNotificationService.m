@@ -8,7 +8,6 @@
 
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
-#import "WEGNetworkManager.h"
 
 
 @interface WEXPushNotificationService ()
@@ -225,14 +224,11 @@
         @"Accept": @"image/webp"
     };
     
-    NSMutableURLRequest *customRequest = [[[WEGNetworkManager sharedManager] getModifiedUrl:request] mutableCopy];
-    
-    
-    [customRequest setAllHTTPHeaderFields:headers];
-    [customRequest setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPMethod:@"GET"];
     
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session downloadTaskWithRequest:[customRequest copy]
+    [[session downloadTaskWithRequest:request
                     completionHandler:^(NSURL *temporaryFileLocation, NSURLResponse *response, NSError *error) {
         
         UNNotificationAttachment *attachment = nil;
@@ -344,16 +340,15 @@
     
     NSLog(@"Base url: %@", url);
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
-    NSMutableURLRequest *customRequest = [[[WEGNetworkManager sharedManager] getModifiedUrl:request] mutableCopy];
+    request.HTTPMethod = @"POST";
     
-    customRequest.HTTPMethod = @"POST";
-    [customRequest setValue:@"application/transit+json" forHTTPHeaderField:@"Content-type"];
-    [customRequest setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
-    customRequest.HTTPBody = [self getTrackerRequestBody:eventName];
+    [request setValue:@"application/transit+json" forHTTPHeaderField:@"Content-type"];
+    [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
+    request.HTTPBody = [self getTrackerRequestBody:eventName];
   
-    return [customRequest copy];
+    return request;
 }
 
 - (NSData *)getTrackerRequestBody:(NSString *)eventName {
