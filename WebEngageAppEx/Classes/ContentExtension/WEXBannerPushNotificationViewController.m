@@ -99,7 +99,9 @@ API_AVAILABLE(ios(10.0))
     NSString *colorHex = self.notification.request.content.userInfo[@"expandableDetails"][@"bckColor"];
     
     UIView *richContentView = [[UIView alloc] init];
-    richContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
+//    richContentView.backgroundColor = [UIColor colorFromHexString:colorHex defaultColor:UIColor.WEXWhiteColor];
+    
+    richContentView.backgroundColor = UIColor.clearColor;
     
     NSDictionary *expandedDetails = self.notification.request.content.userInfo[@"expandableDetails"];
     NSString *title = expandedDetails[@"rt"];
@@ -122,6 +124,7 @@ API_AVAILABLE(ios(10.0))
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
     richTitleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES bckColor:colorHex];
+    richTitleLabel.textColor = UIColor.whiteColor;
     richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
@@ -132,6 +135,8 @@ API_AVAILABLE(ios(10.0))
     richBodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
+    richBodyLabel.textColor = UIColor.whiteColor;
+
     
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];
@@ -179,11 +184,11 @@ API_AVAILABLE(ios(10.0))
             imageAspect = 0;
         }
         
-        [imageView.topAnchor constraintEqualToAnchor:mainContentView.topAnchor].active = YES;
-        [imageView.leadingAnchor constraintEqualToAnchor:mainContentView.leadingAnchor].active = YES;
-        [imageView.trailingAnchor constraintEqualToAnchor:mainContentView.trailingAnchor].active = YES;
+        [imageView.topAnchor constraintEqualToAnchor:superViewWrapper.topAnchor].active = YES;
+        [imageView.leadingAnchor constraintEqualToAnchor:superViewWrapper.leadingAnchor].active = YES;
+        [imageView.trailingAnchor constraintEqualToAnchor:superViewWrapper.trailingAnchor].active = YES;
         [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor multiplier:imageAspect].active = YES;
-        [mainContentView.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
+        [superViewWrapper.bottomAnchor constraintEqualToAnchor:imageView.bottomAnchor].active = YES;
         
         //Rich View labels
         UIView *richTitleLabel = richContentView.subviews[0];
