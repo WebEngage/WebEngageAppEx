@@ -28,6 +28,9 @@
 
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor;
 
+- (void)setExtensionDefaults;
+- (NSUserDefaults *)getSharedUserDefaults;
+
 #endif
 
 @end
