@@ -95,6 +95,11 @@ API_AVAILABLE(ios(10.0))
 - (void)setUpAppIconWithName {
     UIView *superViewWrapper = self.view.subviews[0];
     UIView *mainContentView = superViewWrapper.subviews[0];
+    
+    NSArray *preferredLanguages = [NSLocale preferredLanguages];
+    NSString *primaryLanguage = preferredLanguages.firstObject;
+    NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:primaryLanguage];
+
 
     // Create a superview for the app icon and app name
     UIView *appInfoContainer = [[UIView alloc] init];
@@ -182,6 +187,12 @@ API_AVAILABLE(ios(10.0))
     
     richContentView.backgroundColor = UIColor.clearColor;
     
+    
+    NSArray *preferredLanguages = [NSLocale preferredLanguages];
+    NSString *primaryLanguage = preferredLanguages.firstObject;
+    NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:primaryLanguage];
+  
+    
     NSDictionary *expandedDetails = self.notification.request.content.userInfo[@"expandableDetails"];
     NSString *title = expandedDetails[@"rt"];
     NSString *subtitle = expandedDetails[@"rst"];
@@ -215,8 +226,17 @@ API_AVAILABLE(ios(10.0))
     richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
     richBodyLabel.numberOfLines = 0;
     richBodyLabel.textColor = UIColor.whiteColor;
-
-    
+//    
+//    if (languageDirection == NSLocaleLanguageDirectionRightToLeft) {
+//        richBodyLabel.textAlignment = NSTextAlignmentRight;
+//        richSubLabel.textAlignment = NSTextAlignmentRight;
+//        richBodyLabel.textAlignment = NSTextAlignmentRight;
+//    } else {
+//        richBodyLabel.textAlignment = NSTextAlignmentLeft;
+//        richSubLabel.textAlignment = NSTextAlignmentLeft;
+//        richBodyLabel.textAlignment = NSTextAlignmentLeft;
+//    }
+//    
     [richContentView addSubview:richTitleLabel];
     [richContentView addSubview:richSubLabel];
     [richContentView addSubview:richBodyLabel];
