@@ -1,25 +1,27 @@
 //
-//  WEXBannerPushNotificationViewController.swift
+//  WEXOverlayPushNotificationViewController.swift
 //
 //
-//  Created by Shubham Naidu on 03/11/23.
+//  Created by Uday Sharma on 03/11/23.
 //
 import UIKit
 import UserNotifications
 import UserNotificationsUI
 
+
+@objcMembers
 class WEXOverlayPushNotificationViewController: WEXRichPushLayout {
 
     var notification: UNNotification?
 
-     func didReceiveNotification(_ notification: UNNotification) {
+  @objc func didReceiveNotification(_ notification: UNNotification) {
         if let source = notification.request.content.userInfo[WEConstants.SOURCE] as? String, source == WEConstants.WEBENGAGE {
             self.notification = notification
             initialiseViewHierarchy()
         }
     }
 
-     func didReceiveNotificationResponse(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+    @objc func didReceiveNotificationResponse(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         if let source = response.notification.request.content.userInfo[WEConstants.SOURCE] as? String, source == WEConstants.WEBENGAGE {
             completion(.dismissAndForwardAction)
         }

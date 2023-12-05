@@ -1,8 +1,8 @@
 //
-//  BannerLayoutRenderer.swift
+//  OverlayLayoutRenderer.swift
 //
 //
-//  Created by Shubham Naidu on 13/11/23.
+//  Created by Uday Sharma on 13/11/23.
 //
 
 import Foundation
