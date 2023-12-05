@@ -129,7 +129,7 @@ API_AVAILABLE(ios(10.0))
                             if ([attachment.URL startAccessingSecurityScopedResource]) {
                                 
                                 NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
-                                UIImage *image = [UIImage imageWithData:imageData];
+                                UIImage *image = [UIImage animatedImageWithAnimatedGIFData:imageData];
                                 
                                 [attachment.URL stopAccessingSecurityScopedResource];
                                 
