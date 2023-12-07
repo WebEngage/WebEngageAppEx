@@ -37,6 +37,9 @@ Pod::Spec.new do |spec|
     cs.frameworks = 'Foundation'
     cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
     cs.dependency 'WebEngageAppEx/CoreApi'
+    cs.pod_target_xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => File.join(__dir__, 'WebEngageAppEx/Classes/ContentExtension/WebEngageAppEx-Bridging-Header.h') }
+
+
   end
 
 end
