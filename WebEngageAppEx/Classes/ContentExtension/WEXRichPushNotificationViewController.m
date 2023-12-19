@@ -16,7 +16,7 @@
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 #import "NSMutableAttributedString+Additions.h"
 
-#define WEX_CONTENT_EXTENSION_VERSION @"1.0.2"
+#define WEX_CONTENT_EXTENSION_VERSION @"1.0.3"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
