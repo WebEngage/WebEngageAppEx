@@ -16,6 +16,8 @@
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 #import "NSMutableAttributedString+Additions.h"
 
+#define WEX_CONTENT_EXTENSION_VERSION @"1.0.2"
+
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
 
@@ -95,7 +97,7 @@ API_AVAILABLE(ios(10.0))
         self.notification = notification;
         self.isRendering = YES;
         [self updateDarkModeStatus];
-        
+        [self setExtensionDefaults];
         NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
         
         if (!appGroup) {
@@ -129,6 +131,40 @@ API_AVAILABLE(ios(10.0))
             [self.currentLayout didReceiveNotification:notification];
         }
     }
+}
+
+- (void)setExtensionDefaults {
+    NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
+    // Write operation only if key is not present in the UserDefaults
+    if ([sharedDefaults valueForKey:@"WEG_Content_Extension_Version"] == nil) {
+        [sharedDefaults setValue:WEX_CONTENT_EXTENSION_VERSION forKey:@"WEG_Content_Extension_Version"];
+        [sharedDefaults synchronize];
+    }
+}
+
+- (NSUserDefaults *)getSharedUserDefaults {
+    
+    NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
+    
+    if (!appGroup) {
+        NSBundle *bundle = [NSBundle mainBundle];
+        
+        if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
+            bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+        }
+        
+        NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+        
+        appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
+    }
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
+    
+    if (!defaults) {
+        NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
+    }
+    
+    return defaults;
 }
 
 - (WEXRichPushLayout *)layoutForStyle:(NSString *)style {
