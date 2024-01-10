@@ -9,6 +9,7 @@
 #import "WEXCarouselPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "UIColor+DarkMode.h"
+#import "UIImage+animatedGIF.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -81,7 +82,7 @@ API_AVAILABLE(ios(10.0))
                 NSString *imageURL = self.carouselItems[0][@"image"];
                 NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
                 
-                UIImage *image = [UIImage imageWithData:imageData];
+                UIImage *image = [UIImage animatedImageWithAnimatedGIFData:imageData];
                 
                 if (image) {
                     [self.images addObject:image];
@@ -128,7 +129,7 @@ API_AVAILABLE(ios(10.0))
                             if ([attachment.URL startAccessingSecurityScopedResource]) {
                                 
                                 NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
-                                UIImage *image = [UIImage imageWithData:imageData];
+                                UIImage *image = [UIImage animatedImageWithAnimatedGIFData:imageData];
                                 
                                 [attachment.URL stopAccessingSecurityScopedResource];
                                 
