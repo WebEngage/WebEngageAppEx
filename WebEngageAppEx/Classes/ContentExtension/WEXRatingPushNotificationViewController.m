@@ -8,6 +8,7 @@
 
 #import "WEXRatingPushNotificationViewController.h"
 #import "UIColor+DarkMode.h"
+#import "UIImage+animatedGIF.h"
 
 //#define NO_OF_STARS 5
 #define STAR_BAR_HEIGHT 50
@@ -146,7 +147,7 @@ API_AVAILABLE(ios(10.0))
                 if ([attachment.URL startAccessingSecurityScopedResource]) {
                     
                     NSData *imageData = [NSData dataWithContentsOfFile:attachment.URL.path];
-                    UIImage *image = [UIImage imageWithData:imageData];
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFData:imageData];
                     
                     [attachment.URL stopAccessingSecurityScopedResource];
                     

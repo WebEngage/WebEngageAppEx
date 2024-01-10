@@ -9,6 +9,7 @@
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
 
+#define WEX_SERVICE_EXTENSION_VERSION @"1.0.3"
 
 @interface WEXPushNotificationService ()
 
@@ -16,8 +17,10 @@
 @property (nonatomic) void (^contentHandler)(UNNotificationContent *contentToDeliver);
 @property (nonatomic) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic) NSString *enviroment;
+@property NSString *serviceExtensionVersion;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 @property NSArray *customCategories;
+
 #endif
 
 @end
@@ -312,6 +315,10 @@
         [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
         [sharedDefaults synchronize];
     }
+    if ([sharedDefaults valueForKey:@"WEG_Service_Extension_Version"] == nil) {
+        [sharedDefaults setValue:WEX_SERVICE_EXTENSION_VERSION forKey:@"WEG_Service_Extension_Version"];
+        [sharedDefaults synchronize];
+    }
 }
 
 - (NSString *) getBaseURL{
@@ -329,6 +336,8 @@
     }
     else if ([self.enviroment.uppercaseString isEqualToString:@"UNL"]) {
         baseURL = @"https://c.unl.webengage.com/tracker";
+    }else if ([self.enviroment.uppercaseString isEqualToString:@"KSA"]) {
+        baseURL = @"https://c.ksa.webengage.com/tracker";
     }
     
     return baseURL;
