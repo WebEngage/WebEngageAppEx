@@ -9,7 +9,7 @@
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
 
-#define WEX_SERVICE_EXTENSION_VERSION @"1.0.3"
+#define WEX_SERVICE_EXTENSION_VERSION @"1.1.0"
 
 @interface WEXPushNotificationService ()
 
@@ -51,9 +51,8 @@
         } else if (expandableDetails && style && [style isEqualToString:@"RATING_V1"]) {
             [self handleContentFor:style image:expandableDetails[@"image"]];
             
-        } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"])) {
+        } else if (expandableDetails && style && ([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"BIG_TEXT"] || [style isEqualToString:@"OVERLAY"])) {
             self.customCategories = @[@"WEG_RICH_V1", @"WEG_RICH_V2", @"WEG_RICH_V3", @"WEG_RICH_V4", @"WEG_RICH_V5", @"WEG_RICH_V6", @"WEG_RICH_V7", @"WEG_RICH_V8"];
-            
             NSString *customCategory = [self getCategoryFor:self.customCategories currentCategory:self.bestAttemptContent.categoryIdentifier];
             UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
             
@@ -116,7 +115,7 @@
 }
 
 - (void)handleContentFor:(NSString *)style image:(NSString *)image {
-    if (([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"RATING_V1"]) && image) {
+    if (([style isEqualToString:@"BIG_PICTURE"] || [style isEqualToString:@"RATING_V1"] || [style isEqualToString:@"OVERLAY"]) && image) {
         [self drawBannerViewWith:image];
     } else {
         [self trackEventWithCompletion:^{
