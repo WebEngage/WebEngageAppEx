@@ -15,8 +15,9 @@
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 #import "NSMutableAttributedString+Additions.h"
+#import <WebEngageAppEx-Swift.h>
 
-#define WEX_CONTENT_EXTENSION_VERSION @"1.0.3"
+#define WEX_CONTENT_EXTENSION_VERSION @"1.1.0"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()
@@ -177,7 +178,10 @@ API_AVAILABLE(ios(10.0))
         return [[WEXBannerPushNotificationViewController alloc] initWithNotificationViewController:self];
     } else if (style && [style isEqualToString:@"BIG_TEXT"]) {
         return [[WEXTextPushNotificationViewController alloc] initWithNotificationViewController:self];
-    }
+    } else if (style && [style isEqualToString:@"OVERLAY"]) {
+       return [[WEXOverlayPushNotificationViewController alloc] initWithNotificationViewController:self];
+   }
+    
     return nil;
 }
 
