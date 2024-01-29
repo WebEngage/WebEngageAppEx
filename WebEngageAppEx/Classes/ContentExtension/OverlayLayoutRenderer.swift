@@ -124,11 +124,7 @@ extension WEXOverlayPushNotificationViewController{
             richContentView.trailingAnchor.constraint(equalTo: richContentView.superview!.trailingAnchor).isActive = true
             richContentView.topAnchor.constraint(equalTo: mainContentView.bottomAnchor).isActive = true
             
-            if #available(iOSApplicationExtension 11.0, *) {
-                viewController?.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: superViewWrapper.bottomAnchor).isActive = true
-            } else {
-                // Fallback on earlier versions
-            }
+            viewController?.view.bottomAnchor.constraint(equalTo: superViewWrapper.bottomAnchor).isActive = true
             
             if let imageView = mainContentView.subviews.first as? UIImageView {
                 imageView.translatesAutoresizingMaskIntoConstraints = false
