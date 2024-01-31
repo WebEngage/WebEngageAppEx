@@ -4,3 +4,4 @@
 
 #import "WEXRichPushLayout.h"
 #import "WEXRichPushNotificationViewController+Private.h"
+#import "UIImage+animatedGIF.h"

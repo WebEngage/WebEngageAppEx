@@ -9,7 +9,7 @@
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
 
-#define WEX_SERVICE_EXTENSION_VERSION @"1.1.0"
+#define WEX_SERVICE_EXTENSION_VERSION @"1.1.1"
 
 @interface WEXPushNotificationService ()
 
