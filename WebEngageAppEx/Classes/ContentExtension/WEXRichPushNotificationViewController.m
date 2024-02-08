@@ -15,7 +15,7 @@
 #import <WebEngageAppEx/WEXAnalytics.h>
 #import <WebEngageAppEx/WEXRichPushNotificationViewController.h>
 #import "NSMutableAttributedString+Additions.h"
-#import <WebEngageAppEx-Swift.h>
+#import <WebEngageAppEx/WebEngageAppEx-Swift.h>
 //#import <WebEngageAppEx-Swift.h>
 //#import "WEXOverlayPushNotificationViewController.h"
 
