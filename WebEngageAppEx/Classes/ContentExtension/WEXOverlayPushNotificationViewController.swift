@@ -10,7 +10,7 @@ import UserNotificationsUI
 
 
 @objcMembers
-class WEXOverlayPushNotificationViewController: WEXRichPushLayout {
+@objc public class WEXOverlayPushNotificationViewController: WEXRichPushLayout {
 
     var notification: UNNotification?
 

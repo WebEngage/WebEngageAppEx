@@ -18,9 +18,13 @@ Pod::Spec.new do |spec|
   spec.platform           = :ios
   spec.ios.deployment_target = '10.0'
 
+
   spec.subspec 'CoreApi' do |api|
-    api.source_files = 'WebEngageAppEx/Classes/CoreApi/**/*.{h,m}'
-    api.public_header_files = 'WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h', 'WebEngageAppEx/Classes/CoreApi/WEXUser.h'
+    api.source_files = 'WebEngageAppEx/Classes/CoreApi/**/*.{h,m,swift}'
+    
+    api.public_header_files = 'WebEngageAppEx/Classes/CoreApi/WebEngageAppEx.h','WebEngageAppEx/Classes/CoreApi/WEXAnalytics.h', 'WebEngageAppEx/Classes/CoreApi/WEXUser.h','WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.h','WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController+Private.h','WebEngageAppEx/Classes/ContentExtension/UIImage+animatedGIF.h'
+
+
     api.frameworks = 'Foundation'
   end
 
@@ -38,9 +42,6 @@ Pod::Spec.new do |spec|
     cs.frameworks = 'Foundation'
     cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
     cs.dependency 'WebEngageAppEx/CoreApi'
-    cs.pod_target_xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => File.join(__dir__, 'WebEngageAppEx/Classes/ContentExtension/WebEngageAppEx-Bridging-Header.h') }
-
-
   end
 
 end
