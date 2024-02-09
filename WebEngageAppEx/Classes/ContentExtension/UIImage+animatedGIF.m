@@ -25,6 +25,23 @@ static int delayCentisecondsForImageAtIndex(CGImageSourceRef const source, size_
                 // Even though the GIF stores the delay as an integer number of centiseconds, ImageIO “helpfully” converts that to seconds for us.
                 delayCentiseconds = (int)lrint([number doubleValue] * 100);
             }
+        }else{
+            if (@available(iOS 14.0, *)) {
+                CFDictionaryRef const webPProperties = CFDictionaryGetValue(properties, kCGImagePropertyWebPDictionary);
+                if (webPProperties) {
+                    NSNumber *number = fromCF CFDictionaryGetValue(webPProperties, kCGImagePropertyWebPUnclampedDelayTime);
+                    if (number == NULL || [number doubleValue] == 0) {
+                        number = fromCF CFDictionaryGetValue(webPProperties, kCGImagePropertyWebPDelayTime);
+                    }
+                    if ([number doubleValue] > 0) {
+                        // Even though the GIF stores the delay as an integer number of centiseconds, ImageIO “helpfully” converts that to seconds for us.
+                        delayCentiseconds = (int)lrint([number doubleValue] * 100);
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
+                // Does not support web p images
+            }
         }
         CFRelease(properties);
     }
