@@ -2,6 +2,7 @@ Pod::Spec.new do |spec|
   spec.name             = 'WebEngageAppEx'
   spec.version          = '1.1.1'
   spec.summary          = 'App Extension Target SDK for WebEngage for Rich Push Notifications support.'
+
   spec.description      = <<-DESC
   This pod includes various subspecs which are intended for use in Application Extensions, and depends on APIs which are App Extension Safe. The Core subspecs provides APIs which lets you track Users and Events from within Application Extensions.
   DESC
@@ -31,11 +32,12 @@ Pod::Spec.new do |spec|
   end
 
   spec.subspec 'ContentExtension' do |cs|
-    cs.source_files = 'WebEngageAppEx/Classes/ContentExtension/**/*.{h,m,swift}'
+    cs.source_files = 'WebEngageAppEx/Classes/ContentExtension/**/*.{h,m,swift,rb}'
     cs.public_header_files = 'WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController.h','WebEngageAppEx/Classes/ContentExtension/WEXRichPushLayout.h','WebEngageAppEx/Classes/ContentExtension/WEXRichPushNotificationViewController+Private.h','WebEngageAppEx/Classes/ContentExtension/UIImage+animatedGIF.h'
     cs.frameworks = 'Foundation'
     cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
     cs.dependency 'WebEngageAppEx/CoreApi'
+
     cs.script_phase = {
       :name => 'Modify Build Setting',
       :script => <<-SCRIPT,
