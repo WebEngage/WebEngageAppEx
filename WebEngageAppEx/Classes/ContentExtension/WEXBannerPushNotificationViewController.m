@@ -174,6 +174,10 @@ API_AVAILABLE(ios(10.0))
         CGFloat imageAspect = LANDSCAPE_ASPECT;
         if (bannerImage && bannerImage.size.height != 0) {
             imageAspect = bannerImage.size.height/bannerImage.size.width;
+            if(imageAspect > 1){
+                imageAspect = 1;
+            }
+
         } else {
             imageAspect = 0;
         }
