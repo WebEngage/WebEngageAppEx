@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'WebEngageAppEx'
-  spec.version          = '1.1.1'
+  spec.version          = '1.1.2'
   spec.summary          = 'App Extension Target SDK for WebEngage for Rich Push Notifications support.'
 
   spec.description      = <<-DESC
@@ -14,6 +14,7 @@ Pod::Spec.new do |spec|
   spec.documentation_url = 'https://docs.webengage.com/docs/ios-getting-started'
   spec.source            = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => spec.version.to_s }
   spec.platform          = :ios
+  spec.swift_version = '5.0'
   spec.ios.deployment_target = '10.0'
   spec.static_framework  = true
 
