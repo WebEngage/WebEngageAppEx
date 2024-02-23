@@ -14,6 +14,7 @@ Pod::Spec.new do |spec|
   spec.documentation_url = 'https://docs.webengage.com/docs/ios-getting-started'
   spec.source            = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => spec.version.to_s }
   spec.platform          = :ios
+  spec.swift_version = '5.0'
   spec.ios.deployment_target = '10.0'
   spec.static_framework  = true
 
