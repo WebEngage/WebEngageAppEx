@@ -198,36 +198,44 @@ API_AVAILABLE(ios(10.0))
 
 - (NSMutableDictionary *) getActivityDictionaryForCurrentNotification {
     
-    NSString *expId = self.notification.request.content.userInfo[@"experiment_id"];
-    NSString *notifId = self.notification.request.content.userInfo[@"notification_id"];
-    NSString *finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
-    NSString *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
-    
-    id customData = self.notification.request.content.userInfo[@"customData"];
-    
-    NSMutableDictionary *dictionary = [[self.richPushDefaults dictionaryForKey:finalNotifId] mutableCopy];
-    
-    if (!dictionary) {
-        dictionary = [[NSMutableDictionary alloc] init];
-        [dictionary setObject:expId forKey:@"experiment_id"];
-        [dictionary setObject:notifId forKey:@"notification_id"];
-        [dictionary setObject:expandableDetails forKey:@"expandableDetails"];
+    NSDictionary *userInfo = self.notification.request.content.userInfo;
+    if (userInfo){
+        NSString *expId = self.notification.request.content.userInfo[@"experiment_id"];
+        NSString *notifId = self.notification.request.content.userInfo[@"notification_id"];
+        NSString *finalNotifId = [[expId stringByAppendingString:@"|"] stringByAppendingString:notifId];
+        NSString *expandableDetails = self.notification.request.content.userInfo[@"expandableDetails"];
         
-        if (customData && [customData isKindOfClass:[NSArray class]]) {
-            [dictionary setObject:customData forKey:@"customData"];
+        id customData = self.notification.request.content.userInfo[@"customData"];
+        
+        NSMutableDictionary *dictionary = [[self.richPushDefaults dictionaryForKey:finalNotifId] mutableCopy];
+        
+        if (!dictionary) {
+            NSLog(@"Notification Content : %@",self.notification.request.content.userInfo);
+            dictionary = [[NSMutableDictionary alloc] init];
+            [dictionary setObject:expId forKey:@"experiment_id"];
+            [dictionary setObject:notifId forKey:@"notification_id"];
+            [dictionary setObject:expandableDetails forKey:@"expandableDetails"];
+            
+            if (customData && [customData isKindOfClass:[NSArray class]]) {
+                [dictionary setObject:customData forKey:@"customData"];
+            }
         }
+        return dictionary;
+    }else{
+        return nil;
     }
     
-    return dictionary;
 }
 
 - (void)updateActivityWithObject:(id)object forKey:(NSString *)key {
     
     NSMutableDictionary *activityDictionary = [self getActivityDictionaryForCurrentNotification];
-    
-    [activityDictionary setObject:object forKey:key];
-    
-    [self setActivityForCurrentNotification:activityDictionary];
+    if (activityDictionary){
+        [activityDictionary setObject:object forKey:key];
+        [self setActivityForCurrentNotification:activityDictionary];
+    }else{
+        NSLog(@"UserInfo is not availble inside view controller");
+    }
 }
 
 - (void)setActivityForCurrentNotification:(NSDictionary *)activity {

@@ -192,33 +192,39 @@ API_AVAILABLE(ios(10.0))
 }
 
 - (void)setupAutoScroll:(UNNotification *)notification API_AVAILABLE(ios(10.0)) {
-    NSString *scrollTime = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
     
-    if (scrollTime == (id)[NSNull null] || scrollTime.length == 0) {
-        return;
+    id scrollTimeValue = notification.request.content.userInfo[@"expandableDetails"][@"ast"];
+    float intervalSeconds = 0;
+
+    if ([scrollTimeValue isKindOfClass:[NSString class]]) {
+        NSString *scrollTimeString = (NSString *)scrollTimeValue;
+        if (scrollTimeString.length > 0) {
+            intervalSeconds = [scrollTimeString floatValue] / 1000.0;
+        }
+    } else if ([scrollTimeValue isKindOfClass:[NSNumber class]]) {
+        NSNumber *scrollTimeNumber = (NSNumber *)scrollTimeValue;
+        intervalSeconds = [scrollTimeNumber doubleValue] / 1000.0;
     }
-    
-    [self.scrollTimer invalidate];
-    self.scrollTimer = nil;
-    
-    float intervalInMili = [scrollTime floatValue];
-    float intervalSeconds = intervalInMili/1000.0;
-    
+
     // Scroll if interval is more than 0
     if (intervalSeconds > 0) {
         _shouldScroll = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             self.scrollTimer = [NSTimer scheduledTimerWithTimeInterval:intervalSeconds
-                                                               target:self
-                                                             selector:@selector(scrollContent:)
+                                                                target:self
+                                                              selector:@selector(scrollContent:)
                                                               userInfo:notification repeats:YES];
         });
     }
+
 }
 
 - (void)scrollContent:(NSTimer *)scrollTimer {
-    if (_shouldScroll) {
-        [self renderAnimated:(UNNotification *)[scrollTimer userInfo]];
+    
+    // this will check if you have clicked on next button of notification
+    // && if notification still in expanded state
+    if (_shouldScroll && self.viewController.extensionContext) {
+            [self renderAnimated:(UNNotification *)[scrollTimer userInfo]];
     } else {
         [self stopScrollTimer];
     }
@@ -552,7 +558,7 @@ API_AVAILABLE(ios(10.0))
             [self setCTAForIndex:self.current];
             
             // Add the viewed index only if the image was viewed.
-            if ([self.wasLoaded[self.current] boolValue] == YES) {
+            if ([self.wasLoaded[self.current] boolValue] == YES && !self.shouldScroll) {
                 
                 [self addViewEventForIndex:self.current];
             }
