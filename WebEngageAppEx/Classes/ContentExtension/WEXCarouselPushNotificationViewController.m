@@ -73,6 +73,8 @@ API_AVAILABLE(ios(10.0))
             
             BOOL firstImageAdded = NO;
             
+            [self setupAutoScroll:notification];
+            
             if (downloadedCount == 0) {
                 
                 // Don't save the file here instead add to images directly.
@@ -88,7 +90,9 @@ API_AVAILABLE(ios(10.0))
                     [self.images addObject:image];
                     [self.wasLoaded addObject:[NSNumber numberWithBool:YES]];
                     
-                    [self addViewEventForIndex:0 isFirst:YES];
+                    if (!self.shouldScroll){
+                        [self addViewEventForIndex:0 isFirst:YES];
+                    }
                 } else {
                     [self.images addObject:[self getErrorImage]];
                     [self.wasLoaded addObject:[NSNumber numberWithBool:NO]];
@@ -140,7 +144,9 @@ API_AVAILABLE(ios(10.0))
                                     self.wasLoaded[i] = [NSNumber numberWithBool:YES];
                                     
                                     if (i == 0) {
-                                        [self addViewEventForIndex:0 isFirst:YES];
+                                        if (!self.shouldScroll){
+                                            [self addViewEventForIndex:0 isFirst:YES];
+                                        }
                                     }
                                 }
                             }
@@ -158,8 +164,6 @@ API_AVAILABLE(ios(10.0))
             }
             
             [self initialiseCarouselForNotification:notification];
-            
-            [self setupAutoScroll:notification];
             
             if (downloadedCount < self.carouselItems.count) {
                 
