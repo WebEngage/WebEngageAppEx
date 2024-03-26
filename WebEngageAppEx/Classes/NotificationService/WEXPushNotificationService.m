@@ -314,10 +314,8 @@
         [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
         [sharedDefaults synchronize];
     }
-    if ([sharedDefaults valueForKey:@"WEG_Service_Extension_Version"] == nil) {
         [sharedDefaults setValue:WEX_SERVICE_EXTENSION_VERSION forKey:@"WEG_Service_Extension_Version"];
         [sharedDefaults synchronize];
-    }
 }
 
 - (NSString *) getBaseURL{
