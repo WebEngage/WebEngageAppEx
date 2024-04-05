@@ -273,6 +273,8 @@
     
     NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     
+    requestForEventReceieved = [self setDomainURL:requestForEventReceieved];
+
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -290,6 +292,8 @@
     
     NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
+    requestForEventView = [self setDomainURL:requestForEventView];
+    
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -305,6 +309,35 @@
         }
     }] resume];
 }
+
+- (NSURLRequest *)setDomainURL:(NSURLRequest *)request {
+    NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+    NSString *customProxyDomain = self.sharedUserDefaults[@"proxy_domain"];
+    NSString *originalURLString = request.URL.absoluteString;
+    
+    if (customProxyDomain && [originalURLString containsString:customProxyDomain]) {
+        return modifiedRequest;
+    }
+    
+    NSString *encodedURL = [originalURLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
+    
+    if (!encodedURL) {
+        return modifiedRequest;
+    }
+    
+    NSString *newURLString = [NSString stringWithFormat:@"https://%@?url=%@", customProxyDomain, encodedURL];
+    NSURL *newURL = [NSURL URLWithString:newURLString];
+    
+    if (!newURL) {
+        return modifiedRequest;
+    }
+    
+    modifiedRequest.URL = newURL;
+    
+    return [modifiedRequest copy];
+}
+
+
 
 - (void)setExtensionDefaults {
     NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
@@ -463,6 +496,7 @@
     data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
+    data[@"proxy_domain"] =[defaults objectForKey:@"proxy_domain"];
     
     self.sharedUserDefaults = data;
     
