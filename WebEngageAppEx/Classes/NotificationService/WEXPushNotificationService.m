@@ -334,7 +334,7 @@
     
     modifiedRequest.URL = newURL;
     
-    return [modifiedRequest copy];
+    return modifiedRequest;
 }
 
 
