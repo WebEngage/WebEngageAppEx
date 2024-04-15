@@ -273,7 +273,9 @@
     
     NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     
-    requestForEventReceieved = [self setDomainURL:requestForEventReceieved];
+    if (_sharedUserDefaults[@"proxy_domain"] != nil) {
+            requestForEventReceieved = [self setDomainURL:requestForEventReceieved];
+    }
 
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -292,8 +294,9 @@
     
     NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
-    requestForEventView = [self setDomainURL:requestForEventView];
-    
+    if (_sharedUserDefaults[@"proxy_domain"] != nil) {
+        requestForEventView = [self setDomainURL:requestForEventView];
+    }
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -496,7 +499,7 @@
     data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
-    data[@"proxy_domain"] =[defaults objectForKey:@"proxy_domain"];
+    data[@"proxy_domain"] = [defaults objectForKey:@"proxy_domain"];
     
     self.sharedUserDefaults = data;
     
