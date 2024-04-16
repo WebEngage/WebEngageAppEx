@@ -273,8 +273,8 @@
     
     NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     
-    if (_sharedUserDefaults[@"proxy_domain"] != nil) {
-            requestForEventReceieved = [self setDomainURL:requestForEventReceieved];
+    if (_sharedUserDefaults[@"proxy_url"] != nil) {
+            requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
     }
 
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
@@ -294,8 +294,8 @@
     
     NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
-    if (_sharedUserDefaults[@"proxy_domain"] != nil) {
-        requestForEventView = [self setDomainURL:requestForEventView];
+    if (_sharedUserDefaults[@"proxy_url"] != nil) {
+        requestForEventView = [self setProxyURL:requestForEventView];
     }
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -313,12 +313,12 @@
     }] resume];
 }
 
-- (NSURLRequest *)setDomainURL:(NSURLRequest *)request {
+- (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
     NSMutableURLRequest *modifiedRequest = [request mutableCopy];
-    NSString *customProxyDomain = self.sharedUserDefaults[@"proxy_domain"];
+    NSString *customProxyURL = self.sharedUserDefaults[@"proxy_url"];
     NSString *originalURLString = request.URL.absoluteString;
     
-    if (customProxyDomain && [originalURLString containsString:customProxyDomain]) {
+    if (customProxyURL && [originalURLString containsString:customProxyURL]) {
         return modifiedRequest;
     }
     
@@ -328,7 +328,7 @@
         return modifiedRequest;
     }
     
-    NSString *newURLString = [NSString stringWithFormat:@"https://%@?url=%@", customProxyDomain, encodedURL];
+    NSString *newURLString = [NSString stringWithFormat:@"%@?url=%@", customProxyURL, encodedURL];
     NSURL *newURL = [NSURL URLWithString:newURLString];
     
     if (!newURL) {
@@ -499,7 +499,7 @@
     data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
-    data[@"proxy_domain"] = [defaults objectForKey:@"proxy_domain"];
+    data[@"proxy_url"] = [defaults objectForKey:@"proxy_url"];
     
     self.sharedUserDefaults = data;
     
