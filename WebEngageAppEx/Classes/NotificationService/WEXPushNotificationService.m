@@ -373,8 +373,9 @@
         baseURL = @"https://c.unl.webengage.com/tracker";
     }else if ([self.enviroment.uppercaseString isEqualToString:@"KSA"]) {
         baseURL = @"https://c.ksa.webengage.com/tracker";
+    }else if ([self.enviroment.uppercaseString isEqualToString:@"STAGING"]) {
+        baseURL = @"https://c.stg.webengage.biz/tracker";
     }
-    
     return baseURL;
 }
 
