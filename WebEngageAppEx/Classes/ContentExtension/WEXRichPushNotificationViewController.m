@@ -137,10 +137,8 @@ API_AVAILABLE(ios(10.0))
 - (void)setExtensionDefaults {
     NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
     // Write operation only if key is not present in the UserDefaults
-    if ([sharedDefaults valueForKey:@"WEG_Content_Extension_Version"] == nil) {
         [sharedDefaults setValue:WEX_CONTENT_EXTENSION_VERSION forKey:@"WEG_Content_Extension_Version"];
         [sharedDefaults synchronize];
-    }
 }
 
 - (NSUserDefaults *)getSharedUserDefaults {
