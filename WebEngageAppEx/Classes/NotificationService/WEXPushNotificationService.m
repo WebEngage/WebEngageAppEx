@@ -273,6 +273,10 @@
     
     NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     
+    if (_sharedUserDefaults[@"proxy_url"] != nil) {
+            requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
+    }
+
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -290,6 +294,9 @@
     
     NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
+    if (_sharedUserDefaults[@"proxy_url"] != nil) {
+        requestForEventView = [self setProxyURL:requestForEventView];
+    }
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -306,6 +313,35 @@
     }] resume];
 }
 
+- (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
+    NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+    NSString *customProxyURL = self.sharedUserDefaults[@"proxy_url"];
+    NSString *originalURLString = request.URL.absoluteString;
+    
+    if (customProxyURL && [originalURLString containsString:customProxyURL]) {
+        return modifiedRequest;
+    }
+    
+    NSString *encodedURL = [originalURLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
+    
+    if (!encodedURL) {
+        return modifiedRequest;
+    }
+    
+    NSString *newURLString = [NSString stringWithFormat:@"%@?url=%@", customProxyURL, encodedURL];
+    NSURL *newURL = [NSURL URLWithString:newURLString];
+    
+    if (!newURL) {
+        return modifiedRequest;
+    }
+    
+    modifiedRequest.URL = newURL;
+    
+    return modifiedRequest;
+}
+
+
+
 - (void)setExtensionDefaults {
     NSUserDefaults *sharedDefaults = [self getSharedUserDefaults];
     // Write operation only if key is not present in the UserDefaults
@@ -314,10 +350,8 @@
         [sharedDefaults setValue:@"WEG" forKey:@"WEG_ServiceToApp"];
         [sharedDefaults synchronize];
     }
-    if ([sharedDefaults valueForKey:@"WEG_Service_Extension_Version"] == nil) {
         [sharedDefaults setValue:WEX_SERVICE_EXTENSION_VERSION forKey:@"WEG_Service_Extension_Version"];
         [sharedDefaults synchronize];
-    }
 }
 
 - (NSString *) getBaseURL{
@@ -337,8 +371,9 @@
         baseURL = @"https://c.unl.webengage.com/tracker";
     }else if ([self.enviroment.uppercaseString isEqualToString:@"KSA"]) {
         baseURL = @"https://c.ksa.webengage.com/tracker";
+    }else if ([self.enviroment.uppercaseString isEqualToString:@"STAGING"]) {
+        baseURL = @"https://c.stg.webengage.biz/tracker";
     }
-    
     return baseURL;
 }
 
@@ -463,6 +498,7 @@
     data[@"interface_id"] = [defaults objectForKey:@"interface_id"];
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
+    data[@"proxy_url"] = [defaults objectForKey:@"proxy_url"];
     
     self.sharedUserDefaults = data;
     
