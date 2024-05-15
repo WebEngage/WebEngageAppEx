@@ -202,7 +202,7 @@ API_AVAILABLE(ios(10.0))
     if (titlePresent) {
         titleLabel = [[UILabel alloc] init];
         
-        titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:title];
+        titleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:title];
         titleLabel.text = title;
         titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
         if (textColor) {
@@ -216,7 +216,7 @@ API_AVAILABLE(ios(10.0))
     
     if (messagePresent) {
         UILabel *messageLabel = [[UILabel alloc] init];
-        messageLabel.textAlignment = [self.viewController naturalTextAligmentForText:message];
+        messageLabel.textAlignment = [self.viewController naturalTextAlignmentForText:message forDescription:YES];
         messageLabel.text = message;
         
         if (textColor) {
@@ -265,15 +265,15 @@ API_AVAILABLE(ios(10.0))
     
     UILabel *richTitleLabel = [[UILabel alloc] init];
     richTitleLabel.attributedText = [self.viewController getHtmlParsedString:richTitle isTitle:YES bckColor:colorHex];
-    richTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:richTitleLabel.text];
+    richTitleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richTitleLabel.text];
     
     UILabel *richSubLabel = [[UILabel alloc] init];
     richSubLabel.attributedText = [self.viewController getHtmlParsedString:richSub isTitle:YES bckColor:colorHex];
-    richSubLabel.textAlignment = [self.viewController naturalTextAligmentForText:richSubLabel.text];
+    richSubLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
     richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO bckColor:colorHex];
-    richBodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:richBodyLabel.text];
+    richBodyLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richBodyLabel.text forDescription:YES];
     richBodyLabel.numberOfLines = 0;
     
     [richContentView addSubview:richTitleLabel];

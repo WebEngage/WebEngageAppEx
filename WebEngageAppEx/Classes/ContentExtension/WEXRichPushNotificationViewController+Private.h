@@ -24,11 +24,14 @@
 
 - (void)setCTAWithId:(NSString *)ctaId andLink:(NSString *)actionLink;
 
-- (NSTextAlignment)naturalTextAligmentForText:(NSString*) text;
+- (NSTextAlignment)naturalTextAlignmentForText:(NSString*)text;
+
+- (NSTextAlignment)naturalTextAlignmentForText:(NSString*)text forDescription:(BOOL)forDescription;
 
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor;
 
 - (void)setExtensionDefaults;
+
 - (NSUserDefaults *)getSharedUserDefaults;
 
 #endif
