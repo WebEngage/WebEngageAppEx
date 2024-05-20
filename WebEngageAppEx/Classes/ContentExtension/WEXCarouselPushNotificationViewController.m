@@ -338,8 +338,7 @@ API_AVAILABLE(ios(10.0))
             subTitleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:titleLabel.text];
             
             UILabel *bodyLabel = [[UILabel alloc] init];
-            bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];
-            bodyLabel.textAlignment = [self.viewController naturalTextAlignmentForText:bodyLabel.text forDescription:YES];
+            bodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
             bodyLabel.numberOfLines = 0;
             
             [notificationContentView addSubview:titleLabel];

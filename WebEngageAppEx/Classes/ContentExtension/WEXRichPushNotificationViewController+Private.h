@@ -34,6 +34,8 @@
 
 - (NSUserDefaults *)getSharedUserDefaults;
 
+- (NSAttributedString *)getAttributedStringWithMessage:(NSString *)message
+                                              colorHex:(NSString *)colorHex;
 #endif
 
 @end

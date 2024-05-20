@@ -412,6 +412,43 @@ API_AVAILABLE(ios(10.0))
     self.isDarkMode = NO;
 }
 
+- (NSAttributedString *)getAttributedStringWithMessage:(NSString *)message
+                                              colorHex:(NSString *)colorHex{
+    if (!message) {
+        return nil;
+    }
+
+    NSAttributedString *attributedString = [self getHtmlParsedString:message isTitle:NO bckColor:colorHex];
+    if (!attributedString) {
+        return nil;
+    }
+
+    NSString *rawString = [attributedString string];
+    NSArray<NSString *> *lines = [rawString componentsSeparatedByString:@"\n"];
+    NSMutableAttributedString *finalAttributedString = [[NSMutableAttributedString alloc] init];
+
+    for (NSString *line in lines) {
+        if (![line isEqualToString:@""]) {
+            NSTextAlignment alignment = [self naturalTextAlignmentForText:line forDescription:YES];
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.alignment = alignment;
+
+            NSDictionary<NSAttributedStringKey, id> *attributes = @{
+                NSParagraphStyleAttributeName: paragraphStyle
+            };
+
+            NSAttributedString *attributedLine = [[NSAttributedString alloc] initWithString:line attributes:attributes];
+            [finalAttributedString appendAttributedString:attributedLine];
+
+            if (![line isEqualToString:[lines lastObject]]) {
+                [finalAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+            }
+        }
+    }
+
+    return [finalAttributedString copy];
+}
+
 #endif
 
 @end

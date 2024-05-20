@@ -128,8 +128,7 @@ API_AVAILABLE(ios(10.0))
     richSubLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];
-    richBodyLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richBodyLabel.text forDescription:TRUE];
+    richBodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
     richBodyLabel.numberOfLines = 0;
     
     [richContentView addSubview:richTitleLabel];

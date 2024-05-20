@@ -216,8 +216,7 @@ API_AVAILABLE(ios(10.0))
     
     if (messagePresent) {
         UILabel *messageLabel = [[UILabel alloc] init];
-        messageLabel.textAlignment = [self.viewController naturalTextAlignmentForText:message forDescription:YES];
-        messageLabel.text = message;
+        messageLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:@" "];
         
         if (textColor) {
             messageLabel.textColor = [UIColor colorFromHexString:textColor defaultColor:UIColor.WEXLabelColor];
@@ -272,8 +271,7 @@ API_AVAILABLE(ios(10.0))
     richSubLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    richBodyLabel.attributedText = [self.viewController getHtmlParsedString:richMessage isTitle:NO bckColor:colorHex];
-    richBodyLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richBodyLabel.text forDescription:YES];
+    richBodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
     richBodyLabel.numberOfLines = 0;
     
     [richContentView addSubview:richTitleLabel];
