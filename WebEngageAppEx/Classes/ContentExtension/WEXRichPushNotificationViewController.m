@@ -446,7 +446,7 @@ API_AVAILABLE(ios(10.0))
         }
     }
 
-    return [finalAttributedString copy];
+    return finalAttributedString;
 }
 
 #endif
