@@ -51,8 +51,8 @@ public class WEXUtils:NSObject {
     }
     
     func isEmoji(character: Character) -> Bool {
-        for scalar in character.unicodeScalars {
-            if #available(iOSApplicationExtension 10.2, *) {
+        if #available(iOS 10.2, *) {
+            for scalar in character.unicodeScalars {
                 if scalar.properties.isEmoji {
                     return true
                 }
