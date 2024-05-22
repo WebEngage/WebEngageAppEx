@@ -311,7 +311,7 @@ API_AVAILABLE(ios(10.0))
     } else {
         WEXUtils *utils = [[WEXUtils alloc] init];
         NSArray<NSArray<NSString *> *> *charsAndEmojis = [utils differentiateCharsAndEmojisWithInputString:text];
-        NSArray<NSString *> *chars = (NSArray<NSString *> *)[charsAndEmojis firstObject];
+      //  NSArray<NSString *> *chars = (NSArray<NSString *> *)[charsAndEmojis firstObject];
         NSArray<NSString *> *emojis = (NSArray<NSString *> *)[charsAndEmojis lastObject];
         
         if ([emojis count] > 0) {
