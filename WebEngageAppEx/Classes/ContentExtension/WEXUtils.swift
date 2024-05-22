@@ -65,7 +65,8 @@ public class WEXUtils:NSObject {
         return !scalar.isTraditionalEmoji
     }
     
-    func isFirstCharRTL(inputString: Any) -> Bool {
+    @objc(isFirstCharRTLWithInputString:)
+    public func isFirstCharRTL(inputString: Any) -> Bool {
         guard let firstChar = inputString as? Character else {
             return false
         }
