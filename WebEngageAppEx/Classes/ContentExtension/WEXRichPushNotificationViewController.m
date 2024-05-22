@@ -287,21 +287,50 @@ API_AVAILABLE(ios(10.0))
     [self updateActivityWithObject:cta forKey:@"cta"];
 }
 
-- (NSTextAlignment)naturalTextAligmentForText:(NSString*)text {
-    if (text == (id)[NSNull null] || text.length == 0 ) {
+- (NSTextAlignment)naturalTextAlignmentForText:(NSString*)text {
+    return [self naturalTextAlignmentForText:text forDescription:NO];
+}
+
+- (NSTextAlignment)naturalTextAlignmentForText:(NSString *)text forDescription:(BOOL)forDescription {
+    if (!text || [text isEqualToString:@""]) {
         return NSTextAlignmentLeft;
     }
     
-    NSArray *tagschemes = [NSArray arrayWithObjects:NSLinguisticTagSchemeLanguage, nil];
-    NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:tagschemes options:0];
-    [tagger setString:text];
-    NSString *language = [tagger tagAtIndex:0 scheme:NSLinguisticTagSchemeLanguage tokenRange:NULL sentenceRange:NULL];
-    if (language && ([language rangeOfString:@"he"].location != NSNotFound || [language rangeOfString:@"ar"].location != NSNotFound)) {
-        return NSTextAlignmentRight;
+    NSSet *rightToLeftLanguages = [NSSet setWithObjects:@"he", @"ar", nil];
+    
+    if (!forDescription) {
+        NSArray *preferredLanguages = [NSLocale preferredLanguages];
+        NSString *deviceLanguage = [preferredLanguages firstObject];
+        NSString *primaryLanguage = [[NSLocale componentsFromLocaleIdentifier:deviceLanguage] objectForKey:NSLocaleLanguageCode];
+        
+        if ([rightToLeftLanguages containsObject:primaryLanguage]) {
+            return NSTextAlignmentRight;
+        } else {
+            return NSTextAlignmentLeft;
+        }
     } else {
-        return NSTextAlignmentLeft;
+        WEXUtils *utils = [[WEXUtils alloc] init];
+        NSArray<NSString *> *charsAndEmojis = [utils differentiateCharsAndEmojisWithInputString:text];
+        NSArray<NSString *> *chars = [charsAndEmojis firstObject];
+        NSArray<NSString *> *emojis = [charsAndEmojis lastObject];
+        
+        if ([emojis count] > 0) {
+            return NSTextAlignmentLeft;
+        }
+        
+        if ([chars count] > 0) {
+            NSString *firstChar = [chars firstObject];
+            if ([utils isFirstCharRTLWithInputString:firstChar]) {
+                return NSTextAlignmentRight;
+            } else {
+                return NSTextAlignmentLeft;
+            }
+        } else {
+            return NSTextAlignmentLeft;
+        }
     }
 }
+
 
 - (NSAttributedString *)getHtmlParsedString:(NSString *)textString isTitle:(BOOL)isTitle bckColor:(NSString *)bckColor {
     BOOL containsHTML = [self containsHTML:textString];
@@ -314,11 +343,18 @@ API_AVAILABLE(ios(10.0))
     }
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
-                                                   initWithData: [inputString dataUsingEncoding:NSUnicodeStringEncoding]
-                                                   options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                   documentAttributes: nil
-                                                   error: nil
-    ];
+                                                       initWithData: [inputString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                       //options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                       options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+                                                       documentAttributes: nil
+                                                       error: nil
+                                                       
+        ];
+        
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.baseWritingDirection = NSWritingDirectionNatural;
+
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
     
     if (!textString){ return  nil; }
     
@@ -374,6 +410,43 @@ API_AVAILABLE(ios(10.0))
         }
     }
     self.isDarkMode = NO;
+}
+
+- (NSAttributedString *)getAttributedStringWithMessage:(NSString *)message
+                                              colorHex:(NSString *)colorHex{
+    if (!message) {
+        return nil;
+    }
+
+    NSAttributedString *attributedString = [self getHtmlParsedString:message isTitle:NO bckColor:colorHex];
+    if (!attributedString) {
+        return nil;
+    }
+
+    NSString *rawString = [attributedString string];
+    NSArray<NSString *> *lines = [rawString componentsSeparatedByString:@"\n"];
+    NSMutableAttributedString *finalAttributedString = [[NSMutableAttributedString alloc] init];
+
+    for (NSString *line in lines) {
+        if (![line isEqualToString:@""]) {
+            NSTextAlignment alignment = [self naturalTextAlignmentForText:line forDescription:YES];
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.alignment = alignment;
+
+            NSDictionary<NSAttributedStringKey, id> *attributes = @{
+                NSParagraphStyleAttributeName: paragraphStyle
+            };
+
+            NSAttributedString *attributedLine = [[NSAttributedString alloc] initWithString:line attributes:attributes];
+            [finalAttributedString appendAttributedString:attributedLine];
+
+            if (![line isEqualToString:[lines lastObject]]) {
+                [finalAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+            }
+        }
+    }
+
+    return finalAttributedString;
 }
 
 #endif
