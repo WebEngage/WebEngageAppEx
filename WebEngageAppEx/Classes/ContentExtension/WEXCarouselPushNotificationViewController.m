@@ -331,15 +331,14 @@ API_AVAILABLE(ios(10.0))
             
             UILabel *titleLabel = [[UILabel alloc] init];
             titleLabel.attributedText = [self.viewController getHtmlParsedString:title isTitle:YES bckColor:colorHex];
-            titleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
+            titleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:titleLabel.text];
             
             UILabel *subTitleLabel = [[UILabel alloc] init];
             subTitleLabel.attributedText = [self.viewController getHtmlParsedString:subtitle isTitle:YES bckColor:colorHex];
-            subTitleLabel.textAlignment = [self.viewController naturalTextAligmentForText:titleLabel.text];
+            subTitleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:titleLabel.text];
             
             UILabel *bodyLabel = [[UILabel alloc] init];
-            bodyLabel.attributedText = [self.viewController getHtmlParsedString:message isTitle:NO bckColor:colorHex];
-            bodyLabel.textAlignment = [self.viewController naturalTextAligmentForText:bodyLabel.text];
+            bodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
             bodyLabel.numberOfLines = 0;
             
             [notificationContentView addSubview:titleLabel];
