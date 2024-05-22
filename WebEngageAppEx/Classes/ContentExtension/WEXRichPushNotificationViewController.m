@@ -318,16 +318,17 @@ API_AVAILABLE(ios(10.0))
             return NSTextAlignmentLeft;
         }
         
-        if ([chars count] > 0) {
-            NSString *firstChar = [chars firstObject];
-//            if ([utils isFirstCharRTLWithInputString:firstChar]) {
-//                return NSTextAlignmentRight;
-//            } else {
-//                return NSTextAlignmentLeft;
-//            }
-        } else {
-            return NSTextAlignmentLeft;
-        }
+//        if ([chars count] > 0) {
+//            NSString *firstChar = [chars firstObject];
+////            if ([utils isFirstCharRTLWithInputString:firstChar]) {
+////                return NSTextAlignmentRight;
+////            } else {
+////                return NSTextAlignmentLeft;
+////            }
+//        } else {
+//           
+//        }
+        return NSTextAlignmentLeft;
     }
 }
 
