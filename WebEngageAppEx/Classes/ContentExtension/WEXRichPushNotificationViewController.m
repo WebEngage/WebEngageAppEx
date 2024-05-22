@@ -320,11 +320,11 @@ API_AVAILABLE(ios(10.0))
         
         if ([chars count] > 0) {
             NSString *firstChar = [chars firstObject];
-            if ([utils isFirstCharRTLWithInputString:firstChar]) {
-                return NSTextAlignmentRight;
-            } else {
-                return NSTextAlignmentLeft;
-            }
+//            if ([utils isFirstCharRTLWithInputString:firstChar]) {
+//                return NSTextAlignmentRight;
+//            } else {
+//                return NSTextAlignmentLeft;
+//            }
         } else {
             return NSTextAlignmentLeft;
         }

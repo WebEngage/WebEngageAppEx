@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.homepage          = 'https://webengage.com'
   spec.social_media_url  = 'http://twitter.com/webengage'
   spec.documentation_url = 'https://docs.webengage.com/docs/ios-getting-started'
-  spec.source            = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :tag => spec.version.to_s }
+  spec.source            = { :git => 'https://github.com/WebEngage/WebEngageAppEx.git', :branch => 'testBranch/arabic_text' }
   spec.platform          = :ios
   spec.swift_version = '5.0'
   spec.ios.deployment_target = '10.0'
