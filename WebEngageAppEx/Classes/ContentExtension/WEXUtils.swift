@@ -66,7 +66,7 @@ public class WEXUtils:NSObject {
     }
     
     @objc(isFirstCharRTLWithInputString:)
-    func isFirstCharRTL(inputString: Any) -> Bool {
+    public func isFirstCharRTL(inputString: Any) -> Bool {
         guard let firstChar = inputString as? Character else {
             return false
         }
