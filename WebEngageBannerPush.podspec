@@ -22,5 +22,6 @@ Pod::Spec.new do |spec|
   spec.frameworks           = 'Foundation', 'UIKit'
   spec.weak_frameworks      = 'UserNotifications'
   spec.dependency 'WebEngage','>= 6.4.0'
+  spec.resource_bundles = { 'WebEngageBannerPush' => 'WebEngageAppEx/Classes/NotificationService/*.{xcprivacy}' }
 
 end
