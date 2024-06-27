@@ -7,6 +7,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "WENetworkResponse.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 #import <UserNotifications/UserNotifications.h>
@@ -25,5 +26,12 @@
 #else
 : NSObject
 #endif
+
+- (BOOL)handleNetworkInterceptor;
+
+- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler;
+
+- (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler;
+
 @end
 
