@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -58,6 +58,9 @@
 
 /* Begin PBXFileReference section */
 		30F6D721B5CA3D9E091692E7 /* libPods-ServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EAC4ADC2C2EB1CB00FC1BC8 /* WENetworkResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WENetworkResponse.h; sourceTree = "<group>"; };
+		3EAC4ADD2C2EB1CB00FC1BC8 /* WENetworkResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WENetworkResponse.m; sourceTree = "<group>"; };
+		3EAC4ADE2C2EB38500FC1BC8 /* WENetworkInterceptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WENetworkInterceptor.h; sourceTree = "<group>"; };
 		47CF75C2CE610E7FDA5DD83E /* libPods-ContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A49FB8EB9E003121E4C723 /* Pods-WEGExtensionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WEGExtensionApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WEGExtensionApp/Pods-WEGExtensionApp.debug.xcconfig"; sourceTree = "<group>"; };
 		8167C6E259A361F9B2183151 /* libPods-WEGExtensionApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WEGExtensionApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,8 +258,11 @@
 		EC9A3DB121B6B15300C63B7D /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
+				3EAC4ADC2C2EB1CB00FC1BC8 /* WENetworkResponse.h */,
+				3EAC4ADD2C2EB1CB00FC1BC8 /* WENetworkResponse.m */,
 				EC9A3DB321B6B15300C63B7D /* WEXPushNotificationService.h */,
 				EC9A3DB221B6B15300C63B7D /* WEXPushNotificationService.m */,
+				3EAC4ADE2C2EB38500FC1BC8 /* WENetworkInterceptor.h */,
 			);
 			path = NotificationService;
 			sourceTree = "<group>";

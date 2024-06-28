@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
   end
 
   spec.subspec 'NotificationService' do |ns|
-    ns.source_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
+    ns.source_files = 'WebEngageAppEx/Classes/NotificationService/*.{h,m}'
     ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
     ns.frameworks = 'Foundation'
     ns.weak_frameworks = 'UserNotifications'

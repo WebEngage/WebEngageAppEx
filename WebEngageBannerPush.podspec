@@ -17,8 +17,8 @@ Pod::Spec.new do |spec|
   spec.platform           = :ios
   spec.ios.deployment_target = '10.0'
 
-  spec.source_files         = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.{h,m}'
-  spec.public_header_files  = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
+  spec.source_files         = 'WebEngageAppEx/Classes/NotificationService/*.{h,m}'
+  spec.public_header_files  = 'WebEngageAppEx/Classes/NotificationService/*.h'
   spec.frameworks           = 'Foundation', 'UIKit'
   spec.weak_frameworks      = 'UserNotifications'
   spec.dependency 'WebEngage','>= 6.4.0'

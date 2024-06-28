@@ -33,5 +33,7 @@
 
 - (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler;
 
+- (instancetype)initWithNotificationDelegate:(UNNotificationServiceExtension *)notificationDelegate;
+- (instancetype)init;
 @end
 

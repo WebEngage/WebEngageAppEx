@@ -20,6 +20,7 @@
 @property NSString *serviceExtensionVersion;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 @property NSArray *customCategories;
+@property (nonatomic, strong) UNNotificationServiceExtension *notificationDelegate;
 
 #endif
 
@@ -32,6 +33,22 @@
 
 
 #pragma mark - Service Extension Delegates
+
+- (instancetype)initWithNotificationDelegate:(UNNotificationServiceExtension *)notificationDelegate {
+    self = [super init];
+    if (self) {
+        _notificationDelegate = notificationDelegate;
+    }
+    return self;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _notificationDelegate = nil;
+    }
+    return self;
+}
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request
                    withContentHandler:(void (^)(UNNotificationContent *_Nonnull))contentHandler {
@@ -272,13 +289,19 @@
 - (void)trackEventWithCompletion:(void(^)(void))completion {
     
     __block NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
+    id interceptor;
+    if ([self handleNetworkInterceptor]){
+        interceptor = self;
+    } else if (self.notificationDelegate){
+        interceptor = self.notificationDelegate;
+    }
     
     if (_sharedUserDefaults[@"proxy_url"] != nil) {
             requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
     }
     
-    if ([self handleNetworkInterceptor]){
-        [self onRequest:requestForEventReceieved completionHandler:^(NSURLRequest* modifiedRequest) {
+    if (interceptor){
+        [interceptor onRequest:requestForEventReceieved completionHandler:^(NSURLRequest* modifiedRequest) {
             requestForEventReceieved = modifiedRequest;
         }];
     }
@@ -286,8 +309,8 @@
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-        if ([self handleNetworkInterceptor]){
-            [self onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+        if (interceptor){
+            [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
                 networkResponse = modifiedResponse;
             }];
         }
@@ -309,8 +332,8 @@
         requestForEventView = [self setProxyURL:requestForEventView];
     }
     
-    if ([self handleNetworkInterceptor]){
-        [self onRequest:requestForEventView completionHandler:^(NSURLRequest* modifiedRequest) {
+    if (interceptor){
+        [interceptor onRequest:requestForEventView completionHandler:^(NSURLRequest* modifiedRequest) {
             requestForEventView = modifiedRequest;
         }];
     }
@@ -318,8 +341,8 @@
     [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-        if ([self handleNetworkInterceptor]){
-            [self onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+        if (interceptor){
+            [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
                 networkResponse = modifiedResponse;
             }];
         }
