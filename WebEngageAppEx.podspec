@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'WebEngageAppEx'
-  spec.version          = '1.1.3'
+  spec.version          = '1.1.4'
   spec.summary          = 'App Extension Target SDK for WebEngage for Rich Push Notifications support.'
 
   spec.description      = <<-DESC
@@ -30,7 +30,8 @@ Pod::Spec.new do |spec|
     ns.public_header_files = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
     ns.frameworks = 'Foundation'
     ns.weak_frameworks = 'UserNotifications'
-    ns.dependency 'WebEngage','>= 6.4.0'
+    ns.dependency 'WebEngage/Core','>= 6.9.0'
+    ns.resource_bundles = { 'WebEngageBannerPush' => 'WebEngageAppEx/Classes/NotificationService/*.{xcprivacy}' }
   end
 
   spec.subspec 'ContentExtension' do |cs|
@@ -39,6 +40,7 @@ Pod::Spec.new do |spec|
     cs.frameworks = 'Foundation'
     cs.weak_frameworks = 'UserNotifications', 'UserNotificationsUI'
     cs.dependency 'WebEngageAppEx/CoreApi'
+    cs.resource_bundles = { 'ContentExtension' => 'WebEngageAppEx/Classes/ContentExtension/*.{xcprivacy}' }
 
     cs.script_phase = {
       :name => 'Modify Build Setting',
