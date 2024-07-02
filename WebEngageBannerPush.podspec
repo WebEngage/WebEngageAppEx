@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name             = 'WebEngageBannerPush'
-  spec.version          = '1.2.0'
+  spec.version          = '1.2.1'
   spec.summary          = 'Extension Target SDK for adding WebEngage Rich Push Notifications support'
 
   spec.description      = <<-DESC
@@ -21,6 +21,7 @@ Pod::Spec.new do |spec|
   spec.public_header_files  = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
   spec.frameworks           = 'Foundation', 'UIKit'
   spec.weak_frameworks      = 'UserNotifications'
-  spec.dependency 'WebEngage','>= 6.4.0'
+  spec.dependency 'WebEngage/Core','>= 6.9.0'
+  spec.resource_bundles = { 'WebEngageBannerPush' => 'WebEngageAppEx/Classes/NotificationService/*.{xcprivacy}' }
 
 end
