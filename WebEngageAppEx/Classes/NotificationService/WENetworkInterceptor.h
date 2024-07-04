@@ -12,7 +12,8 @@
 @protocol WENetworkInterceptor <NSObject>
 
 @optional
-- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *request))completionHandler;
-- (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *response))completionHandler;
+- (void)onResponse:(WENetworkResponse * _Nonnull)response completionHandler:(void (^ _Nonnull)(WENetworkResponse * _Nonnull))completionHandler;
+
+- (void)onRequest:(NSURLRequest * _Nonnull)request completionHandler:(void (^ _Nonnull)(NSURLRequest * _Nonnull))completionHandler;
 
 @end
