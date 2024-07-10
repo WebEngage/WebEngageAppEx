@@ -305,26 +305,34 @@
             requestForEventReceieved = modifiedRequest;
         }];
     }
-
-    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
-                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-        if (interceptor){
-            [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
-                networkResponse = modifiedResponse;
-            }];
-        }
-        if (networkResponse.error) {
-            NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
-        }
-        else {
-            NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
-        }
-        
+    
+    if (requestForEventReceieved.URL == nil) {
+        NSLog(@"Push Tracker URLResponse: Invalid request URL");
         if (completion) {
             completion();
         }
-    }] resume];
+    } else {
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
+                                         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+            if (interceptor){
+                [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+                    networkResponse = modifiedResponse;
+                }];
+            }
+            if (networkResponse.error) {
+                NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
+            }
+            else {
+                NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+            }
+            
+            if (completion) {
+                completion();
+            }
+        }] resume];
+    }
     
     __block NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
@@ -337,26 +345,33 @@
             requestForEventView = modifiedRequest;
         }];
     }
-    
-    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
-                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-        if (interceptor){
-            [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
-                networkResponse = modifiedResponse;
-            }];
-        }
-        if (networkResponse.error) {
-            NSLog(@"Could not log push_notification_view event with error: %@", networkResponse.error);
-        }
-        else {
-            NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
-        }
-        
+    if (requestForEventView.URL == nil) {
+        NSLog(@"Push Tracker URLResponse: Invalid request URL");
         if (completion) {
             completion();
         }
-    }] resume];
+    } else {
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
+                                         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+            if (interceptor){
+                [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+                    networkResponse = modifiedResponse;
+                }];
+            }
+            if (networkResponse.error) {
+                NSLog(@"Could not log push_notification_view event with error: %@", networkResponse.error);
+            }
+            else {
+                NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+            }
+            
+            if (completion) {
+                completion();
+            }
+        }] resume];
+    }
 }
 
 - (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
