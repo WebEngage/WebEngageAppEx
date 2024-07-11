@@ -290,49 +290,39 @@
     
     __block NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
     id interceptor;
-    if ([self handleNetworkInterceptor]){
-        interceptor = self;
-    } else if (self.notificationDelegate){
+    if (self.notificationDelegate){
         interceptor = self.notificationDelegate;
+    } else {
+        interceptor = self;
     }
     
     if (_sharedUserDefaults[@"proxy_url"] != nil) {
             requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
     }
     
-    if (interceptor){
-        [interceptor onRequest:requestForEventReceieved completionHandler:^(NSURLRequest* modifiedRequest) {
-            requestForEventReceieved = modifiedRequest;
-        }];
-    }
-    
-    if (requestForEventReceieved.URL == nil) {
-        NSLog(@"Push Tracker URLResponse: Invalid request URL");
-        if (completion) {
-            completion();
-        }
-    } else {
+    [interceptor onRequest:requestForEventReceieved completionHandler:^(NSURLRequest* modifiedRequest) {
+        requestForEventReceieved = modifiedRequest;
+        
         
         [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
                                          completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-            if (interceptor){
                 [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
                     networkResponse = modifiedResponse;
+                    if (networkResponse.error) {
+                        NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
+                    }
+                    else {
+                        //Network Interceptor's nil response is not handled here as the response is never used or pass anywhere
+                        
+                        NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                    }
                 }];
-            }
-            if (networkResponse.error) {
-                NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
-            }
-            else {
-                NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
-            }
-            
             if (completion) {
                 completion();
             }
         }] resume];
-    }
+    }];
     
     __block NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
     
@@ -340,38 +330,29 @@
         requestForEventView = [self setProxyURL:requestForEventView];
     }
     
-    if (interceptor){
-        [interceptor onRequest:requestForEventView completionHandler:^(NSURLRequest* modifiedRequest) {
-            requestForEventView = modifiedRequest;
-        }];
-    }
-    if (requestForEventView.URL == nil) {
-        NSLog(@"Push Tracker URLResponse: Invalid request URL");
-        if (completion) {
-            completion();
-        }
-    } else {
+    [interceptor onRequest:requestForEventView completionHandler:^(NSURLRequest* modifiedRequest) {
+        requestForEventView = modifiedRequest;
+        
         
         [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
                                          completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-            if (interceptor){
                 [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
                     networkResponse = modifiedResponse;
+                    if (networkResponse.error) {
+                        NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
+                    }
+                    else {
+                        //Network Interceptor's nil response is not handled here as the response is never used or pass anywhere
+                        
+                        NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                    }
                 }];
-            }
-            if (networkResponse.error) {
-                NSLog(@"Could not log push_notification_view event with error: %@", networkResponse.error);
-            }
-            else {
-                NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
-            }
-            
             if (completion) {
                 completion();
             }
         }] resume];
-    }
+    }];
 }
 
 - (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
