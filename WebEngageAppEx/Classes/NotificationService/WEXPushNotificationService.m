@@ -541,10 +541,6 @@
     return defaults;
 }
 
-- (BOOL)handleNetworkInterceptor {
-    return NO;
-}
-
 - (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
     completionHandler(request);
 }
