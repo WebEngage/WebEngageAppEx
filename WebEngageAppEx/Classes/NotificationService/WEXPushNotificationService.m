@@ -287,73 +287,40 @@
 #pragma mark - Tracker Event Helpers
 
 - (void)trackEventWithCompletion:(void(^)(void))completion {
+    NSArray *events = @[@"push_notification_received", @"push_notification_view"];
     
-    __block NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
-    id interceptor;
-    if (self.notificationDelegate){
-        interceptor = self.notificationDelegate;
-    } else {
-        interceptor = self;
-    }
-    
-    if (_sharedUserDefaults[@"proxy_url"] != nil) {
-            requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
-    }
-    
-    [interceptor onRequest:requestForEventReceieved completionHandler:^(NSURLRequest* modifiedRequest) {
-        requestForEventReceieved = modifiedRequest;
+    for (NSString *event in events) {
+        __block NSURLRequest *request = [self getRequestForTracker:event];
+        id interceptor = self.notificationDelegate ? self.notificationDelegate : self;
         
+        if (_sharedUserDefaults[@"proxy_url"] != nil) {
+            request = [self setProxyURL:request];
+        }
         
-        [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
-                                         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+        [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
+            request = modifiedRequest;
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                             completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+                
                 [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
                     networkResponse = modifiedResponse;
                     if (networkResponse.error) {
-                        NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
-                    }
-                    else {
-                        //Network Interceptor's nil response is not handled here as the response is never used or pass anywhere
-                        
+                        NSLog(@"Could not log %@ event with error: %@", event, networkResponse.error);
+                    } else {
                         NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
                     }
                 }];
-            if (completion) {
-                completion();
-            }
-        }] resume];
-    }];
-    
-    __block NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
-    
-    if (_sharedUserDefaults[@"proxy_url"] != nil) {
-        requestForEventView = [self setProxyURL:requestForEventView];
+                
+                if (completion) {
+                    completion();
+                }
+            }] resume];
+        }];
     }
-    
-    [interceptor onRequest:requestForEventView completionHandler:^(NSURLRequest* modifiedRequest) {
-        requestForEventView = modifiedRequest;
-        
-        
-        [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
-                                         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
-                [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
-                    networkResponse = modifiedResponse;
-                    if (networkResponse.error) {
-                        NSLog(@"Could not log push_notification_received event with error: %@", networkResponse.error);
-                    }
-                    else {
-                        //Network Interceptor's nil response is not handled here as the response is never used or pass anywhere
-                        
-                        NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
-                    }
-                }];
-            if (completion) {
-                completion();
-            }
-        }] resume];
-    }];
 }
+
 
 - (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
     NSMutableURLRequest *modifiedRequest = [request mutableCopy];
