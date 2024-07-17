@@ -1,4 +1,4 @@
-framework module Pods_ContentExtension {
+module Pods_ContentExtension {
   umbrella header "Pods-ContentExtension-umbrella.h"
 
   export *

@@ -9,7 +9,7 @@
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
 
-#define WEX_SERVICE_EXTENSION_VERSION @"1.2.1"
+#define WEX_SERVICE_EXTENSION_VERSION @"1.3.0"
 
 @interface WEXPushNotificationService ()
 
@@ -20,6 +20,7 @@
 @property NSString *serviceExtensionVersion;
 @property NSDictionary<NSString *, NSString *> *sharedUserDefaults;
 @property NSArray *customCategories;
+@property (nonatomic, strong) UNNotificationServiceExtension *notificationDelegate;
 
 #endif
 
@@ -32,6 +33,22 @@
 
 
 #pragma mark - Service Extension Delegates
+
+- (instancetype)initWithNotificationDelegate:(UNNotificationServiceExtension *)notificationDelegate {
+    self = [super init];
+    if (self) {
+        _notificationDelegate = notificationDelegate;
+    }
+    return self;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _notificationDelegate = nil;
+    }
+    return self;
+}
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request
                    withContentHandler:(void (^)(UNNotificationContent *_Nonnull))contentHandler {
@@ -270,48 +287,40 @@
 #pragma mark - Tracker Event Helpers
 
 - (void)trackEventWithCompletion:(void(^)(void))completion {
+    NSArray *events = @[@"push_notification_received", @"push_notification_view"];
     
-    NSURLRequest *requestForEventReceieved = [self getRequestForTracker:@"push_notification_received"];
-    
-    if (_sharedUserDefaults[@"proxy_url"] != nil) {
-            requestForEventReceieved = [self setProxyURL:requestForEventReceieved];
+    for (NSString *event in events) {
+        __block NSURLRequest *request = [self getRequestForTracker:event];
+        id interceptor = self.notificationDelegate ? self.notificationDelegate : self;
+        
+        if (_sharedUserDefaults[@"proxy_url"] != nil) {
+            request = [self setProxyURL:request];
+        }
+        
+        [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
+            request = modifiedRequest;
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                             completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+                
+                [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+                    networkResponse = modifiedResponse;
+                    if (networkResponse.error) {
+                        NSLog(@"Could not log %@ event with error: %@", event, networkResponse.error);
+                    } else {
+                        NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                    }
+                }];
+                
+                if (completion) {
+                    completion();
+                }
+            }] resume];
+        }];
     }
-
-    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventReceieved
-                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error) {
-            NSLog(@"Could not log push_notification_received event with error: %@", error);
-        }
-        else {
-            NSLog(@"Push Tracker URLResponse: %@", response);
-        }
-        
-        if (completion) {
-            completion();
-        }
-    }] resume];
-    
-    NSURLRequest *requestForEventView = [self getRequestForTracker:@"push_notification_view"];
-    
-    if (_sharedUserDefaults[@"proxy_url"] != nil) {
-        requestForEventView = [self setProxyURL:requestForEventView];
-    }
-    [[[NSURLSession sharedSession] dataTaskWithRequest:requestForEventView
-                                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error) {
-            NSLog(@"Could not log push_notification_view event with error: %@", error);
-        }
-        else {
-            NSLog(@"Push Tracker URLResponse: %@", response);
-        }
-        
-        if (completion) {
-            completion();
-        }
-    }] resume];
 }
+
 
 - (NSURLRequest *)setProxyURL:(NSURLRequest *)request {
     NSMutableURLRequest *modifiedRequest = [request mutableCopy];
@@ -530,6 +539,14 @@
     }
     
     return defaults;
+}
+
+- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
+    completionHandler(request);
+}
+
+- (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler {
+    completionHandler(response);
 }
 
 #endif
