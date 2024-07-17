@@ -21,7 +21,11 @@ Pod::Spec.new do |spec|
   spec.public_header_files  = 'WebEngageAppEx/Classes/NotificationService/WEXPushNotificationService.h'
   spec.frameworks           = 'Foundation', 'UIKit'
   spec.weak_frameworks      = 'UserNotifications'
-  spec.dependency 'WebEngage/Core','>= 6.9.0'
+  if ENV['WEBENGAGE_USE_CORE'] == 'true'
+    spec.dependency 'WebEngage/Core','>= 6.10.0'
+  else
+    spec.dependency 'WebEngage','>= 6.10.0'
+  end
   spec.resource_bundles = { 'WebEngageBannerPush' => 'WebEngageAppEx/Classes/NotificationService/*.{xcprivacy}' }
 
 end
