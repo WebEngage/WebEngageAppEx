@@ -17,8 +17,7 @@ Pod::Spec.new do |spec|
   spec.platform           = :ios
   spec.ios.deployment_target = '10.0'
 
-  spec.source_files         = ['WebEngageAppEx/Classes/ServiceExtension/*.{h,m}',
-                               'WebEngageAppEx/Classes/NetworkInterceptor/*.{h,m}']
+  spec.source_files         = 'WebEngageAppEx/Classes/ServiceExtension/*.{h,m}'
   spec.public_header_files  = 'WebEngageAppEx/Classes/ServiceExtension/*.h'
   spec.frameworks           = 'Foundation', 'UIKit'
   spec.weak_frameworks      = 'UserNotifications'

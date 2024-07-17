@@ -8,4 +8,13 @@
 
 import UserNotifications
 
-class NotificationService: WEXPushNotificationService { }
+class NotificationService: WEXPushNotificationService { 
+    
+    
+    override func onRequest(_ request: URLRequest!, completionHandler: ((URLRequest?) -> Void)!) {
+        
+        print("NI : request intercepted")
+        completionHandler(request)
+    }
+    
+}

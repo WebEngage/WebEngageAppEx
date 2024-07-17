@@ -27,8 +27,6 @@
 : NSObject
 #endif
 
-- (BOOL)handleNetworkInterceptor;
-
 - (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler;
 
 - (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler;
