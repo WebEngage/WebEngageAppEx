@@ -17,7 +17,7 @@
 #import "NSMutableAttributedString+Additions.h"
 #import <WebEngageAppEx-Swift.h>
 
-#define WEX_CONTENT_EXTENSION_VERSION @"1.1.4"
+#define WEX_CONTENT_EXTENSION_VERSION @"1.3.0"
 
 API_AVAILABLE(ios(10.0))
 @interface WEXRichPushNotificationViewController ()

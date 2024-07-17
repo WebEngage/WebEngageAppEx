@@ -5,14 +5,18 @@ platform :ios, '10.0'
 
 workspace '../WEGExtension'
 
+#ENV['WEBENGAGE_USE_CORE'] = 'true' unless ENV['WEBENGAGE_USE_CORE']
+
+
 target 'WEGExtensionApp' do
   pod 'WebEngage'
 end
 
 
 target 'ServiceExtension' do
+
   pod 'WebEngageBannerPush', :path => '../'
-  # pod 'WebEngageAppEx/NotificationService', :path => '../'
+#   pod 'WebEngageAppEx/NotificationService', :path => '../'
 end
 
 target 'ContentExtension' do
