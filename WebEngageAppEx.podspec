@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'WebEngageAppEx'
-  spec.version          = '1.3.0'
+  spec.version          = '1.3.1'
   spec.summary          = 'App Extension Target SDK for WebEngage for Rich Push Notifications support.'
   
   spec.description      = <<-DESC
@@ -30,12 +30,6 @@ Pod::Spec.new do |spec|
     ns.public_header_files = 'WebEngageAppEx/Classes/ServiceExtension/*.h'
     ns.frameworks = 'Foundation'
     ns.weak_frameworks = 'UserNotifications'
-
-    if ENV['WEBENGAGE_USE_CORE'] == 'true'
-      ns.dependency 'WebEngage/Core','>= 6.10.0'
-    else
-      ns.dependency 'WebEngage','>= 6.10.0'
-    end
     ns.resource_bundles = { 'NotificationService' => 'WebEngageAppEx/Classes/ServiceExtension/*.{xcprivacy}' }
   end
   
