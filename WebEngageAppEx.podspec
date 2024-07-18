@@ -27,7 +27,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'NotificationService' do |ns|
     ns.source_files = 'WebEngageAppEx/Classes/ServiceExtension/*.{h,m}'
-    ns.public_header_files = 'WebEngageAppEx/Classes/ServiceExtension/WEXPushNotificationService.h'
+    ns.public_header_files = 'WebEngageAppEx/Classes/ServiceExtension/*.h'
     ns.frameworks = 'Foundation'
     ns.weak_frameworks = 'UserNotifications'
 
@@ -36,7 +36,7 @@ Pod::Spec.new do |spec|
     else
       ns.dependency 'WebEngage','>= 6.10.0'
     end
-    ns.resource_bundles = { 'WebEngageBannerPush' => 'WebEngageAppEx/Classes/ServiceExtension/*.{xcprivacy}' }
+    ns.resource_bundles = { 'NotificationService' => 'WebEngageAppEx/Classes/ServiceExtension/*.{xcprivacy}' }
   end
   
   spec.subspec 'ContentExtension' do |cs|

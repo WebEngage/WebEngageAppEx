@@ -13,8 +13,9 @@
 @property (nonatomic, strong, nullable) NSURLResponse *response;
 @property (nonatomic, strong, nullable) NSError *error;
 
-- (instancetype _Nullable)init NS_UNAVAILABLE;
-- (instancetype _Nullable)initWithData:(NSData * _Nullable)data response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error NS_DESIGNATED_INITIALIZER;
-+ (instancetype _Nullable)createWithData:(NSData * _Nullable)data response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error;
+// Adjust the nullability specifier for init methods as needed
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithData:(NSData * _Nullable)data response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error NS_DESIGNATED_INITIALIZER;
++ (instancetype _Nonnull)createWithData:(NSData * _Nullable)data response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error;
 
 @end
