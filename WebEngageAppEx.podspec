@@ -30,12 +30,6 @@ Pod::Spec.new do |spec|
     ns.public_header_files = 'WebEngageAppEx/Classes/ServiceExtension/*.h'
     ns.frameworks = 'Foundation'
     ns.weak_frameworks = 'UserNotifications'
-
-    if ENV['WEBENGAGE_USE_CORE'] == 'true'
-      ns.dependency 'WebEngage/Core','>= 6.10.0'
-    else
-      ns.dependency 'WebEngage','>= 6.10.0'
-    end
     ns.resource_bundles = { 'NotificationService' => 'WebEngageAppEx/Classes/ServiceExtension/*.{xcprivacy}' }
   end
   
