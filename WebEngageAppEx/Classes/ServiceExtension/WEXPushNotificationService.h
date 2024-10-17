@@ -12,7 +12,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 #import <UserNotifications/UserNotifications.h>
 #endif
-
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] ERROR: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 /**
  *  This class is an encapsulation for managing handling prerequisites for

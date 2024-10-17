@@ -532,11 +532,14 @@
         appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
     }
     
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
-    
-    if (!defaults) {
-        NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
+    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:appGroup];
+    if (containerURL != nil) {
+        NSLog(@"WebEngage App Group configured in Service Extension");
+    } else{
+        ALog(@"WebEngage App Group not configured in Service Extension");
     }
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
     
     return defaults;
 }
