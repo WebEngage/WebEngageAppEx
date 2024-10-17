@@ -159,9 +159,12 @@ API_AVAILABLE(ios(10.0))
     
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
     
-    if (!defaults) {
-        NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
-    }
+    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:appGroup];
+       if (containerURL != nil) {
+           NSLog(@"WebEngage App Group configured in Content Extension");
+       } else{
+           ALog(@"WebEngage App Group not configured in Content Extension");
+       }
     
     return defaults;
 }

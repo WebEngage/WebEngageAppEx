@@ -13,6 +13,7 @@
 #import <UserNotificationsUI/UserNotificationsUI.h>
 #endif
 
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] ERROR: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 /**
  *  This class is an encapsulation for managing handling of custom content
