@@ -296,6 +296,9 @@
         if (_sharedUserDefaults[@"proxy_url"] != nil) {
             request = [self setProxyURL:request];
         }
+        if (_sharedUserDefaults[@"WEGShouldTrackIPLocation"] != nil) {
+            request = [self WEGShouldTrackIPLocation:request];
+        }
         
         [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
             request = modifiedRequest;
@@ -508,7 +511,7 @@
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
     data[@"proxy_url"] = [defaults objectForKey:@"proxy_url"];
-    
+    data[@"WEGShouldTrackIPLocation"] = [defaults objectForKey:@"WEGShouldTrackIPLocation"];
     self.sharedUserDefaults = data;
     
     NSLog(@"Environment: %@",[defaults objectForKey:@"environment"]);
@@ -548,6 +551,22 @@
 - (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler {
     completionHandler(response);
 }
+
+- (NSURLRequest *)WEGShouldTrackIPLocation:(NSURLRequest *)request {
+    if (!self.sharedUserDefaults) {
+        return request;
+    }
+    NSString *shouldTrackIP = self.sharedUserDefaults[@"WEGShouldTrackIPLocation"];
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+
+    // Add x-geo-ignore flag to the request headers based on shouldTrackIP
+    if ([shouldTrackIP isEqualToString:@"false"]) {
+        [mutableRequest setValue:@"1" forHTTPHeaderField:@"x-geo-ignore"];
+    }
+
+    return [mutableRequest copy];
+}
+
 
 #endif
 
