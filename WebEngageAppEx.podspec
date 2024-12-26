@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'WebEngageAppEx'
-  spec.version          = '1.3.1'
+  spec.version          = '1.3.2'
   spec.summary          = 'App Extension Target SDK for WebEngage for Rich Push Notifications support.'
   
   spec.description      = <<-DESC

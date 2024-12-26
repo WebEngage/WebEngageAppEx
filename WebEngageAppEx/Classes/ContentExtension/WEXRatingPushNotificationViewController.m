@@ -9,6 +9,7 @@
 #import "WEXRatingPushNotificationViewController.h"
 #import "UIColor+DarkMode.h"
 #import "UIImage+animatedGIF.h"
+#import "WebEngageAppEx-Swift.h"
 
 //#define NO_OF_STARS 5
 #define STAR_BAR_HEIGHT 50
@@ -271,7 +272,8 @@ API_AVAILABLE(ios(10.0))
     richSubLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    richBodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
+    WEXUtils *utils = [[WEXUtils alloc] init];
+    richBodyLabel.attributedText = [utils getAttributedStringWithMessage:message colorHex:colorHex viewController:self.viewController];
     richBodyLabel.numberOfLines = 0;
     
     [richContentView addSubview:richTitleLabel];
