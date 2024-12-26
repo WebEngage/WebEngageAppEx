@@ -10,6 +10,7 @@
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "UIColor+DarkMode.h"
 #import "UIImage+animatedGIF.h"
+#import "WebEngageAppEx-Swift.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -338,7 +339,8 @@ API_AVAILABLE(ios(10.0))
             subTitleLabel.textAlignment = [self.viewController naturalTextAlignmentForText:titleLabel.text];
             
             UILabel *bodyLabel = [[UILabel alloc] init];
-            bodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
+            WEXUtils *utils = [[WEXUtils alloc] init];
+            bodyLabel.attributedText = [utils getAttributedStringWithMessage:message colorHex:colorHex viewController:self.viewController];
             bodyLabel.numberOfLines = 0;
             
             [notificationContentView addSubview:titleLabel];

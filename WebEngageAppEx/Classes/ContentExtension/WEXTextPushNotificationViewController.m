@@ -8,6 +8,7 @@
 #import "WEXTextPushNotificationViewController.h"
 #import "WEXRichPushNotificationViewController+Private.h"
 #import "UIColor+DarkMode.h"
+#import "WebEngageAppEx-Swift.h"
 
 #define CONTENT_PADDING  10
 #define TITLE_BODY_SPACE 5
@@ -85,7 +86,8 @@ API_AVAILABLE(ios(10.0))
     richSubLabel.textAlignment = [self.viewController naturalTextAlignmentForText:richSubLabel.text];
     
     UILabel *richBodyLabel = [[UILabel alloc] init];
-    richBodyLabel.attributedText = [self.viewController getAttributedStringWithMessage:message colorHex:colorHex];
+    WEXUtils *utils = [[WEXUtils alloc] init];
+    richBodyLabel.attributedText = [utils getAttributedStringWithMessage:message colorHex:colorHex viewController:self.viewController];
     richBodyLabel.numberOfLines = 0;
     
     [richContentView addSubview:richTitleLabel];

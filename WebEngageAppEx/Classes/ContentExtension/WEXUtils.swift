@@ -76,6 +76,30 @@ public class WEXUtils:NSObject {
         
         return false
     }
+    
+    @objc(getAttributedStringWithMessage:colorHex:viewController:)
+    public func getAttributedString(message: String?, colorHex: String, viewController: WEXRichPushNotificationViewController?) -> NSAttributedString? {
+        guard let message = message else {
+            return nil
+        }
+        guard let attributedString = viewController?.getHtmlParsedString(message, isTitle: false, bckColor: colorHex) else {
+            return nil
+        }
+        let finalAttributedString = NSMutableAttributedString(attributedString: attributedString)
+        let rawString = attributedString.string
+        let paragraphRanges = rawString.paragraphRanges()
+
+        for range in paragraphRanges {
+            let paragraphText = (rawString as NSString).substring(with: range)
+            guard let alignment = viewController?.naturalTextAlignment(forText: paragraphText, forDescription: true) else {
+                continue
+            }
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = alignment
+            finalAttributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        }
+        return finalAttributedString
+    }
 }
 
 
@@ -91,3 +115,25 @@ extension Character {
         return unicodeScalars.count == 1 && emojiRange.contains(unicodeScalars.first!)
     }
 }
+
+
+extension String {
+    func paragraphRanges() -> [NSRange] {
+        let nsString = self as NSString
+        var ranges: [NSRange] = []
+        var paragraphStart = 0
+        var paragraphEnd = 0
+        var contentsEnd = 0
+        
+        let length = nsString.length
+        while paragraphStart < length {
+            nsString.getParagraphStart(&paragraphStart, end: &paragraphEnd, contentsEnd: &contentsEnd, for: NSMakeRange(paragraphStart, 0))
+            ranges.append(NSMakeRange(paragraphStart, contentsEnd - paragraphStart))
+            paragraphStart = paragraphEnd
+        }
+        
+        return ranges
+    }
+}
+
+

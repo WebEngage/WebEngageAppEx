@@ -287,37 +287,43 @@
 #pragma mark - Tracker Event Helpers
 
 - (void)trackEventWithCompletion:(void(^)(void))completion {
-    NSArray *events = @[@"push_notification_received", @"push_notification_view"];
-    
-    for (NSString *event in events) {
-        __block NSURLRequest *request = [self getRequestForTracker:event];
-        id interceptor = self.notificationDelegate ? self.notificationDelegate : self;
+    if ([self isAppGroupConfigured]){
+        NSArray *events = @[@"push_notification_received", @"push_notification_view"];
         
-        if (_sharedUserDefaults[@"proxy_url"] != nil) {
-            request = [self setProxyURL:request];
-        }
-        
-        [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
-            request = modifiedRequest;
+        for (NSString *event in events) {
+            __block NSURLRequest *request = [self getRequestForTracker:event];
+            id interceptor = self.notificationDelegate ? self.notificationDelegate : self;
+            if (_sharedUserDefaults[@"proxy_url"] != nil) {
+                request = [self setProxyURL:request];
+            }
+            if (_sharedUserDefaults[@"WEGShouldTrackIPLocation"] != nil) {
+                request = [self WEGShouldTrackIPLocation:request];
+            }
             
-            [[[NSURLSession sharedSession] dataTaskWithRequest:request
-                                             completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+            [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
+                request = modifiedRequest;
                 
-                [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
-                    networkResponse = modifiedResponse;
-                    if (networkResponse.error) {
-                        NSLog(@"Could not log %@ event with error: %@", event, networkResponse.error);
-                    } else {
-                        NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                                 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    __block WENetworkResponse *networkResponse = [WENetworkResponse createWithData:data response:response error:error];
+                    
+                    [interceptor onResponse:networkResponse completionHandler:^(WENetworkResponse *modifiedResponse) {
+                        networkResponse = modifiedResponse;
+                        if (networkResponse.error) {
+                            NSLog(@"Could not log %@ event with error: %@", event, networkResponse.error);
+                        } else {
+                            NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                        }
+                    }];
+                    
+                    if (completion) {
+                        completion();
                     }
-                }];
-                
-                if (completion) {
-                    completion();
-                }
-            }] resume];
-        }];
+                }] resume];
+            }];
+        }
+    } else if (completion) {
+        completion();
     }
 }
 
@@ -508,7 +514,7 @@
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
     data[@"proxy_url"] = [defaults objectForKey:@"proxy_url"];
-    
+    data[@"WEGShouldTrackIPLocation"] = [defaults objectForKey:@"WEGShouldTrackIPLocation"];
     self.sharedUserDefaults = data;
     
     NSLog(@"Environment: %@",[defaults objectForKey:@"environment"]);
@@ -518,6 +524,40 @@
 
 - (NSUserDefaults *)getSharedUserDefaults {
     
+    NSString *appGroup = [self getAppGroup];
+       
+       NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:appGroup];
+       if (containerURL != nil) {
+           NSLog(@"WebEngage App Group configured in Service Extension");
+       } else {
+           ALog(@"WebEngage App Group not configured in Service Extension");
+       }
+       
+       NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
+       
+       return defaults;
+}
+
+- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
+    completionHandler(request);
+}
+
+- (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler {
+    completionHandler(response);
+}
+
+- (BOOL)isAppGroupConfigured{
+    NSString *appGroup = [self getAppGroup];
+       
+       NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:appGroup];
+       if (containerURL != nil) {
+           return YES;
+       } else {
+           return NO;
+       }
+}
+
+- (NSString *)getAppGroup {
     NSString *appGroup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEX_APP_GROUP"];
     
     if (!appGroup) {
@@ -528,26 +568,27 @@
         }
         
         NSString *bundleIdentifier = [bundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
-        
         appGroup = [NSString stringWithFormat:@"group.%@.WEGNotificationGroup", bundleIdentifier];
     }
     
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroup];
-    
-    if (!defaults) {
-        NSLog(@"Shared User Defaults could not be initialized. Ensure Shared App Groups have been enabled on Main App & Notification Service Extension Targets.");
+    return appGroup;
+}
+
+- (NSURLRequest *)WEGShouldTrackIPLocation:(NSURLRequest *)request {
+    if (!self.sharedUserDefaults) {
+        return request;
     }
-    
-    return defaults;
+    NSString *shouldTrackIP = self.sharedUserDefaults[@"WEGShouldTrackIPLocation"];
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+
+    // Add x-geo-ignore flag to the request headers based on shouldTrackIP
+    if ([shouldTrackIP isEqualToString:@"false"]) {
+        [mutableRequest setValue:@"1" forHTTPHeaderField:@"x-geo-ignore"];
+    }
+
+    return [mutableRequest copy];
 }
 
-- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
-    completionHandler(request);
-}
-
-- (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler {
-    completionHandler(response);
-}
 
 #endif
 
