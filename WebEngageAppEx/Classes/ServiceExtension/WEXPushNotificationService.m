@@ -10,7 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #define WEX_SERVICE_EXTENSION_VERSION @"1.3.1"
-
+#define WEX_TRACK_IP_LOCATION @"WEGTrackIPLocation"
 @interface WEXPushNotificationService ()
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
@@ -296,8 +296,8 @@
         if (_sharedUserDefaults[@"proxy_url"] != nil) {
             request = [self setProxyURL:request];
         }
-        if (_sharedUserDefaults[@"WEGTrackIPLocation"] != nil) {
-            request = [self WEGTrackIPLocation:request];
+        if (_sharedUserDefaults[WEX_TRACK_IP_LOCATION] != nil) {
+            request = [self trackIPLocation:request];
         }
         
         [interceptor onRequest:request completionHandler:^(NSURLRequest* modifiedRequest) {
@@ -511,7 +511,7 @@
     data[@"sdk_version"] =  [NSNumber numberWithInteger:[[defaults objectForKey:@"sdk_version"] integerValue]];
     data[@"app_id"] = [defaults objectForKey:@"app_id"];
     data[@"proxy_url"] = [defaults objectForKey:@"proxy_url"];
-    data[@"WEGTrackIPLocation"] = @([defaults boolForKey:@"WEGTrackIPLocation"]);
+    data[WEX_TRACK_IP_LOCATION] = @([defaults boolForKey:WEX_TRACK_IP_LOCATION]);
     self.sharedUserDefaults = data;
     
     NSLog(@"Environment: %@",[defaults objectForKey:@"environment"]);
@@ -552,11 +552,11 @@
     completionHandler(response);
 }
 
-- (NSURLRequest *)WEGTrackIPLocation:(NSURLRequest *)request {
+- (NSURLRequest *)trackIPLocation:(NSURLRequest *)request {
     if (!self.sharedUserDefaults) {
         return request;
     }
-    NSNumber *trackIP = @([self.sharedUserDefaults[@"WEGTrackIPLocation"] boolValue]);
+    NSNumber *trackIP = @([self.sharedUserDefaults[WEX_TRACK_IP_LOCATION] boolValue]);
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
 
     // Add x-geo-ignore flag to the request headers based on shouldTrackIP
