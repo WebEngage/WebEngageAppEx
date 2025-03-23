@@ -27,7 +27,7 @@
 : NSObject
 #endif
 
-- (void)onRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler;
+- (void)onRequest:(NSMutableURLRequest *)request completionHandler:(void (^)(NSMutableURLRequest *))completionHandler;
 
 - (void)onResponse:(WENetworkResponse *)response completionHandler:(void (^)(WENetworkResponse *))completionHandler;
 
