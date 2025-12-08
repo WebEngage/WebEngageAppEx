@@ -13,4 +13,8 @@
 
 + (NSDateFormatter *)getDateFormatter;
 
++ (NSUserDefaults *)getSharedUserDefaults;
+
++ (NSString *)getCurrentFormattedTime;
+
 @end

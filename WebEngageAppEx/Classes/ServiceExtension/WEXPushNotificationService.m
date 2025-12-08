@@ -8,6 +8,7 @@
 
 #import "WEXPushNotificationService.h"
 #import <UserNotifications/UserNotifications.h>
+#import <WebEngageBannerPush/WebEngageBannerPush-Swift.h>
 
 #define WEX_SERVICE_EXTENSION_VERSION @"1.3.2"
 
@@ -58,7 +59,10 @@
         [self setExtensionDefaults];
         
         NSLog(@"Push Notification content: %@", request.content.userInfo);
-        
+        [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                     message:@"Push Notification Received by service Extension"
+                                                 notification:self.bestAttemptContent];
+
         NSDictionary *expandableDetails = request.content.userInfo[@"expandableDetails"];
         NSString *style = expandableDetails[@"style"];
         
@@ -186,6 +190,12 @@
         
         NSString *imageURL = carouselItem[@"image"];
         
+        NSString *msg = [NSString stringWithFormat:@"Downloading %@", imageURL];
+
+        [WEXLogProcessor logImageDownloadingWithLoglevel:WEGLogLevelInfo
+                                                 message:msg
+                                             notification:self->_bestAttemptContent];
+        
         [self fetchAttachmentFor:imageURL
                               at:itemCounter
                completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
@@ -210,7 +220,12 @@
 }
 
 - (void)drawBannerViewWith:(NSString *)urlStr {
-    
+    NSString *msg = [NSString stringWithFormat:@"Downloading %@", urlStr];
+
+    [WEXLogProcessor logImageDownloadingWithLoglevel:WEGLogLevelInfo
+                                             message:msg
+                                         notification:self->_bestAttemptContent];
+
     [self fetchAttachmentFor:urlStr
                           at:0
            completionHandler:^(UNNotificationAttachment *attachment, NSUInteger index) {
@@ -253,6 +268,11 @@
         UNNotificationAttachment *attachment = nil;
         if (error != nil) {
             NSLog(@"%@", error);
+            NSString *msg = [NSString stringWithFormat:@"Image Downloading failed for %@: %@", urlString, error];
+
+            [WEXLogProcessor logImageDownloadingFailedWithLoglevel:WEGLogLevelError
+                                                           message:msg
+                                                      notification:self->_bestAttemptContent];
         } else {
             
             NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
@@ -313,6 +333,10 @@
                             NSLog(@"Could not log %@ event with error: %@", event, networkResponse.error);
                         } else {
                             NSLog(@"Push Tracker URLResponse: %@", networkResponse.response);
+                            [WEXLogProcessor logtrackEventWithLoglevel:WEGLogLevelInfo
+                                                                 event:event
+                                                          notification:self->_bestAttemptContent];
+
                         }
                     }];
                     

@@ -93,6 +93,10 @@ API_AVAILABLE(ios(10.0))
                 } else {
                     [self.images addObject:[self getErrorImage]];
                     [self.wasLoaded addObject:[NSNumber numberWithBool:NO]];
+                    [WEXLogProcessor logImageDownloadingFailedWithLoglevel:WEGLogLevelError
+                                                                   message:@"Rendering default image as data was not valid"
+                                                               notification:notification.request.content];
+
                 }
                 
                 firstImageAdded = YES;
@@ -149,6 +153,10 @@ API_AVAILABLE(ios(10.0))
                         
                         if (!addedSuccessfully) {
                             [self.images addObject:[self getErrorImage]];
+                            [WEXLogProcessor logImageDownloadingFailedWithLoglevel:WEGLogLevelError
+                                                                           message:@"Rendering default image as data was not valid"
+                                                                       notification:notification.request.content];
+
                         }
                     } else {
                         NSLog(@"Expected to be running iOS version 10 or above");
@@ -161,6 +169,11 @@ API_AVAILABLE(ios(10.0))
             [self initialiseCarouselForNotification:notification];
             
             [self setupAutoScroll:notification];
+            
+            [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                         message:@"Carousel View Rendered"
+                                                     notification:notification.request.content];
+
             
             if (downloadedCount < self.carouselItems.count) {
                 

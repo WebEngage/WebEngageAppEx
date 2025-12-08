@@ -46,4 +46,16 @@
     return birthDateFormatter;
 }
 
++ (NSUserDefaults *)getSharedUserDefaults {
+    return [self getDefaults];
+}
+
++ (NSString *)getCurrentFormattedTime {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"'~t'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"gb"];
+    return [formatter stringFromDate:[NSDate date]];
+}
+
 @end

@@ -95,6 +95,9 @@ API_AVAILABLE(ios(10.0))
 - (void)didReceiveNotification:(UNNotification *)notification  API_AVAILABLE(ios(10.0)) {
     
     if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
+        [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                     message:@"Notificaion Received by Content Extension"
+                                                 notification:notification.request.content];
         self.notification = notification;
         self.isRendering = YES;
         [self updateDarkModeStatus];
@@ -273,12 +276,22 @@ API_AVAILABLE(ios(10.0))
     }
     
     if ([category isEqualToString:@"system"]) {
-        [WEXAnalytics trackEventWithName:[@"we_" stringByAppendingString:eventName]
-                                andValue:@{
-            @"system_data_overrides": systemData ? systemData : @{},
-            @"event_data_overrides": customDataDictionary
-        }];
-    } else {
+
+        NSDictionary *eventValue = @{
+            @"system_data_overrides": systemData ?: @{},
+            @"event_data_overrides": customDataDictionary ?: @{}
+        };
+
+        NSString *prefixedEventName = [@"we_" stringByAppendingString:eventName];
+
+        [WEXAnalytics trackEventWithName:prefixedEventName
+                                andValue:eventValue];
+
+        [WEXLogProcessor logtrackEventWithLoglevel:WEGLogLevelInfo
+                                             event:eventName
+                                         eventValue:eventValue];
+    }
+ else {
         [WEXAnalytics trackEventWithName:eventName andValue:customDataDictionary];
     }
 }

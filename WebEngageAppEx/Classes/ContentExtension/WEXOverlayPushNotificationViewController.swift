@@ -19,6 +19,7 @@ public class WEXOverlayPushNotificationViewController: WEXRichPushLayout {
         if let source = notification.request.content.userInfo[WEConstants.SOURCE] as? String, source == WEConstants.WEBENGAGE {
             self.notification = notification
             initialiseViewHierarchy()
+            WEXLogProcessor.logReceivedNotification(loglevel: WEGLogLevel.info, message: "Overlay View Rendered", notification: notification.request.content)
         }
     }
 
@@ -55,4 +56,6 @@ struct WEConstants{
     static let RICHTITLE = "rt"
     static let CONTENT_PADDING: CGFloat = 10.0
     static let LANDSCAPE_ASPECT: Float = 0.5
+    static let WEBENGAGE_APPEX = "WebEngageAppEx"
+    static let WEX_CONTENT_EXTENSION_VERSION = "1.3.2"
 }

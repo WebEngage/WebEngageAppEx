@@ -33,6 +33,10 @@ API_AVAILABLE(ios(10.0))
     if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
         self.notification = notification;
         [self initialiseViewHierarchy];
+        [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                     message:@"Text View Rendered"
+                                                 notification:notification.request.content];
+
     }
 }
 

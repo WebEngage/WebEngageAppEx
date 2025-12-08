@@ -612,6 +612,11 @@ API_AVAILABLE(ios(10.0))
         
         NSInteger noOfStars = [notification.request.content.userInfo[@"expandableDetails"][@"ratingScale"] integerValue];
         [self.pickerView selectRow:noOfStars/2 inComponent:0 animated:NO];
+        
+        [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                     message:@"Rating view rendered"
+                                                 notification:notification.request.content];
+
     }
 }
 

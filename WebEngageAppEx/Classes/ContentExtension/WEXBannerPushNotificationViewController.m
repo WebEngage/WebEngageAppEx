@@ -34,6 +34,10 @@ API_AVAILABLE(ios(10.0))
     if([notification.request.content.userInfo[@"source"] isEqualToString:@"webengage"]) {
         self.notification = notification;
         [self initialiseViewHierarchy];
+        [WEXLogProcessor logReceivedNotificationWithLoglevel:WEGLogLevelInfo
+                                                     message:@"Banner View Rendered"
+                                                 notification:notification.request.content];
+
     }
 }
 
@@ -83,10 +87,19 @@ API_AVAILABLE(ios(10.0))
                 NSLog(@"Expected to be running iOS version 10 or above");
             }
         } else {
-            NSLog(@"Attachment not present for: %@", expandableDetails[@"image"]);
+            NSString *errorMessage = [NSString stringWithFormat:@"Attachment not present for: %@", expandableDetails[@"image"]];
+
+            [WEXLogProcessor logImageDownloadingFailedWithLoglevel:WEGLogLevelError
+                                                           message:errorMessage
+                                                       notification:self.notification.request.content];
         }
     } else {
         NSLog(@"Image not present in payload: %@", expandableDetails[@"image"]);
+        NSString *errorMessage = [NSString stringWithFormat:@"Image not present in payload: %@", expandableDetails[@"image"]];
+
+        [WEXLogProcessor logImageDownloadingFailedWithLoglevel:WEGLogLevelError
+                                                       message:errorMessage
+                                                   notification:self.notification.request.content];
     }
     
     imageView.contentMode = UIViewContentModeScaleAspectFill;

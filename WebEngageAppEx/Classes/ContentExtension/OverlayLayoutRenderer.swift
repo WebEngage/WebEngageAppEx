@@ -33,6 +33,7 @@ extension WEXOverlayPushNotificationViewController{
                                 }
                             } catch {
                                 print("Error loading image data: \(error)")
+                                WEXLogProcessor.logImageDownloadingFailed(loglevel: WEGLogLevel.error, message: "Error loading image data: \(error)",notification: notification?.request.content)
                             }
                             
                             attachment.url.stopAccessingSecurityScopedResource()
@@ -40,6 +41,7 @@ extension WEXOverlayPushNotificationViewController{
                 }
             } else {
                 print("Image not present in payload: \(expandableDetails["image"] ?? "")")
+                WEXLogProcessor.logImageDownloadingFailed(loglevel: WEGLogLevel.error, message: "Image not present in payload: \(expandableDetails["image"] ?? "")",notification: notification?.request.content)
             }
 
             imageView.contentMode = .scaleAspectFill
